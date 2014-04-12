@@ -1,21 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:eda3d081cffb2499618c17f19d3bd225:f4a8079ba3e3c41d1453336083a3a18f:7920d4805623fbd1128a5e33a414c88e$ -->
+<!-- $TexturePacker:SmartUpdate:24f8833ad7ac4619121d1c5f0539fd62:27a62da6d28df4c88d046d82a3d67258:7920d4805623fbd1128a5e33a414c88e$ -->
 <TextureAtlas imagePath="SaveTheVillageAssets.png">
-    <SubTexture name="GameLogo" x="2" y="2" width="200" height="60"/>
-    <SubTexture name="HighScoresBtn" x="174" y="86" width="170" height="40"/>
-    <SubTexture name="LoadGameBtn" x="2" y="190" width="170" height="40"/>
-    <SubTexture name="MenuBtn" x="2" y="148" width="170" height="40"/>
-    <SubTexture name="PlayGameBtn" x="2" y="106" width="170" height="40"/>
-    <SubTexture name="SaveAndExitBtn" x="2" y="64" width="170" height="40"/>
-    <SubTexture name="SettingsBtn" x="204" y="44" width="170" height="40"/>
-    <SubTexture name="SettingsChoice10" x="266" y="170" width="90" height="40"/>
-    <SubTexture name="SettingsChoice30" x="266" y="128" width="90" height="40"/>
-    <SubTexture name="SettingsChoice60" x="174" y="212" width="90" height="40"/>
-    <SubTexture name="SettingsChoiceBtn" x="174" y="170" width="90" height="40"/>
-    <SubTexture name="SettingsChoiceEasy" x="174" y="128" width="90" height="40"/>
-    <SubTexture name="SettingsChoiceHard" x="346" y="86" width="90" height="40"/>
-    <SubTexture name="SettingsChoiceMedium" x="376" y="44" width="90" height="40"/>
-    <SubTexture name="SettingsChoiceUnlimited" x="376" y="2" width="90" height="40"/>
-    <SubTexture name="StoryBtn" x="204" y="2" width="170" height="40"/>
+    <SubTexture name="GameLogo" x="754" y="2" width="200" height="60"/>
+    <SubTexture name="MainGameBg" x="2" y="2" width="750" height="1200"/>
+    <SubTexture name="MenuBtn" x="754" y="64" width="170" height="40"/>
+    <SubTexture name="SettingsChoiceBtn" x="926" y="64" width="90" height="40"/>
 </TextureAtlas>

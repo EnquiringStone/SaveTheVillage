@@ -1,6 +1,7 @@
 package  
 {
 	import screens.BaseScreen;
+	import screens.MainGameScreen;
 	import screens.SettingsScreen;
 	import screens.StartScreen;
 	import starling.display.Sprite;
@@ -33,7 +34,7 @@ package
 			if (screenName == "start") {
 				currentScreen = new StartScreen(this);
 			} else if (screenName == "main_game") {
-				//do nothing
+				currentScreen = new MainGameScreen(this);
 			} else if (screenName == "load_game_menu") {
 				//do nothing
 			} else if (screenName == "settings_menu") {
