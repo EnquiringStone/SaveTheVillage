@@ -14,7 +14,6 @@ package screens
 	 */
 	public class SettingsScreen extends BaseScreen 
 	{
-		
 		private var difficultyBtn:Button;
 		private var durationBtn:Button;
 		private var villageCountBtn:Button;
@@ -54,12 +53,8 @@ package screens
 			addChild(villagesCountText);
 			addChild(exitBtn);
 			
-			exitBtn.addEventListener(Event.TRIGGERED, back);
+			exitBtn.addEventListener(Event.TRIGGERED, toStart);
 			updateButtons();
-		}
-		
-		private function back(event:Event):void {
-			main.loadScreen("start");
 		}
 		
 		private function showDifferentSettings(event:Event):void {
@@ -100,7 +95,7 @@ package screens
 					else if (ArrayUtil.inArray(Config.VILLAGE_COUNT_SETTINGS, btn.text)) villageCountBtn = btn;
 				}
 			}
-			ExternalStorageAO.saveSettings("duration:"+durationBtn.text+";villageCount:"+villageCountBtn.text+";difficulty:"+difficultyBtn.text);
+			ExternalStorageAO.saveFile(Config.SAVE_SETTINGS_FILE, "duration_"+durationBtn.text+";villageCount_"+villageCountBtn.text+";difficulty_"+difficultyBtn.text);
 			exitBtn.visible = true;
 		}
 		
@@ -120,8 +115,8 @@ package screens
 			}
 		}
 		
-		private function updateButtons():void {			 
-			var settings:String = ExternalStorageAO.loadSettings();
+		private function updateButtons():void {
+			var settings:String = ExternalStorageAO.loadFile(Config.SAVE_SETTINGS_FILE);
 			difficultyBtn = new Button(AssetManager.getSingleAsset("ui", "SettingsChoiceBtn"));
 			durationBtn = new Button(AssetManager.getSingleAsset("ui", "SettingsChoiceBtn"));
 			villageCountBtn = new Button(AssetManager.getSingleAsset("ui", "SettingsChoiceBtn"));

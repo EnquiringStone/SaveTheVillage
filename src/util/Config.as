@@ -11,6 +11,7 @@ package util
 		public static const SPACING_ABOVE_PX:int = 10;
 		public static const SPACING_LEFT_PX:int = 10;
 		public static const SPACING_RIGHT_PX:int = 10;
+		public static const GAME_MENU_COLOR:uint = 0x000000;
 		public static const TEXT_COLOR_BUTTON:uint = 0xffffff;
 		public static const TEXT_SIZE_BUTTON:Number = 12;
 		
@@ -26,6 +27,7 @@ package util
 		
 		//File/Directory Paths
 		public static const SAVE_SETTINGS_FILE:String = "Save the Village/settings.txt";
+		public static const SAVED_HIGHSCORES_FILE:String = "Save the Village/highscores.dat";
 		public static const SAVE_GAME_DIRECTORY:String = "Save the Village/saves/";
 	}
 

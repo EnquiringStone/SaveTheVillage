@@ -50,6 +50,10 @@ package screens
 			button.fontColor = Config.TEXT_COLOR_BUTTON;
 			button.fontSize = Config.TEXT_SIZE_BUTTON;
 		}
+		
+		protected function toStart():void {
+			main.loadScreen("start");
+		}
 	}
 
 }

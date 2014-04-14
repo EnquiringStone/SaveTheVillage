@@ -12,24 +12,48 @@ package ao
 	public class ExternalStorageAO 
 	{
 		
-		public static function saveSettings(settings:String):void {
-			var myFile:File = File.documentsDirectory.resolvePath(Config.SAVE_SETTINGS_FILE);
+		/**
+		 * Saves a file to the filePath with as content settings
+		 * @param	filePath
+		 * @param	settings
+		 */
+		public static function saveFile(filePath:String, settings:String):void {
+			var myFile:File = File.documentsDirectory.resolvePath(filePath);
 			var fs:FileStream = new FileStream();
 			fs.open(myFile, FileMode.WRITE);
 			fs.writeUTFBytes(settings);
 			fs.close();
 		}
 		
-		public static function loadSettings():String {
-			var file:File = File.documentsDirectory.resolvePath(Config.SAVE_SETTINGS_FILE);
+		/**
+		 * Loads a file from the given filePath
+		 * @param	filePath
+		 * @return
+		 */
+		public static function loadFile(filePath:String):String {
+			var file:File = File.documentsDirectory.resolvePath(filePath);
+			var text:String = "";
 			if (file.exists) {
 				var fs:FileStream = new FileStream();
 				fs.open(file, FileMode.READ);
-				var text:String = fs.readUTFBytes(fs.bytesAvailable);
-				fs.close;
-				return text;
+				text = fs.readUTFBytes(fs.bytesAvailable);
+				fs.close();
 			}
-			return "";
+			return text;
+		}
+		
+		/**
+		 * Loads all files from a certain directoryPath
+		 * @param	directoryPath
+		 * @return
+		 */
+		public static function loadFilesFromDirectory(directoryPath:String):Array {
+			var directory:File = File.documentsDirectory.resolvePath(directoryPath);
+			var files:Array = new Array();
+			if (directory.isDirectory) {
+				files = directory.getDirectoryListing();
+			}
+			return files;
 		}
 		
 	}

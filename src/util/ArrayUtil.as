@@ -17,8 +17,8 @@ package util
 			var map:Object = new Object();
 			var keyValueArray:Array = stringObject.split(";");
 			for (var i:int = 0; i < keyValueArray.length; i++) {
-				var key:String = keyValueArray[i].split(":")[0];
-				var value:String = keyValueArray[i].split(":")[1];
+				var key:String = keyValueArray[i].split("_")[0];
+				var value:String = keyValueArray[i].split("_")[1];
 				map[key] = value;
 			}
 			return map;

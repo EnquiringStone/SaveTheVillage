@@ -28,7 +28,7 @@ package screens
 			setButtonAttributes(0, 0, startGameBtn, "Start game");
 			
 			highScoresBtn = new Button(AssetManager.getSingleAsset("ui", "MenuBtn"));
-			setButtonAttributes(0, 0, highScoresBtn, "High score");
+			setButtonAttributes(0, 0, highScoresBtn, "Highscores");
 			
 			loadGameBtn = new Button(AssetManager.getSingleAsset("ui", "MenuBtn"));
 			setButtonAttributes(0, 0, loadGameBtn, "Load game");
@@ -64,7 +64,7 @@ package screens
 			} else if (event.target as Button === settingsBtn) {
 				main.loadScreen("settings_menu");
 			} else if (event.target as Button === highScoresBtn) {
-				main.loadScreen("high_scores_menu");
+				main.loadScreen("highscores_menu");
 			} else if (event.target as Button === storyBtn) {
 				main.loadScreen("story_play");
 			}

@@ -1,6 +1,7 @@
 package  
 {
 	import screens.BaseScreen;
+	import screens.HighscoresScreen;
 	import screens.MainGameScreen;
 	import screens.SettingsScreen;
 	import screens.StartScreen;
@@ -39,8 +40,8 @@ package
 				//do nothing
 			} else if (screenName == "settings_menu") {
 				currentScreen = new SettingsScreen(this);
-			} else if (screenName == "high_scores_menu") {
-				//do nothing
+			} else if (screenName == "highscores_menu") {
+				currentScreen = new HighscoresScreen(this);
 			} else if (screenName == "story_play") {
 				//do nothing
 			}
