@@ -3,8 +3,9 @@ package util
 	import flash.utils.Dictionary;
 	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
+	
 	/**
-	 * ...
+	 * Manages all the assets of the game.
 	 * @author Johan
 	 */
 	public class AssetManager 
@@ -21,6 +22,12 @@ package util
 			
 		}
 		
+		/**
+		 * Gets a single texture from the textureAtlas
+		 * @param	sheet
+		 * @param	name
+		 * @return Texture
+		 */
 		public static function getSingleAsset(sheet:String, name:String):Texture {
 			var texture:Texture;
 			var atlas:TextureAtlas;

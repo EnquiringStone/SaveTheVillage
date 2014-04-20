@@ -9,7 +9,7 @@ package
 	import starling.events.Event;
 	
 	/**
-	 * ...
+	 * The controller of the MVC. Its purpose is to fetch the correct screen to the user
 	 * @author Johan
 	 */
 	public class ScreenMaster extends Sprite 
@@ -17,16 +17,27 @@ package
 		
 		private var currentScreen:BaseScreen;
 		
+		/**
+		 * The constructor of ScreenMaster
+		 */
 		public function ScreenMaster() 
 		{
 			super();
 			addEventListener(Event.ADDED_TO_STAGE, initialize);
 		}
 		
+		/**
+		 * Initializes loading the first screen
+		 * @param	event
+		 */
 		public function initialize(event:Event):void {
 			loadScreen("start");
 		}
 		
+		/**
+		 * Loads the given screen
+		 * @param	screenName
+		 */
 		public function loadScreen(screenName:String):void {
 			if (currentScreen != null) {
 				currentScreen.disposeScreen();

@@ -5,13 +5,13 @@ package ao
 	import flash.filesystem.FileMode;
 	import flash.utils.ByteArray;
 	import util.Config;
+	
 	/**
-	 * ...
+	 * Controls the access to and from the external storage of the phone
 	 * @author Johan
 	 */
 	public class ExternalStorageAO 
 	{
-		
 		/**
 		 * Saves a file to the filePath with as content settings
 		 * @param	filePath
@@ -28,7 +28,7 @@ package ao
 		/**
 		 * Loads a file from the given filePath
 		 * @param	filePath
-		 * @return
+		 * @return String
 		 */
 		public static function loadFile(filePath:String):String {
 			var file:File = File.documentsDirectory.resolvePath(filePath);
@@ -45,7 +45,7 @@ package ao
 		/**
 		 * Loads all files from a certain directoryPath
 		 * @param	directoryPath
-		 * @return
+		 * @return File
 		 */
 		public static function loadFilesFromDirectory(directoryPath:String):Array {
 			var directory:File = File.documentsDirectory.resolvePath(directoryPath);

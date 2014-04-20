@@ -8,8 +8,9 @@ package screens
 	import util.AssetManager;
 	import util.ArrayUtil;
 	import ao.ExternalStorageAO;
+	
 	/**
-	 * ...
+	 * The settings screen of the application
 	 * @author Johan
 	 */
 	public class SettingsScreen extends BaseScreen 
@@ -25,28 +26,36 @@ package screens
 		
 		private var generatedChoices:Vector.<Button>;
 		
+		/**
+		 * Constructor of SettingsScreen
+		 * @param	main
+		 */
 		public function SettingsScreen(main:ScreenMaster) 
 		{
 			super(main);
 			addEventListener(Event.ADDED_TO_STAGE, initialize);
 		}
 		
+		/**
+		 * Initializes the assets that will be used in this screen. The event listeners will also be set
+		 * @param	event
+		 */
 		public function initialize(event:Event):void {
 			putLogoOnScreen();
-			difficultyText = new TextField(120, 40, "Difficulty");
-			difficultyText.x = Config.SPACING_LEFT_PX;
-			difficultyText.y = getLogo().height + Config.SPACING_ABOVE_PX;
-			
 			durationText = new TextField(120, 40, "Duration");
 			durationText.x = Config.SPACING_LEFT_PX;
-			durationText.y = difficultyText.y + Config.SPACING_ABOVE_PX + difficultyText.height;
+			durationText.y = getLogo().height + Config.SPACING_ABOVE_PX;
 			
 			villagesCountText = new TextField(120, 40, "Villages count");
 			villagesCountText.x = Config.SPACING_LEFT_PX;
 			villagesCountText.y = durationText.y + Config.SPACING_ABOVE_PX + durationText.height;
 			
+			difficultyText = new TextField(120, 40, "Difficulty");
+			difficultyText.x = Config.SPACING_LEFT_PX;
+			difficultyText.y = villagesCountText.y + Config.SPACING_ABOVE_PX + villagesCountText.height;
+			
 			exitBtn = new Button(AssetManager.getSingleAsset("ui", "MenuBtn"));
-			setButtonAttributes((stage.stageWidth - exitBtn.width) / 2, villagesCountText.y + Config.SPACING_ABOVE_PX + villagesCountText.height, exitBtn, "Back to menu");
+			setButtonAttributes((stage.stageWidth - exitBtn.width) / 2, difficultyText.y + Config.SPACING_ABOVE_PX + difficultyText.height, exitBtn, "Back to menu");
 			
 			addChild(difficultyText);
 			addChild(durationText);
@@ -57,6 +66,10 @@ package screens
 			updateButtons();
 		}
 		
+		/**
+		 * Will show the different options of the touched setting
+		 * @param	event
+		 */
 		private function showDifferentSettings(event:Event):void {
 			exitBtn.visible = false;
 			if (generatedChoices == null) {
@@ -76,8 +89,11 @@ package screens
 			}
 		}
 		
+		/**
+		 * Saves the changes to the settings to the external storage of the phone
+		 * @param	event
+		 */
 		private function saveChanges(event:Event):void {
-			//TODO save changes to external drive
 			var btn:Button = event.target as Button;
 			
 			while (generatedChoices.length != 0) {
@@ -85,7 +101,6 @@ package screens
 				removeChild(oldBtn);
 				if (generatedChoices.length == 0) { //last element
 					setButtonAttributes(oldBtn.x, oldBtn.y, btn, btn.text);
-					trace(btn.text);
 					addChild(btn);
 					btn.removeEventListener(Event.TRIGGERED, saveChanges);
 					btn.addEventListener(Event.TRIGGERED, showDifferentSettings);
@@ -99,6 +114,11 @@ package screens
 			exitBtn.visible = true;
 		}
 		
+		/**
+		 * Creates the choices of a given setting
+		 * @param	choices
+		 * @param	button
+		 */
 		private function createChoices(choices:Array, button:Button):void {
 			button.removeEventListener(Event.TRIGGERED, showDifferentSettings);
 			button.addEventListener(Event.TRIGGERED, saveChanges);
@@ -115,6 +135,10 @@ package screens
 			}
 		}
 		
+		/**
+		 * Updates the button to show the correct values for each of the settings. Either using the stored data or, when stored data 
+		 * isn't available, using the default values located in the Config file
+		 */
 		private function updateButtons():void {
 			var settings:String = ExternalStorageAO.loadFile(Config.SAVE_SETTINGS_FILE);
 			difficultyBtn = new Button(AssetManager.getSingleAsset("ui", "SettingsChoiceBtn"));

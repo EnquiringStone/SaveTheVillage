@@ -1,7 +1,7 @@
 package util 
 {
 	/**
-	 * ...
+	 * The global settings file that can be seen but not altered throughout the application
 	 * @author Johan
 	 */
 	public class Config 
@@ -25,7 +25,7 @@ package util
 		public static const DURATION_SETTINGS:Array = new Array("10", "30", "60", "Unlimited");
 		public static const VILLAGE_COUNT_SETTINGS:Array = new Array("3", "4", "5", "6");
 		
-		//File/Directory Paths
+		//File and Directory Paths
 		public static const SAVE_SETTINGS_FILE:String = "Save the Village/settings.txt";
 		public static const SAVED_HIGHSCORES_FILE:String = "Save the Village/highscores.dat";
 		public static const SAVE_GAME_DIRECTORY:String = "Save the Village/saves/";

@@ -14,8 +14,9 @@ package screens
 	import util.AssetManager;
 	import util.Config;
 	import ao.ExternalStorageAO;
+	
 	/**
-	 * ...
+	 * The RTS game screen mode of the game
 	 * @author Johan
 	 */
 	public class MainGameScreen extends BaseScreen 
@@ -26,12 +27,20 @@ package screens
 		private var saveBtn:Button;
 		private var exitBtn:Button;
 		
+		/**
+		 * The constructor of MainGameScreen
+		 * @param	main
+		 */
 		public function MainGameScreen(main:ScreenMaster) 
 		{
 			super(main);
 			addEventListener(Event.ADDED_TO_STAGE, initialize);
 		}
 		
+		/**
+		 * Initializes the assets that will be used in this screen. The event listeners will also be set
+		 * @param	event
+		 */
 		public function initialize(event:Event):void {
 			menuBtn = new Button(AssetManager.getSingleAsset("ui", "MainGameMenuBtn"));
 			setButtonAttributes(stage.stageWidth - menuBtn.width, 0, menuBtn, "Menu");
@@ -48,6 +57,10 @@ package screens
 			addChild(menuBtn);
 		}
 		
+		/**
+		 * Detects whether the user touches the phone
+		 * @param	event
+		 */
 		public function detectMoveTouch(event:TouchEvent):void {
 			var touch:Touch = event.getTouch(this);
 			var target:Image = event.target as Image;
@@ -58,6 +71,11 @@ package screens
 			}
 		}
 		
+		/**
+		 * Moves the background image by the users touch
+		 * @param	touch
+		 * @param	target
+		 */
 		public function moveImageByTouch(touch:Touch, target:Image):void {
 			var point:Point = touch.getMovement(this);
 			target.x += point.x;
@@ -71,6 +89,10 @@ package screens
 			menuBtn.visible = true;
 		}
 		
+		/**
+		 * Sets the menu options for the menu button. Initializes the choices the player can choose from and its event listeners
+		 * @param	event
+		 */
 		public function setMenuOptions(event:Event):void {
 			bgImage.removeEventListener(TouchEvent.TOUCH, detectMoveTouch);
 			menuBtn.removeEventListener(Event.TRIGGERED, setMenuOptions);
@@ -93,6 +115,10 @@ package screens
 			exitBtn.addEventListener(Event.TRIGGERED, toStart);
 		}
 		
+		/**
+		 * Will save the state of the game onto the external drive of the phone. It uses the datetime as its name
+		 * @param	event
+		 */
 		private function saveGameState(event:Event):void {
 			//TODO
 			//get raw game data put this into a file
@@ -107,6 +133,10 @@ package screens
 			continueGame(event);
 		}
 		
+		/**
+		 * Continues the game, resetting the event listeners and removing the menu options
+		 * @param	event
+		 */
 		private function continueGame(event:Event):void {
 			saveBtn.removeEventListener(Event.TRIGGERED, saveGameState);
 			continueBtn.removeEventListener(Event.TRIGGERED, continueGame);
