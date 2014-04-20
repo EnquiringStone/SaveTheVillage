@@ -2,9 +2,11 @@ package
 {
 	import screens.BaseScreen;
 	import screens.HighscoresScreen;
+	import screens.LoadGameScreen;
 	import screens.MainGameScreen;
 	import screens.SettingsScreen;
 	import screens.StartScreen;
+	import screens.StoryScreen;
 	import starling.display.Sprite;
 	import starling.events.Event;
 	
@@ -48,13 +50,13 @@ package
 			} else if (screenName == "main_game") {
 				currentScreen = new MainGameScreen(this);
 			} else if (screenName == "load_game_menu") {
-				//do nothing
+				currentScreen = new LoadGameScreen(this);
 			} else if (screenName == "settings_menu") {
 				currentScreen = new SettingsScreen(this);
 			} else if (screenName == "highscores_menu") {
 				currentScreen = new HighscoresScreen(this);
 			} else if (screenName == "story_play") {
-				//do nothing
+				currentScreen = new StoryScreen(this);
 			}
 			
 			addChild(currentScreen);
