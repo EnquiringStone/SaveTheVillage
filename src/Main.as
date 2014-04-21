@@ -10,13 +10,16 @@ package
 	import starling.core.Starling;
 	
 	/**
-	 * ...
+	 * The overall class of the application
 	 * @author Johan
 	 */
 	public class Main extends Sprite 
 	{
 		private var _starling:Starling;
 		
+		/**
+		 * Initializes the Starling entity
+		 */
 		public function Main():void 
 		{
 			stage.scaleMode = StageScaleMode.NO_SCALE;
