@@ -42,6 +42,7 @@ package screens
 		 * @param	event
 		 */
 		public function initialize(event:Event):void {
+			//TODO put bars at villages and cities
 			menuBtn = new Button(AssetManager.getSingleAsset("ui", "MainGameMenuBtn"));
 			setButtonAttributes(stage.stageWidth - menuBtn.width, 0, menuBtn, "Menu");
 			menuBtn.addEventListener(Event.TRIGGERED, setMenuOptions);
