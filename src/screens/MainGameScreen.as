@@ -13,7 +13,11 @@ package screens
 	import starling.events.TouchPhase;
 	import util.AssetManager;
 	import util.Config;
+	import util.ArrayUtil;
 	import ao.ExternalStorageAO;
+	import gamelogic.DayLogic;
+	import gamelogic.EconomyLogic;
+	import gamelogic.MapLogic;
 	
 	/**
 	 * The RTS game screen mode of the game
@@ -27,14 +31,24 @@ package screens
 		private var saveBtn:Button;
 		private var exitBtn:Button;
 		
+		private var dayLogic:DayLogic;
+		private var economyLogic:EconomyLogic;
+		private var mapLogic:MapLogic;
+		
+		private var id:int;
+		
 		/**
 		 * The constructor of MainGameScreen
 		 * @param	main
 		 */
-		public function MainGameScreen(main:ScreenMaster) 
+		public function MainGameScreen(main:ScreenMaster, dayLogic:DayLogic=null, economyLogic:EconomyLogic=null, mapLogic:MapLogic=null, id:int = -1) 
 		{
 			super(main);
 			addEventListener(Event.ADDED_TO_STAGE, initialize);
+			this.dayLogic 		= dayLogic 		=== null ? new DayLogic(main) 	: dayLogic;
+			this.economyLogic 	= economyLogic 	=== null ? new EconomyLogic() 	: economyLogic;
+			this.mapLogic 		= mapLogic 		=== null ? new MapLogic() 		: mapLogic;
+			this.id 			= id 			=== -1	 ? getHighestId() + 1	: id;
 		}
 		
 		/**
@@ -59,7 +73,7 @@ package screens
 		}
 		
 		/**
-		 * Detects whether the user touches the phone
+		 * Detects whether the user touches the background
 		 * @param	event
 		 */
 		public function detectMoveTouch(event:TouchEvent):void {
@@ -68,6 +82,11 @@ package screens
 			if (touch != null) {
 				if (touch.phase == TouchPhase.MOVED) {
 					moveImageByTouch(touch, target);
+				} else if (touch.phase == TouchPhase.BEGAN) {
+					var structure:Object = this.mapLogic.isStructure(touch.getLocation(this), new Point(bgImage.x, bgImage.y));
+					if (structure != null) {
+						addAdditionalScreen(structure);
+					}
 				}
 			}
 		}
@@ -97,6 +116,7 @@ package screens
 		public function setMenuOptions(event:Event):void {
 			bgImage.removeEventListener(TouchEvent.TOUCH, detectMoveTouch);
 			menuBtn.removeEventListener(Event.TRIGGERED, setMenuOptions);
+			this.dayLogic.getTimer().stop();
 			
 			if (saveBtn == null) saveBtn = new Button(AssetManager.getSingleAsset("ui", "MenuBtn"));
 			setButtonAttributes((stage.stageWidth - saveBtn.width) / 2, (stage.stageHeight - saveBtn.height) / 2, saveBtn, "Save");
@@ -116,6 +136,10 @@ package screens
 			exitBtn.addEventListener(Event.TRIGGERED, toStart);
 		}
 		
+		public function getId():int {
+			return this.id;
+		}
+		
 		/**
 		 * Will save the state of the game onto the external drive of the phone. It uses the datetime as its name
 		 * @param	event
@@ -123,13 +147,14 @@ package screens
 		private function saveGameState(event:Event):void {
 			//TODO
 			//get raw game data put this into a file
-			//var rawData:String = "";
+			var currentSettings:Object = ArrayUtil.getValuePair(ExternalStorageAO.loadFile(Config.SAVE_SETTINGS_FILE));
+			var rawData:String = "{\"id\":"+this.getId()+", \"logic\":"+this.dayLogic.getRawData()+", "+this.economyLogic.getRawData()+", "+this.mapLogic.getRawData()+", \"settings\":{\"duration\":\""+currentSettings.duration+"\", \"difficulty\":\""+currentSettings.difficulty+"\"}}";
 			
+			//ExternalStorageAO.saveFile(Config.ID_NUMBERS_FILE, this.getId().toString());
 			var df:DateTimeFormatter = new DateTimeFormatter(LocaleID.DEFAULT, DateTimeStyle.SHORT, DateTimeStyle.SHORT);
 			var date:Date = new Date();
 			
 			var name:String = df.format(date);
-			trace(name);
 			//ExternalStorageAO.saveFile(Config.SAVE_GAME_DIRECTORY + name + ".dat", rawData);
 			continueGame(event);
 		}
@@ -149,6 +174,26 @@ package screens
 			
 			menuBtn.addEventListener(Event.TRIGGERED, setMenuOptions);
 			bgImage.addEventListener(TouchEvent.TOUCH, detectMoveTouch);
+			this.dayLogic.getTimer().start();
+		}
+		
+		private function getHighestId():Number {
+			var number:String = ExternalStorageAO.loadFile(Config.ID_NUMBERS_FILE);
+			if (number != null && number != "") {
+				return parseInt(number);
+			}
+			return 0;
+		}
+		
+		private function addAdditionalScreen(structure:Object):void {
+			bgImage.removeEventListener(TouchEvent.TOUCH, detectMoveTouch);
+			if (structure.type == "city") {
+				addChild(new CityDetailScreen(main, structure);
+			} else if (structure.type == "village") {
+				addChild(new VillageDetailScreen(main, structure);
+			} else if (structure.type == "hq") {
+				addChild(new HQDetailScreen(main, structure);
+			}
 		}
 	}
 

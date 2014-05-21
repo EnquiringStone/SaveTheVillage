@@ -4,6 +4,7 @@ package
 	import screens.HighscoresScreen;
 	import screens.LoadGameScreen;
 	import screens.MainGameScreen;
+	import screens.ScoreScreen;
 	import screens.SettingsScreen;
 	import screens.StartScreen;
 	import screens.StoryScreen;
@@ -40,11 +41,8 @@ package
 		 * Loads the given screen
 		 * @param	screenName
 		 */
-		public function loadScreen(screenName:String):void {
-			if (currentScreen != null) {
-				currentScreen.disposeScreen();
-				removeChild(currentScreen);
-			}
+		public function loadScreen(screenName:String, additionalInfo:String = ""):void {
+			disposeScreen();
 			if (screenName == "start") {
 				currentScreen = new StartScreen(this);
 			} else if (screenName == "main_game") {
@@ -57,9 +55,23 @@ package
 				currentScreen = new HighscoresScreen(this);
 			} else if (screenName == "story_play") {
 				currentScreen = new StoryScreen(this);
+			} else if (screenName == "score") {
+				currentScreen = new ScoreScreen(this, additionalInfo);
 			}
 			
 			addChild(currentScreen);
+		}
+		
+		public function loadSavedGame(gameScreen:MainGameScreen):void {
+			disposeScreen();
+			currentScreen = gameScreen;
+		}
+		
+		private function disposeScreen():void {
+			if (currentScreen != null) {
+				currentScreen.disposeScreen();
+				removeChild(currentScreen);
+			}
 		}
 		
 	}
