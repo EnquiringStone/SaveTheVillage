@@ -17,12 +17,10 @@ package screens
 	{
 		private var difficultyBtn:Button;
 		private var durationBtn:Button;
-		private var villageCountBtn:Button;
 		private var exitBtn:Button;
 		
 		private var difficultyText:TextField;
 		private var durationText:TextField;
-		private var villagesCountText:TextField;
 		
 		private var generatedChoices:Vector.<Button>;
 		
@@ -46,20 +44,15 @@ package screens
 			durationText.x = Config.SPACING_LEFT_PX;
 			durationText.y = getLogo().height + Config.SPACING_ABOVE_PX;
 			
-			villagesCountText = new TextField(120, 40, "Villages count");
-			villagesCountText.x = Config.SPACING_LEFT_PX;
-			villagesCountText.y = durationText.y + Config.SPACING_ABOVE_PX + durationText.height;
-			
 			difficultyText = new TextField(120, 40, "Difficulty");
 			difficultyText.x = Config.SPACING_LEFT_PX;
-			difficultyText.y = villagesCountText.y + Config.SPACING_ABOVE_PX + villagesCountText.height;
+			difficultyText.y = durationText.y + Config.SPACING_ABOVE_PX + durationText.height;
 			
 			exitBtn = new Button(AssetManager.getSingleAsset("ui", "MenuBtn"));
 			setButtonAttributes((stage.stageWidth - exitBtn.width) / 2, difficultyText.y + Config.SPACING_ABOVE_PX + difficultyText.height, exitBtn, "Back to menu");
 			
 			addChild(difficultyText);
 			addChild(durationText);
-			addChild(villagesCountText);
 			addChild(exitBtn);
 			
 			exitBtn.addEventListener(Event.TRIGGERED, toStart);
@@ -83,8 +76,6 @@ package screens
 					createChoices(Config.DIFFICULTY_SETTINGS, button);
 				} else if (button == durationBtn) {
 					createChoices(Config.DURATION_SETTINGS, button);
-				} else if (button == villageCountBtn) {
-					createChoices(Config.VILLAGE_COUNT_SETTINGS, button);
 				}
 			}
 		}
@@ -107,10 +98,9 @@ package screens
 					
 					if (ArrayUtil.inArray(Config.DURATION_SETTINGS, btn.text)) durationBtn = btn
 					else if (ArrayUtil.inArray(Config.DIFFICULTY_SETTINGS, btn.text)) difficultyBtn = btn;
-					else if (ArrayUtil.inArray(Config.VILLAGE_COUNT_SETTINGS, btn.text)) villageCountBtn = btn;
 				}
 			}
-			ExternalStorageAO.saveFile(Config.SAVE_SETTINGS_FILE, "duration_"+durationBtn.text+";villageCount_"+villageCountBtn.text+";difficulty_"+difficultyBtn.text);
+			ExternalStorageAO.saveFile(Config.SAVE_SETTINGS_FILE, "duration_"+durationBtn.text+";difficulty_"+difficultyBtn.text);
 			exitBtn.visible = true;
 		}
 		
@@ -143,25 +133,20 @@ package screens
 			var settings:String = ExternalStorageAO.loadFile(Config.SAVE_SETTINGS_FILE);
 			difficultyBtn = new Button(AssetManager.getSingleAsset("ui", "SettingsChoiceBtn"));
 			durationBtn = new Button(AssetManager.getSingleAsset("ui", "SettingsChoiceBtn"));
-			villageCountBtn = new Button(AssetManager.getSingleAsset("ui", "SettingsChoiceBtn"));
 			if (settings != "" && settings != null) {
 				var map:Object = ArrayUtil.getValuePair(settings);
 				setButtonAttributes(stage.stageWidth - (Config.SPACING_RIGHT_PX + difficultyBtn.width),  difficultyText.y, difficultyBtn, map.difficulty);
 				setButtonAttributes(stage.stageWidth - (Config.SPACING_RIGHT_PX + durationBtn.width), durationText.y, durationBtn, map.duration);
-				setButtonAttributes(stage.stageWidth - (Config.SPACING_RIGHT_PX + villageCountBtn.width), villagesCountText.y, villageCountBtn, map.villageCount);
 			} else {
 				setButtonAttributes(stage.stageWidth - (Config.SPACING_RIGHT_PX + difficultyBtn.width),  difficultyText.y, difficultyBtn, Config.DIFFICULTY_SETTINGS[Config.STANDARD_DIFFICULTY_SETTING]);
 				setButtonAttributes(stage.stageWidth - (Config.SPACING_RIGHT_PX + durationBtn.width), durationText.y, durationBtn, Config.DURATION_SETTINGS[Config.STANDARD_DURATION_SETTING]);
-				setButtonAttributes(stage.stageWidth - (Config.SPACING_RIGHT_PX + villageCountBtn.width), villagesCountText.y, villageCountBtn, Config.VILLAGE_COUNT_SETTINGS[Config.STANDARD_VILLAGES_COUNT_SETTING]);
 			}
 			
 			addChild(difficultyBtn);
 			addChild(durationBtn);
-			addChild(villageCountBtn);
 			
 			difficultyBtn.addEventListener(Event.TRIGGERED, showDifferentSettings);
 			durationBtn.addEventListener(Event.TRIGGERED, showDifferentSettings);
-			villageCountBtn.addEventListener(Event.TRIGGERED, showDifferentSettings);
 		}
 	}
 
