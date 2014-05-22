@@ -7,13 +7,20 @@ package util
 	public class Config 
 	{
 		//Styling
-		public static const SPACING_BENEATH_PX:int 		= 10;
-		public static const SPACING_ABOVE_PX:int 		= 10;
-		public static const SPACING_LEFT_PX:int 		= 10;
-		public static const SPACING_RIGHT_PX:int 		= 10;
-		public static const GAME_MENU_COLOR:uint 		= 0x000000;
-		public static const TEXT_COLOR_BUTTON:uint 		= 0xffffff;
-		public static const TEXT_SIZE_BUTTON:Number 	= 12;
+		public static const SPACING_BENEATH_PX:int 			= 10;
+		public static const SPACING_ABOVE_PX:int 			= 10;
+		public static const SPACING_LEFT_PX:int 			= 10;
+		public static const SPACING_RIGHT_PX:int 			= 10;
+		public static const MIN_HEIGHT_ADD_SCREEN:int		= 300;
+		public static const SPACING_ABOVE_LARGE_PX:int		= 50;
+		public static const SPACING_BENEATH_LARGE_PX:int	= 50;
+		public static const GAME_MENU_COLOR:uint 			= 0x000000;
+		public static const TEXT_COLOR_BUTTON:uint 			= 0xffffff;
+		public static const TEXT_COLOR_GENERAL:uint			= 0xffffff;
+		public static const TEXT_SIZE_BUTTON:Number 		= 12;
+		public static const TEXT_SIZE_GENERAL:Number		= 12;
+		public static const TEXT_SIZE_TITLE:Number			= 16;
+		public static const TEXT_FONT_TYPE:String			= "Verdana";
 		
 		//Standard settings
 		public static const STANDARD_DIFFICULTY_SETTING:int = 1;
@@ -30,7 +37,7 @@ package util
 		public static const ID_NUMBERS_FILE:String			= "Save the Village/id.txt";
 		
 		//Village and City locations on map
-		public static const STRUCTURE_POSITIONS:Object = { "structure1":{"x":445, "y":560, "type":"city", "name":"Pinopilis", "info":"The city bla bla bla"}};
+		public static const STRUCTURE_POSITIONS:Object = { "structure1":{"x":445, "y":560, "type":"city", "name":"Pinopilis", "description":"Assen is a municipality and a city in the northeastern Netherlands, and is the capital of the province of Drenthe. It received city rights in 1809. Assen's main claim to fame is the TT Circuit Assen the motorcycle racing circuit, where on the last Saturday in June the Dutch TT is run. Assen has a railway station.", "asset":"StructureCityImage"}};
 		
 		//Vilage and City dimensions
 		public static const VILLAGE_HEIGHT:int 	= 20;	//in pixels

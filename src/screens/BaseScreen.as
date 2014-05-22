@@ -77,6 +77,10 @@ package screens
 		protected function toStart():void {
 			main.loadScreen("start");
 		}
+		
+		public function getMain():ScreenMaster {
+			return this.main;
+		}
 	}
 
 }

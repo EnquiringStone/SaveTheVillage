@@ -1,22 +1,17 @@
 package screens 
 {
+	import gamelogic.EconomyLogic;
 	import starling.events.Event;
 	/**
 	 * ...
 	 * @author Johan
 	 */
-	public class HQDetailScreen extends BaseScreen 
-	{
-		private var info:Object;
-		public function HQDetailScreen(main:ScreenMaster, information:Object) 
+	public class HQDetailScreen extends StructureScreen 
+	{	
+		public function HQDetailScreen(main:ScreenMaster, information:Object, economyLogic:EconomyLogic) 
 		{
-			super(main);
-			this.info = information:Object;
+			super(main, information, economyLogic);
 			addEventListener(Event.ADDED_TO_STAGE, initialize);
-		}
-		
-		public function initialize(event:Event) {
-			
 		}
 	}
 

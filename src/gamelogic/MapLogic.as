@@ -1,6 +1,7 @@
 package gamelogic 
 {
 	import flash.geom.Point;
+	import screens.MainGameScreen;
 	import starling.display.Quad;
 	import starling.display.Sprite;
 	import util.Config;
@@ -11,12 +12,12 @@ package gamelogic
 	public class MapLogic implements LogicInterface
 	{
 		private var deadStructures:Array = new Array();
-		
+		private var mainGame:MainGameScreen;
 		//City/Village touch, When touched create a Village/City/MainHQ screen
 		//Create getters for the positions of the cities and villages
-		public function MapLogic() 
+		public function MapLogic(mainGame:MainGameScreen) 
 		{
-			
+			this.mainGame = mainGame;
 		}
 		
 		public function isStructure(touchPoint:Point, bgPos:Point):Object {
@@ -38,11 +39,11 @@ package gamelogic
 			return null;
 		}
 		
-		public function addDeadStructure(structure:String):void {
-			deadStructures.push(structure);
+		public function addDeadStructure(structureName:String):void {
+			deadStructures.push(structureName);
 		}
 		
-		private function isDead(name:String):Boolean {
+		public function isDead(name:String):Boolean {
 			for (var it:int = 0; it < deadStructures.length; it ++) {
 				if (deadStructures[it] == name) {
 					return true;

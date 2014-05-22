@@ -45,10 +45,10 @@ package screens
 		{
 			super(main);
 			addEventListener(Event.ADDED_TO_STAGE, initialize);
-			this.dayLogic 		= dayLogic 		=== null ? new DayLogic(main) 	: dayLogic;
-			this.economyLogic 	= economyLogic 	=== null ? new EconomyLogic() 	: economyLogic;
-			this.mapLogic 		= mapLogic 		=== null ? new MapLogic() 		: mapLogic;
-			this.id 			= id 			=== -1	 ? getHighestId() + 1	: id;
+			this.dayLogic 		= dayLogic 		=== null ? new DayLogic(this) 			: dayLogic;
+			this.economyLogic 	= economyLogic 	=== null ? new EconomyLogic(this) 		: economyLogic;
+			this.mapLogic 		= mapLogic 		=== null ? new MapLogic(this) 			: mapLogic;
+			this.id 			= id 			=== -1	 ? getHighestId() + 1			: id;
 		}
 		
 		/**
@@ -140,6 +140,18 @@ package screens
 			return this.id;
 		}
 		
+		public function getEconomyLogic():EconomyLogic {
+			return this.economyLogic;
+		}
+		
+		public function getMapLogic():MapLogic {
+			return this.mapLogic;
+		}
+		
+		public function getDayLogic():DayLogic {
+			return this.dayLogic;
+		}
+		
 		/**
 		 * Will save the state of the game onto the external drive of the phone. It uses the datetime as its name
 		 * @param	event
@@ -186,13 +198,13 @@ package screens
 		}
 		
 		private function addAdditionalScreen(structure:Object):void {
-			bgImage.removeEventListener(TouchEvent.TOUCH, detectMoveTouch);
+			//bgImage.removeEventListener(TouchEvent.TOUCH, detectMoveTouch);
 			if (structure.type == "city") {
-				addChild(new CityDetailScreen(main, structure);
+				addChild(new CityDetailScreen(main, structure, economyLogic));
 			} else if (structure.type == "village") {
-				addChild(new VillageDetailScreen(main, structure);
+				addChild(new VillageDetailScreen(main, structure, economyLogic));
 			} else if (structure.type == "hq") {
-				addChild(new HQDetailScreen(main, structure);
+				addChild(new HQDetailScreen(main, structure, economyLogic));
 			}
 		}
 	}
