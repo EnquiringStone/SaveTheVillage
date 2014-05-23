@@ -17,7 +17,8 @@ package gamelogic
 		
 		public function getValuesByStructureName(name:String):Object {
 			if (!this.mainGame.getMapLogic().isDead(name)) {
-				
+				var data:Object = { "Infection rate": "10%", "Infected": "19%", "Resources": "267", "Knowledge": "25" };
+				return data;
 			}
 			return null;
 		}

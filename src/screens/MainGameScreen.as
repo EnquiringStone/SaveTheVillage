@@ -37,6 +37,8 @@ package screens
 		
 		private var id:int;
 		
+		private var structureScreen:StructureScreen;
+		
 		/**
 		 * The constructor of MainGameScreen
 		 * @param	main
@@ -61,7 +63,7 @@ package screens
 			setButtonAttributes(stage.stageWidth - menuBtn.width, 0, menuBtn, "Menu");
 			menuBtn.addEventListener(Event.TRIGGERED, setMenuOptions);
 			
-			var quad:Quad = new Quad(stage.stageWidth - menuBtn.width, menuBtn.height, Config.GAME_MENU_COLOR);
+			var quad:Quad = new Quad(stage.stageWidth, menuBtn.height, Config.GAME_MENU_COLOR);
 			
 			bgImage = new Image(AssetManager.getSingleAsset("ui", "MainGameBg"));
 			bgImage.y = menuBtn.height;
@@ -152,6 +154,25 @@ package screens
 			return this.dayLogic;
 		}
 		
+		public function disableListeners():void {
+			bgImage.removeEventListener(TouchEvent.TOUCH, detectMoveTouch);
+			menuBtn.removeEventListener(Event.TRIGGERED, setMenuOptions);
+		}
+		
+		public function enableListeners():void {
+			bgImage.addEventListener(TouchEvent.TOUCH, detectMoveTouch);
+			menuBtn.addEventListener(Event.TRIGGERED, setMenuOptions);
+		}
+		
+		public function removeAdditionalScreen(event:Event):void {
+			enableListeners();
+			if (structureScreen != null) {
+				trace("disposing");
+				this.removeChild(structureScreen);
+				structureScreen = null;
+			}
+		}
+		
 		/**
 		 * Will save the state of the game onto the external drive of the phone. It uses the datetime as its name
 		 * @param	event
@@ -198,14 +219,15 @@ package screens
 		}
 		
 		private function addAdditionalScreen(structure:Object):void {
-			//bgImage.removeEventListener(TouchEvent.TOUCH, detectMoveTouch);
+			disableListeners();
 			if (structure.type == "city") {
-				addChild(new CityDetailScreen(main, structure, economyLogic));
+				structureScreen = new CityDetailScreen(this, structure);
 			} else if (structure.type == "village") {
-				addChild(new VillageDetailScreen(main, structure, economyLogic));
+				structureScreen = new VillageDetailScreen(this, structure);
 			} else if (structure.type == "hq") {
-				addChild(new HQDetailScreen(main, structure, economyLogic));
+				structureScreen = new HQDetailScreen(this, structure);
 			}
+			addChild(structureScreen);
 		}
 	}
 

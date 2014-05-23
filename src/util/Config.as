@@ -47,6 +47,9 @@ package util
 		
 		//Day settings
 		public static const DAYS_IN_SECONDS:int = 5;	//Default 60
+		
+		//Text
+		public static const DEAD_TEXT:String	= "The city is dead because of your incompetence. Think hard about what you did to all these people who lived here. The horror they have experienced. And it's all your fault!";
 	}
 
 }

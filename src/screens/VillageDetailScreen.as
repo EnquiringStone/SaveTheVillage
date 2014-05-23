@@ -8,9 +8,9 @@ package screens
 	 */
 	public class VillageDetailScreen extends StructureScreen 
 	{
-		public function VillageDetailScreen(main:ScreenMaster, information:Object, economyLogic:EconomyLogic) 
+		public function VillageDetailScreen(mainGame:MainGameScreen, information:Object) 
 		{
-			super(main, information, economyLogic);
+			super(mainGame, information);
 			addEventListener(Event.ADDED_TO_STAGE, initialize);
 		}
 	}

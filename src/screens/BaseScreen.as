@@ -69,6 +69,7 @@ package screens
 			button.text = text;
 			button.fontColor = Config.TEXT_COLOR_BUTTON;
 			button.fontSize = Config.TEXT_SIZE_BUTTON;
+			button.fontName = Config.TEXT_FONT_TYPE;
 		}
 		
 		/**

@@ -8,9 +8,9 @@ package screens
 	 */
 	public class HQDetailScreen extends StructureScreen 
 	{	
-		public function HQDetailScreen(main:ScreenMaster, information:Object, economyLogic:EconomyLogic) 
+		public function HQDetailScreen(mainGame:MainGameScreen, information:Object) 
 		{
-			super(main, information, economyLogic);
+			super(mainGame, information);
 			addEventListener(Event.ADDED_TO_STAGE, initialize);
 		}
 	}
