@@ -26,7 +26,7 @@ package gamelogic
 			this.mainGame = mainGame;
 			randomEvent = new RandomEventLogic();
 			
-			var duration:String = durationSetting == -1 ? processSettings() : Config.DURATION_SETTINGS[durationSetting];
+			var duration:String = durationSetting == -1 ? this.mainGame.processSettings().duration : Config.DURATION_SETTINGS[durationSetting];
 			if (duration == "Unlimited") unlimited = true;
 			else if (duration == "") { this.duration = Config.DURATION_SETTINGS[Config.STANDARD_DURATION_SETTING]; } //file doesn't exist
 			else { this.duration = parseInt(duration); }
@@ -42,7 +42,8 @@ package gamelogic
 				dayTimer.stop();
 				this.mainGame.getMain().loadScreen("score");
 			}
-			
+			this.mainGame.getEconomyLogic().update();
+			this.mainGame.getMapLogic().update();
 			//update all the things
 			trace("update");
 		}
@@ -62,13 +63,6 @@ package gamelogic
 		
 		public function setDayCount(dayCount:Number):void {
 			this.dayCount = dayCount;
-		}
-		
-		public function processSettings():String {
-			var dataString:String = ExternalStorageAO.loadFile(Config.SAVE_SETTINGS_FILE);
-			if (dataString == null || dataString == "") return ""; //file doesn't exist (not yet changed the settings)
-			var dataObject:Object = ArrayUtil.getValuePair(dataString);
-			return dataObject.duration;
 		}
 		
 		public function calculateScore():Number {

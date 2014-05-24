@@ -36,8 +36,8 @@ package util
 		public static const SAVE_GAME_DIRECTORY:String 		= "Save the Village/saves/";
 		public static const ID_NUMBERS_FILE:String			= "Save the Village/id.txt";
 		
-		//Village and City locations on map
-		public static const STRUCTURE_POSITIONS:Object = { "structure1":{"x":445, "y":560, "type":"city", "name":"Pinopilis", "description":"Assen is a municipality and a city in the northeastern Netherlands, and is the capital of the province of Drenthe. It received city rights in 1809. Assen's main claim to fame is the TT Circuit Assen the motorcycle racing circuit, where on the last Saturday in June the Dutch TT is run. Assen has a railway station.", "asset":"StructureCityImage"}};
+		//Village, City and HQ locations on map
+		public static const STRUCTURE_POSITIONS:Object = { "structure1":{"x":445, "y":560, "type":"city", "name":"Pinopilis", "description":"Pinopilis is a municipality and a city in the northeastern Netherlands, and is the capital of the province of Drenthe. It received city rights in 1809. Pinopilis's main claim to fame is the TT Circuit Assen the motorcycle racing circuit, where on the last Saturday in June the Dutch TT is run. Assen has a railway station.", "asset":"StructureCityImage"}};
 		
 		//Vilage and City dimensions
 		public static const VILLAGE_HEIGHT:int 	= 20;	//in pixels
@@ -50,6 +50,10 @@ package util
 		
 		//Text
 		public static const DEAD_TEXT:String	= "The city is dead because of your incompetence. Think hard about what you did to all these people who lived here. The horror they have experienced. And it's all your fault!";
+		
+		//Economy
+		public static const DEFAULT_DATA_OBJECT:Object		= { "Pinopilis": { "Infection rate": "", "Infected": "", "Resources": "", "Knowledge": "", "Knowledge gain": "", "Resource consume": "" }};
+		
 	}
 
 }

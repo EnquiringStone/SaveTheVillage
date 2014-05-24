@@ -52,6 +52,10 @@ package gamelogic
 			return false;
 		}
 		
+		public function update():void {
+			
+		}
+		
 		/**
 		 * @inheritDoc
 		 */

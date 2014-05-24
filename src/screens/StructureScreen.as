@@ -30,18 +30,21 @@ package screens
 		}
 		
 		public function initialize(event:Event):void {
+			addQuad();
+			if (info != null) {
+				createScreen();
+				addSpecificDetails();
+			}
+			
+		}
+		
+		protected function addQuad():void {
 			var height:int = (Config.MIN_HEIGHT_ADD_SCREEN <= stage.stageHeight - Config.SPACING_BENEATH_LARGE_PX - Config.SPACING_ABOVE_LARGE_PX) 
 				? Config.MIN_HEIGHT_ADD_SCREEN 
 				: stage.stageHeight - Config.SPACING_BENEATH_LARGE_PX - Config.SPACING_ABOVE_LARGE_PX;
 			quad = new Quad(stage.stageWidth - Config.SPACING_LEFT_PX - Config.SPACING_RIGHT_PX, height, Config.GAME_MENU_COLOR);
 			quad.x = (stage.stageWidth - quad.width) / 2;
 			quad.y = (stage.stageHeight - quad.height) / 2;
-			
-			if (info != null) {
-				createScreen();
-				addSpecificDetails();
-			}
-			
 		}
 		
 		public function updateValues(values:Object):void {
@@ -71,7 +74,7 @@ package screens
 			return this.description;
 		}
 		
-		private function createScreen():void {
+		protected function createScreen():void {
 			structureImage = new Image(AssetManager.getSingleAsset("ui", info.asset));
 			structureImage.x = quad.x;
 			structureImage.y = quad.y;
@@ -102,7 +105,7 @@ package screens
 			addChild(exitBtn);
 		}
 		
-		private function addSpecificDetails(values:Object = null):void {
+		protected function addSpecificDetails(values:Object = null):void {
 			var data:Object = values == null ? mainGame.getEconomyLogic().getValuesByStructureName(info.name) : values;
 			if (data == null) createDeadText();
 			else {

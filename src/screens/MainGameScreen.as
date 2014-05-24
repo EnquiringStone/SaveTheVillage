@@ -176,6 +176,13 @@ package screens
 			}
 		}
 		
+		public function processSettings():Object {
+			var dataString:String = ExternalStorageAO.loadFile(Config.SAVE_SETTINGS_FILE);
+			if (dataString == null || dataString == "") return ""; //file doesn't exist (not yet changed the settings)
+			var dataObject:Object = ArrayUtil.getValuePair(dataString);
+			return dataObject;
+		}
+		
 		/**
 		 * Will save the state of the game onto the external drive of the phone. It uses the datetime as its name
 		 * @param	event
