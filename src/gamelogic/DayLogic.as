@@ -42,6 +42,7 @@ package gamelogic
 				dayTimer.stop();
 				this.mainGame.getMain().loadScreen("score");
 			}
+			
 			//update all the things
 			trace("update");
 		}

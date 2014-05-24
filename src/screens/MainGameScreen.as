@@ -154,6 +154,10 @@ package screens
 			return this.dayLogic;
 		}
 		
+		public function getStructureScreen():StructureScreen {
+			return this.structureScreen;
+		}
+		
 		public function disableListeners():void {
 			bgImage.removeEventListener(TouchEvent.TOUCH, detectMoveTouch);
 			menuBtn.removeEventListener(Event.TRIGGERED, setMenuOptions);
@@ -167,7 +171,6 @@ package screens
 		public function removeAdditionalScreen(event:Event):void {
 			enableListeners();
 			if (structureScreen != null) {
-				trace("disposing");
 				this.removeChild(structureScreen);
 				structureScreen = null;
 			}

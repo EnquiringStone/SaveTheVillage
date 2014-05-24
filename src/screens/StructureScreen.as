@@ -21,6 +21,7 @@ package screens
 		private var description:TextField;
 		private var structureImage:Image;
 		private var title:TextField;
+		private var keyValueVector:Vector.<TextField>;
 		public function StructureScreen(mainGame:MainGameScreen, info:Object) 
 		{
 			super(mainGame.getMain());
@@ -41,6 +42,13 @@ package screens
 				addSpecificDetails();
 			}
 			
+		}
+		
+		public function updateValues(values:Object):void {
+			for each(var field:TextField in keyValueVector) {
+				removeChild(field);
+			}
+			addSpecificDetails(values);
 		}
 		
 		protected function getInfo():Object {
@@ -94,13 +102,14 @@ package screens
 			addChild(exitBtn);
 		}
 		
-		private function addSpecificDetails():void {
-			var data:Object = mainGame.getEconomyLogic().getValuesByStructureName(info.name);
+		private function addSpecificDetails(values:Object = null):void {
+			var data:Object = values == null ? mainGame.getEconomyLogic().getValuesByStructureName(info.name) : values;
 			if (data == null) createDeadText();
 			else {
 				var textHeight:int = 20;
 				var textHeightBase:int = description.y + description.height + Config.SPACING_ABOVE_PX;
 				var i:int = 1;
+				keyValueVector = new Vector.<TextField>();
 				for (var key:String in data) {
 					var keyField:TextField = new TextField(structureImage.width, textHeight, key + ":", Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL, true);
 					keyField.x = quad.x + Config.SPACING_LEFT_PX;
@@ -111,6 +120,9 @@ package screens
 					valueField.x = keyField.x + Config.SPACING_LEFT_PX + keyField.width;
 					valueField.y = keyField.y;
 					valueField.hAlign = HAlign.LEFT;
+					
+					keyValueVector.push(keyField, valueField);
+					trace(keyValueVector.length);
 					
 					addChild(keyField);
 					addChild(valueField);
