@@ -10,22 +10,25 @@ package gamelogic
 	{
 		private var mainGame:MainGameScreen;
 		private var allData:Object;
+		private var educationPoints:int;
+		private var transferAmount:int;
 		
 		//The class that updates and remembers everything that has to do with the economy
-		public function EconomyLogic(mainGame:MainGameScreen, allData:Object = null) 
+		public function EconomyLogic(mainGame:MainGameScreen, allData:Object = null, educationPoints:int = -1) 
 		{
 			this.mainGame = mainGame;
 			if (allData == null) {
 				this.allData = Config.DEFAULT_DATA_OBJECT;
+				setDefaultValues();
+			} else {
+				this.allData = allData;
 			}
-			this.allData = allData == null ? Config.DEFAULT_DATA_OBJECT : allData;
-			
+			this.educationPoints = educationPoints == -1 ? Config.DEFAULT_STARTING_RESOURCE_POINTS : educationPoints;
 		}
 		
 		public function getValuesByStructureName(name:String):Object {
 			if (!this.mainGame.getMapLogic().isDead(name)) {
-				var data:Object = { "Infection rate": "10%", "Infected": "19%", "Resources": "267", "Knowledge": "25" };
-				return data;
+				return allData[name];
 			}
 			return null;
 		}
@@ -38,6 +41,33 @@ package gamelogic
 			
 		}
 		
+		public function getEducationPoints():int {
+			return this.educationPoints;
+		}
+		
+		public function addResources(name:String):void {
+			var data:Object = allData[name];
+			data["Resources"] = parseInt(data["Resources"]) + transferAmount;
+		}
+		
+		public function removeResources(name:String, amount:int):void {
+			var data:Object = allData[name];
+			data["Resources"] = parseInt(data["Resources"]) - amount;
+		}
+		
+		public function addKnowledge(name:String):void {
+			var data:Object = allData[name];
+			data["Knowledge"] = parseInt(data["Knowledge"]) + transferAmount;
+		}
+		
+		public function removeKnowledge(name:String, amount:int):void {
+			var data:Object = allData[name];
+			trace(data["Knowledge"]);
+			data["Knowledge"] = parseInt(data["Knowledge"]) - amount;
+			trace(data["Knowledge"]);
+		}
+		
+		
 		public function getRawData():String {
 			return "{\"EconomyLogic\":{}}";
 		}
@@ -46,11 +76,25 @@ package gamelogic
 			
 		}
 		
+		public function setTransferAmount(amount:int):void {
+			this.transferAmount = amount;
+		}
+		
 		private function setDefaultValues():void {
 			var difficulty:String = this.mainGame.processSettings().difficulty;
 			difficulty = difficulty == "" ? Config.DIFFICULTY_SETTINGS[Config.STANDARD_DIFFICULTY_SETTING] : difficulty;
-			for each(var values:Object in allData) {
+			for (var name:String in allData) {
+				allData[name]["Infection rate"] = 1;
+				allData[name]["Infected"] = 1;
+				allData[name]["Resources"] = 1;
+				allData[name]["Knowledge"] = 50;
+				allData[name]["Resource consume"] = 1;
 				
+				if (Config.STRUCTURE_POSITIONS[name].type == "village") {
+					allData[name]["Knowledge consume"] = 1;
+				} else if (Config.STRUCTURE_POSITIONS[name].type == "city") {
+					allData[name]["Knowledge gain"] = 1;
+				}
 			}
 		}
 		

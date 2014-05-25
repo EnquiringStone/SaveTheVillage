@@ -37,7 +37,7 @@ package util
 		public static const ID_NUMBERS_FILE:String			= "Save the Village/id.txt";
 		
 		//Village, City and HQ locations on map
-		public static const STRUCTURE_POSITIONS:Object = { "structure1":{"x":445, "y":560, "type":"city", "name":"Pinopilis", "description":"Pinopilis is a municipality and a city in the northeastern Netherlands, and is the capital of the province of Drenthe. It received city rights in 1809. Pinopilis's main claim to fame is the TT Circuit Assen the motorcycle racing circuit, where on the last Saturday in June the Dutch TT is run. Assen has a railway station.", "asset":"StructureCityImage"}};
+		public static const STRUCTURE_POSITIONS:Object = { "Pinopilis":{"x":445, "y":560, "type":"city", "name":"Pinopilis", "description":"Pinopilis is a municipality and a city in the northeastern Netherlands, and is the capital of the province of Drenthe. It received city rights in 1809. Pinopilis's main claim to fame is the TT Circuit Assen the motorcycle racing circuit, where on the last Saturday in June the Dutch TT is run. Assen has a railway station.", "asset":"StructureCityImage"}};
 		
 		//Vilage and City dimensions
 		public static const VILLAGE_HEIGHT:int 	= 20;	//in pixels
@@ -49,10 +49,18 @@ package util
 		public static const DAYS_IN_SECONDS:int = 5;	//Default 60
 		
 		//Text
-		public static const DEAD_TEXT:String	= "The city is dead because of your incompetence. Think hard about what you did to all these people who lived here. The horror they have experienced. And it's all your fault!";
+		public static const DEAD_TEXT:String			= "The city is dead because of your incompetence. Think hard about what you did to all these people who lived here. The horror they have experienced. And it's all your fault!";
+		public static const TRANSFER_HELP_TEXT:String 	= "Touch the village or city you want to have the knowledge/resources";
 		
 		//Economy
-		public static const DEFAULT_DATA_OBJECT:Object		= { "Pinopilis": { "Infection rate": "", "Infected": "", "Resources": "", "Knowledge": "", "Knowledge gain": "", "Resource consume": "" }};
+		public static const DEFAULT_DATA_OBJECT:Object					= { "Pinopilis": { "Infection rate": "", "Infected": "", "Resources": "", "Knowledge": "", "Knowledge gain": "", "Resource consume": "" }};
+		public static const DEFAULT_BASE_SPREAD_RATE:Number				= 1.2;
+		public static const DEFAULT_STARTING_RESOURCE_POINTS:int	 	= 1000;
+		public static const DEFAULT_BASE_KNOWLEDGE_GENERATION:Number	= 0.5;
+		
+		//Prices
+		public static const BASE_COST_KNOWLEDGE:int		= 30;
+		public static const BASE_COST_RESOURCES:int		= 50;
 		
 	}
 

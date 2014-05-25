@@ -1,6 +1,7 @@
 package screens 
 {
 	import gamelogic.EconomyLogic;
+	import starling.events.TouchEvent;
 	import util.AssetManager;
 	import util.Config;
 	import starling.display.Button;
@@ -25,13 +26,20 @@ package screens
 			setButtonAttributes(getExitBtn().x + getExitBtn().width + Config.SPACING_LEFT_PX, getExitBtn().y, transferKnowledgeBtn, "Transfer knowledge");
 			transferKnowledgeBtn.addEventListener(Event.TRIGGERED, transferKnowledge);
 			
+			var data:Object = this.getMainGame().getEconomyLogic().getValuesByStructureName(this.getInfo().name);
+			
+			transferKnowledgeBtn.enabled = parseInt(data["Knowledge"]) >= Config.BASE_COST_KNOWLEDGE ? true : false;
+			
 			addChild(transferKnowledgeBtn);
-			//Add button to distribute knowledge (enable/disable)
-			//Add button logic
 		}
 		
 		private function transferKnowledge(event:Event):void {
-			
+			this.getMainGame().getDayLogic().getTimer().stop();
+			this.getMainGame().removeInformationScreen();
+			this.getMainGame().addHelpMessage(Config.TRANSFER_HELP_TEXT);
+			this.getMainGame().getEconomyLogic().setTransferAmount(Config.BASE_COST_KNOWLEDGE);
+			this.getMainGame().getEconomyLogic().removeKnowledge(this.getInfo().name, Config.BASE_COST_KNOWLEDGE);
+			this.getMainGame().getBGImage().addEventListener(TouchEvent.TOUCH, this.getMainGame().selectTargetKnowledge);
 		}
 	}
 

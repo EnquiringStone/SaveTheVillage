@@ -11,6 +11,7 @@ package screens
 	import starling.events.TouchEvent;
 	import starling.events.Touch;
 	import starling.events.TouchPhase;
+	import starling.text.TextField;
 	import util.AssetManager;
 	import util.Config;
 	import util.ArrayUtil;
@@ -35,9 +36,17 @@ package screens
 		private var economyLogic:EconomyLogic;
 		private var mapLogic:MapLogic;
 		
+		private var dayCountText:TextField;
+		private var educationPointsText:TextField;
+		
 		private var id:int;
 		
 		private var structureScreen:StructureScreen;
+		
+		private var transferHelpMessage:Quad;
+		private var messageField:TextField;
+		
+		private var moved:Boolean = false;
 		
 		/**
 		 * The constructor of MainGameScreen
@@ -65,6 +74,14 @@ package screens
 			
 			var quad:Quad = new Quad(stage.stageWidth, menuBtn.height, Config.GAME_MENU_COLOR);
 			
+			dayCountText = new TextField(50, quad.height, "Day: " + this.getDayLogic().getDayCount(), Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL);
+			dayCountText.x = 0;
+			dayCountText.y = 0;
+			
+			educationPointsText = new TextField(200, quad.height, "Education points: " + this.getEconomyLogic().getEducationPoints(), Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL);
+			educationPointsText.x = dayCountText.width + Config.SPACING_LEFT_PX;
+			educationPointsText.y = 0;
+			
 			bgImage = new Image(AssetManager.getSingleAsset("ui", "MainGameBg"));
 			bgImage.y = menuBtn.height;
 			bgImage.addEventListener(TouchEvent.TOUCH, detectMoveTouch);
@@ -72,6 +89,8 @@ package screens
 			addChild(bgImage);
 			addChild(quad);
 			addChild(menuBtn);
+			addChild(dayCountText);
+			addChild(educationPointsText);
 		}
 		
 		/**
@@ -138,49 +157,194 @@ package screens
 			exitBtn.addEventListener(Event.TRIGGERED, toStart);
 		}
 		
+		/**
+		 * Gets the id for this playthrough. Is being used for save/load games
+		 * @return
+		 */
 		public function getId():int {
 			return this.id;
 		}
 		
+		/**
+		 * Gets the economy logic class
+		 * @return economyLogic
+		 */
 		public function getEconomyLogic():EconomyLogic {
 			return this.economyLogic;
 		}
 		
+		/**
+		 * Gets the map logic class
+		 * @return mapLogic
+		 */
 		public function getMapLogic():MapLogic {
 			return this.mapLogic;
 		}
 		
+		/**
+		 * Gets the day logic class
+		 * @return dayLogic
+		 */
 		public function getDayLogic():DayLogic {
 			return this.dayLogic;
 		}
 		
+		/**
+		 * Returns the structure screen
+		 * @return structureScreen
+		 */
 		public function getStructureScreen():StructureScreen {
 			return this.structureScreen;
 		}
 		
+		/**
+		 * Returns the background image
+		 * @return bgImage
+		 */
+		public function getBGImage():Image {
+			return this.bgImage;
+		}
+		
+		/**
+		 * Disables the basic listeners
+		 */
 		public function disableListeners():void {
 			bgImage.removeEventListener(TouchEvent.TOUCH, detectMoveTouch);
 			menuBtn.removeEventListener(Event.TRIGGERED, setMenuOptions);
 		}
 		
+		/**
+		 * Enables the basic listeners
+		 */
 		public function enableListeners():void {
 			bgImage.addEventListener(TouchEvent.TOUCH, detectMoveTouch);
 			menuBtn.addEventListener(Event.TRIGGERED, setMenuOptions);
 		}
 		
+		/**
+		 * Removes the additional screen that depicts the structure
+		 * @param	event
+		 */
 		public function removeAdditionalScreen(event:Event):void {
 			enableListeners();
+			removeInformationScreen();
+		}
+		
+		/**
+		 * Reads and returns the settings file
+		 * @return setting
+		 */
+		public function processSettings():Object {
+			var dataString:String = ExternalStorageAO.loadFile(Config.SAVE_SETTINGS_FILE);
+			if (dataString == null || dataString == "") return ""; //file doesn't exist (not yet changed the settings)
+			var dataObject:Object = ArrayUtil.getValuePair(dataString);
+			return dataObject;
+		}
+		
+		/**
+		 * Updates the field that shows what day it is
+		 */
+		public function updateDayField():void {
+			dayCountText.text = "Day: " + this.getDayLogic().getDayCount();
+		}
+		
+		/**
+		 * Updates the field that shows the education points
+		 */
+		public function updateEducationPointsField():void {
+			educationPointsText.text = "Education points: " + this.getEconomyLogic().getEducationPoints();
+		}
+		
+		/**
+		 * Calls the method selectTarget and makes sure it's for knowledge
+		 * @param	event
+		 */
+		public function selectTargetKnowledge(event:TouchEvent):void {
+			selectTarget(event, "knowledge");
+		}
+		
+		/**
+		 * Calls the method selectTarget and makes sure it's for resources
+		 * @param	event
+		 */
+		public function selectTargetResources(event:TouchEvent):void {
+			selectTarget(event, "resources");
+		}
+		
+		/**
+		 * Removes the structure screen if exists
+		 */
+		public function removeInformationScreen():void {
 			if (structureScreen != null) {
 				this.removeChild(structureScreen);
 				structureScreen = null;
 			}
 		}
 		
-		public function processSettings():Object {
-			var dataString:String = ExternalStorageAO.loadFile(Config.SAVE_SETTINGS_FILE);
-			if (dataString == null || dataString == "") return ""; //file doesn't exist (not yet changed the settings)
-			var dataObject:Object = ArrayUtil.getValuePair(dataString);
-			return dataObject;
+		/**
+		 * Adds a help message on the screen with the give message
+		 * @param	message
+		 */
+		public function addHelpMessage(message:String):void {
+			this.transferHelpMessage = new Quad(stage.stageWidth - Config.SPACING_LEFT_PX - Config.SPACING_RIGHT_PX, 20, Config.GAME_MENU_COLOR);
+			this.transferHelpMessage.x = (stage.stageWidth - this.transferHelpMessage.width) / 2;
+			this.transferHelpMessage.y = 100;
+			
+			messageField = new TextField(transferHelpMessage.width, 20, message, Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL);
+			messageField.x = transferHelpMessage.x;
+			messageField.y = transferHelpMessage.y;
+			
+			addChild(transferHelpMessage);
+			addChild(messageField);
+		}
+		
+		/**
+		 * Removes the help message
+		 */
+		public function removeHelpMessage():void {
+			if (messageField != null && transferHelpMessage != null) {
+				removeChild(transferHelpMessage);
+				removeChild(messageField);
+				transferHelpMessage = null;
+				messageField = null;
+			}
+		}
+		
+		/**
+		 * Creates the logic for selecting where the resource/knowledge has to go to
+		 * @param	event
+		 * @param	type
+		 */
+		private function selectTarget(event:TouchEvent, type:String):void {
+			var touch:Touch = event.getTouch(this);
+			var target:Image = event.target as Image;
+			if (touch != null) {
+				if (touch.phase == TouchPhase.MOVED) {
+					moveImageByTouch(touch, target);
+					this.moved = true;
+				}
+				if (touch.phase == TouchPhase.ENDED) {
+					if (this.moved == false) {
+						var structure:Object = this.mapLogic.isStructure(touch.getLocation(this), new Point(bgImage.x, bgImage.y));
+						if (structure != null) {
+							if (structure.type != "hq") {
+								if (type == "knowledge") {
+									this.getEconomyLogic().addKnowledge(structure.name);
+									bgImage.removeEventListener(TouchEvent.TOUCH, selectTargetKnowledge);
+								}
+								else {
+									this.getEconomyLogic().addResources(structure.name);
+									bgImage.removeEventListener(TouchEvent.TOUCH, selectTargetResources);
+								}
+								enableListeners();
+								removeHelpMessage();
+								if(!this.dayLogic.getTimer().running) this.dayLogic.getTimer().start();
+							}
+						}
+					}
+					this.moved = false;
+				}
+			}
 		}
 		
 		/**
@@ -220,6 +384,10 @@ package screens
 			this.dayLogic.getTimer().start();
 		}
 		
+		/**
+		 * Returns the highest id
+		 * @return id
+		 */
 		private function getHighestId():Number {
 			var number:String = ExternalStorageAO.loadFile(Config.ID_NUMBERS_FILE);
 			if (number != null && number != "") {
@@ -228,6 +396,10 @@ package screens
 			return 0;
 		}
 		
+		/**
+		 * Adds an additional screen for the structures
+		 * @param	structure
+		 */
 		private function addAdditionalScreen(structure:Object):void {
 			disableListeners();
 			if (structure.type == "city") {

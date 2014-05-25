@@ -19,7 +19,6 @@ package gamelogic
 		private var mainGame:MainGameScreen;
 		private var unlimited:Boolean = false;
 		
-		//Create timer, wait for events
 		//Update meters, When timer is dispatched see if there is a random event
 		public function DayLogic(mainGame:MainGameScreen, durationSetting:int = -1) 
 		{
@@ -36,6 +35,10 @@ package gamelogic
 			dayTimer.start();
 		}
 		
+		/**
+		 * 
+		 * @param	event
+		 */
 		public function update(event:TimerEvent):void {
 			dayCount ++;
 			if (!unlimited && dayCount > duration) {
@@ -44,6 +47,9 @@ package gamelogic
 			}
 			this.mainGame.getEconomyLogic().update();
 			this.mainGame.getMapLogic().update();
+			
+			this.mainGame.updateDayField();
+			this.mainGame.updateEducationPointsField();
 			//update all the things
 			trace("update");
 		}
@@ -63,6 +69,10 @@ package gamelogic
 		
 		public function setDayCount(dayCount:Number):void {
 			this.dayCount = dayCount;
+		}
+		
+		public function getDayCount():int {
+			return this.dayCount;
 		}
 		
 		public function calculateScore():Number {

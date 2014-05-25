@@ -114,22 +114,24 @@ package screens
 				var i:int = 1;
 				keyValueVector = new Vector.<TextField>();
 				for (var key:String in data) {
-					var keyField:TextField = new TextField(structureImage.width, textHeight, key + ":", Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL, true);
-					keyField.x = quad.x + Config.SPACING_LEFT_PX;
-					keyField.y = (i * textHeight) + textHeightBase;
-					keyField.hAlign = HAlign.RIGHT;
-					
-					var valueField:TextField = new TextField(quad.width - structureImage.width - Config.SPACING_LEFT_PX - Config.SPACING_RIGHT_PX, textHeight, data[key], Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL);
-					valueField.x = keyField.x + Config.SPACING_LEFT_PX + keyField.width;
-					valueField.y = keyField.y;
-					valueField.hAlign = HAlign.LEFT;
-					
-					keyValueVector.push(keyField, valueField);
-					trace(keyValueVector.length);
-					
-					addChild(keyField);
-					addChild(valueField);
-					i++;
+					if (key != "Resource consume" && key != "Knowledge consume" && key != "Knowledge gain") {
+						var unit:String = getUnitByKey(key);
+						var keyField:TextField = new TextField(structureImage.width, textHeight, key + ":", Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL, true);
+						keyField.x = quad.x + Config.SPACING_LEFT_PX;
+						keyField.y = (i * textHeight) + textHeightBase;
+						keyField.hAlign = HAlign.RIGHT;
+						
+						var valueField:TextField = new TextField(quad.width - structureImage.width - Config.SPACING_LEFT_PX - Config.SPACING_RIGHT_PX, textHeight, data[key] + unit, Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL);
+						valueField.x = keyField.x + Config.SPACING_LEFT_PX + keyField.width;
+						valueField.y = keyField.y;
+						valueField.hAlign = HAlign.LEFT;
+						
+						keyValueVector.push(keyField, valueField);
+						
+						addChild(keyField);
+						addChild(valueField);
+						i++;
+					}
 				}
 			}
 		}
@@ -140,6 +142,20 @@ package screens
 			deadText.y = description.y + description.height + Config.SPACING_ABOVE_PX;
 			deadText.hAlign = HAlign.LEFT;
 			addChild(deadText);
+		}
+		
+		private function getUnitByKey(key:String):String {
+			var unit:String = "";
+			if (key == "Infection rate") {
+				unit = "%";
+			} else if (key == "Infected") {
+				unit = " People"
+			} else if (key == "Resources") {
+				unit = "";
+			} else if (key == "Knowledge") {
+				unit = ""
+			}
+			return unit;
 		}
 	}
 
