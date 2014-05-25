@@ -12,6 +12,7 @@ package screens
 	import starling.events.Touch;
 	import starling.events.TouchPhase;
 	import starling.text.TextField;
+	import starling.text.TextFieldAutoSize;
 	import util.AssetManager;
 	import util.Config;
 	import util.ArrayUtil;
@@ -45,8 +46,6 @@ package screens
 		
 		private var transferHelpMessage:Quad;
 		private var messageField:TextField;
-		
-		private var moved:Boolean = false;
 		
 		/**
 		 * The constructor of MainGameScreen
@@ -293,6 +292,9 @@ package screens
 			messageField = new TextField(transferHelpMessage.width, 20, message, Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL);
 			messageField.x = transferHelpMessage.x;
 			messageField.y = transferHelpMessage.y;
+			messageField.autoSize = TextFieldAutoSize.VERTICAL;
+			
+			transferHelpMessage.height = messageField.height;
 			
 			addChild(transferHelpMessage);
 			addChild(messageField);
@@ -321,28 +323,24 @@ package screens
 			if (touch != null) {
 				if (touch.phase == TouchPhase.MOVED) {
 					moveImageByTouch(touch, target);
-					this.moved = true;
 				}
 				if (touch.phase == TouchPhase.ENDED) {
-					if (this.moved == false) {
-						var structure:Object = this.mapLogic.isStructure(touch.getLocation(this), new Point(bgImage.x, bgImage.y));
-						if (structure != null) {
-							if (structure.type != "hq") {
-								if (type == "knowledge") {
-									this.getEconomyLogic().addKnowledge(structure.name);
-									bgImage.removeEventListener(TouchEvent.TOUCH, selectTargetKnowledge);
-								}
-								else {
-									this.getEconomyLogic().addResources(structure.name);
-									bgImage.removeEventListener(TouchEvent.TOUCH, selectTargetResources);
-								}
-								enableListeners();
-								removeHelpMessage();
-								if(!this.dayLogic.getTimer().running) this.dayLogic.getTimer().start();
+					var structure:Object = this.mapLogic.isStructure(touch.getLocation(this), new Point(bgImage.x, bgImage.y));
+					if (structure != null) {
+						if (structure.type != "hq") {
+							if (type == "knowledge") {
+								this.getEconomyLogic().addKnowledge(structure.name);
+								bgImage.removeEventListener(TouchEvent.TOUCH, selectTargetKnowledge);
 							}
+							else {
+								this.getEconomyLogic().addResources(structure.name);
+								bgImage.removeEventListener(TouchEvent.TOUCH, selectTargetResources);
+							}
+							enableListeners();
+							removeHelpMessage();
+							if(!this.dayLogic.getTimer().running) this.dayLogic.getTimer().start();
 						}
 					}
-					this.moved = false;
 				}
 			}
 		}
