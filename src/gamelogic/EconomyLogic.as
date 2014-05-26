@@ -84,11 +84,11 @@ package gamelogic
 			var difficulty:String = this.mainGame.processSettings().difficulty;
 			difficulty = difficulty == "" ? Config.DIFFICULTY_SETTINGS[Config.STANDARD_DIFFICULTY_SETTING] : difficulty;
 			for (var name:String in allData) {
-				allData[name]["Infection rate"] = 1;
-				allData[name]["Infected"] = 1;
-				allData[name]["Resources"] = 1;
+				allData[name]["Infection rate"] = 100;
+				allData[name]["Infected"] = 2000;
+				allData[name]["Resources"] = 500;
 				allData[name]["Knowledge"] = 50;
-				allData[name]["Resource consume"] = 1;
+				allData[name]["Resource consume"] = 30;
 				
 				if (Config.STRUCTURE_POSITIONS[name].type == "village") {
 					allData[name]["Knowledge consume"] = 1;

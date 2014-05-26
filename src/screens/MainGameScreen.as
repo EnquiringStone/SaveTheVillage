@@ -76,6 +76,7 @@ package screens
 			dayCountText = new TextField(50, quad.height, "Day: " + this.getDayLogic().getDayCount(), Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL);
 			dayCountText.x = 0;
 			dayCountText.y = 0;
+			dayCountText.autoSize = TextFieldAutoSize.HORIZONTAL;
 			
 			educationPointsText = new TextField(200, quad.height, "Education points: " + this.getEconomyLogic().getEducationPoints(), Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL);
 			educationPointsText.x = dayCountText.width + Config.SPACING_LEFT_PX;
