@@ -5,9 +5,12 @@ package
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
+	import flash.events.KeyboardEvent;
 	import flash.ui.Multitouch;
 	import flash.ui.MultitouchInputMode;
 	import starling.core.Starling;
+	import flash.system.Capabilities;
+	import flash.ui.Keyboard;
 	
 	/**
 	 * The overall class of the application
@@ -28,6 +31,7 @@ package
 			
 			// touch or gesture?
 			Multitouch.inputMode = MultitouchInputMode.TOUCH_POINT;
+			
 			//initialize Starling
 			Starling.handleLostContext = true;
 			_starling = new Starling(ScreenMaster, stage);

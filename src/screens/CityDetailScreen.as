@@ -13,6 +13,8 @@ package screens
 	 */
 	public class CityDetailScreen extends StructureScreen 
 	{
+		private var transferAmount:int = 1;
+		
 		public function CityDetailScreen(mainGame:MainGameScreen, information:Object) 
 		{
 			super(mainGame, information);
@@ -28,7 +30,7 @@ package screens
 			
 			var data:Object = this.getMainGame().getEconomyLogic().getValuesByStructureName(this.getInfo().name);
 			
-			transferKnowledgeBtn.enabled = parseInt(data["Knowledge"]) >= Config.BASE_COST_KNOWLEDGE ? true : false;
+			transferKnowledgeBtn.enabled = parseInt(data["Knowledge"]) >= transferAmount;
 			
 			addChild(transferKnowledgeBtn);
 		}
@@ -38,7 +40,7 @@ package screens
 			this.getMainGame().removeInformationScreen();
 			this.getMainGame().addHelpMessage(Config.TRANSFER_HELP_TEXT);
 			this.getMainGame().getEconomyLogic().setTransferAmount(Config.BASE_COST_KNOWLEDGE);
-			this.getMainGame().getEconomyLogic().removeKnowledge(this.getInfo().name, Config.BASE_COST_KNOWLEDGE);
+			this.getMainGame().getEconomyLogic().removeKnowledge(this.getInfo().name, transferAmount);
 			this.getMainGame().getBGImage().addEventListener(TouchEvent.TOUCH, this.getMainGame().selectTargetKnowledge);
 		}
 	}

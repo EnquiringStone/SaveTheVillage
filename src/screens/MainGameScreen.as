@@ -81,8 +81,9 @@ package screens
 			educationPointsText = new TextField(200, quad.height, "Education points: " + this.getEconomyLogic().getEducationPoints(), Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL);
 			educationPointsText.x = dayCountText.width + Config.SPACING_LEFT_PX;
 			educationPointsText.y = 0;
+			dayCountText.autoSize = TextFieldAutoSize.HORIZONTAL;
 			
-			bgImage = new Image(AssetManager.getSingleAsset("ui", "MainGameBg"));
+			bgImage = new Image(AssetManager.getSingleAsset("ui", "MaingameBg"));
 			bgImage.y = menuBtn.height;
 			bgImage.addEventListener(TouchEvent.TOUCH, detectMoveTouch);
 			
@@ -203,6 +204,10 @@ package screens
 		 */
 		public function getBGImage():Image {
 			return this.bgImage;
+		}
+		
+		public function getMenuBtn():Button {
+			return this.menuBtn;
 		}
 		
 		/**

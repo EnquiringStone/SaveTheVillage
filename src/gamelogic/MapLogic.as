@@ -27,8 +27,20 @@ package gamelogic
 			for (var key:String in Config.STRUCTURE_POSITIONS) {
 				var data:Object = Config.STRUCTURE_POSITIONS[key];
 				
-				var width:int = data.type == "city" ? Config.CITY_WIDTH / 2 : Config.VILLAGE_WIDTH / 2;
-				var height:int = data.type == "city" ? Config.CITY_HEIGHT / 2: Config.VILLAGE_HEIGHT / 2;
+				var width:int = 0;
+				var height:int = 0;
+				
+				if (data.type == "city") {
+					width = Config.CITY_WIDTH / 2;
+					height = Config.CITY_HEIGHT / 2;
+				}
+				else if (data.type == "village") {
+					width = Config.VILLAGE_WIDTH / 2;
+					height = Config.VILLAGE_HEIGHT / 2;
+				} else if (data.type == "hq") {
+					width = Config.HQ_WIDTH / 2;
+					height = Config.HQ_HEIGHT / 2;
+				}
 				
 				if (x >= data.x - width && x <= data.x + width && y >= data.y - height && y <= data.y + height) {
 					if (!isDead(data.name)) {

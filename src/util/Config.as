@@ -37,13 +37,18 @@ package util
 		public static const ID_NUMBERS_FILE:String			= "Save the Village/id.txt";
 		
 		//Village, City and HQ locations on map
-		public static const STRUCTURE_POSITIONS:Object = { "Pinopilis":{"x":445, "y":560, "type":"city", "name":"Pinopilis", "description":"Pinopilis is a municipality and a city in the northeastern Netherlands, and is the capital of the province of Drenthe. It received city rights in 1809. Pinopilis's main claim to fame is the TT Circuit Assen the motorcycle racing circuit, where on the last Saturday in June the Dutch TT is run. Assen has a railway station.", "asset":"StructureCityImage"}};
+		public static const STRUCTURE_POSITIONS:Object = { 	"Pinopilis": 		{ "x":423, "y":419, "type":"city", 		"name":"Pinopilis", 		"description":"Pinopilis is a municipality and a city in the northeastern Netherlands, and is the capital of the province of Drenthe. It received city rights in 1809. Pinopilis's main claim to fame is the TT Circuit Assen the motorcycle racing circuit, where on the last Saturday in June the Dutch TT is run. Assen has a railway station.", "asset":"StructureCityImage" },
+															"Head Quarters": 	{ "x":539, "y":315, "type":"hq", 		"name":"Head Quarters", 	"description":"This is the HQ. Your operation base.", 	"asset":"StructureCityImage" },
+															"Village1": 		{ "x":659, "y":460, "type":"village", 	"name":"Village1", 			"description":"The first village of the game", 			"asset":"StructureCityImage" },
+															"Village2": 		{ "x":701, "y":301, "type":"village", 	"name":"Village2", 			"description":"The second village of the game", 		"asset":"StructureCityImage"}};
 		
 		//Vilage and City dimensions
-		public static const VILLAGE_HEIGHT:int 	= 20;	//in pixels
-		public static const VILLAGE_WIDTH:int 	= 20;	//in pixels
-		public static const CITY_HEIGHT:int 	= 45;	//in pixels (41)
-		public static const CITY_WIDTH:int 		= 25;	//in pixels (24)
+		public static const VILLAGE_HEIGHT:int 	= 60;	//in pixels
+		public static const VILLAGE_WIDTH:int 	= 45;	//in pixels
+		public static const CITY_HEIGHT:int 	= 60;	//in pixels
+		public static const CITY_WIDTH:int 		= 45;	//in pixels
+		public static const HQ_HEIGHT:int 		= 60;	//in pixels
+		public static const HQ_WIDTH:int		= 45;	//in pixels
 		
 		//Day settings
 		public static const DAYS_IN_SECONDS:int = 5;	//Default 60
@@ -53,10 +58,41 @@ package util
 		public static const TRANSFER_HELP_TEXT:String 	= "Touch the village or city you want to have the knowledge/resources";
 		
 		//Economy
-		public static const DEFAULT_DATA_OBJECT:Object					= { "Pinopilis": { "Infection rate": "", "Infected": "", "Resources": "", "Knowledge": "", "Knowledge gain": "", "Resource consume": "" }};
-		public static const DEFAULT_BASE_SPREAD_RATE:Number				= 1.2;
-		public static const DEFAULT_STARTING_RESOURCE_POINTS:int	 	= 1000;
-		public static const DEFAULT_BASE_KNOWLEDGE_GENERATION:Number	= 0.5;
+		public static const DEFAULT_DATA_OBJECT:Object					= { "Pinopilis": 	{ "Spread rate": "", "Infected": "", "Resources": "", "Knowledge": "", "Resource consume": "", "Population": "", "Limit resources": "", "Limit knowledge": "", "Knowledge gain": "" },
+																			"Village1": 	{ "Spread rate": "", "Infected": "", "Resources": "", "Knowledge": "", "Resource consume": "", "Population": "", "Limit resources": "", "Limit knowledge": "" },
+																			"Village2": 	{ "Spread rate": "", "Infected": "", "Resources": "", "Knowledge": "", "Resource consume": "", "Population": "", "Limit resources": "", "Limit knowledge": "" }};
+		//Population
+		public static const DEFAULT_TOTAL_POPULATION_VILLAGE:int = 1000;
+		public static const DEFAULT_TOTAL_POPULATION_CITY:int = 5000;
+		//Number of infected people
+		public static const DEFAULT_INFECTED_PEOPLE_VILLAGE:int = 30;
+		public static const DEFAULT_INFECTED_PEOPLE_CITY:int = 100;
+		//The spread rate of HIV
+		public static const DEFAULT_BASE_SPREAD_RATE:Number = 0.1;
+		public static const DEFAULT_SPREAD_RATE_VILLAGE:Number = 2;
+		public static const DEFAULT_SPREAD_RATE_CITY:Number = 3;
+		//Starting resources
+		public static const DEFAULT_STARTING_RESOURCES_VILLAGE:int = 100;
+		public static const DEFAULT_STARTING_RESOURCES_CITY:int = 400;
+		//Limit of resources and knowledge
+		public static const DEFAULT_LIMIT_RESOURCES_VILLAGE:int = 5000;
+		public static const DEFAULT_LIMIT_RESOURCES_CITY:int = 10000;
+		public static const DEFAULT_LIMIT_KNOWLEDGE_VILLAGE:int = 40;
+		public static const DEFAULT_LIMIT_KNOWLEDGE_CITY:int = 50;
+		//The number of resources that will be consumed (daily)
+		public static const DEFAULT_CONSUME_RESOURCES_VILLAGE:int = 30;
+		public static const DEFAULT_CONSUME_RESOURCES_CITY:int = 80;
+		//Starting knowledge and education points
+		public static const DEFAULT_STARTING_KNOWLEDGE_CITY:int = 5;
+		public static const DEFAULT_STARTING_EDUCATION_POINTS:int = 450;
+		//Buying value of resources/knowledge
+		public static const DEFAULT_VALUE_RESOURCES:int = 150;
+		public static const DEFAULT_VALUE_KNOWLEDGE:int = 300;
+		//Growing rates
+		public static const DEFAULT_GROWING_RATE_KNOWLEDGE:Number = 0.2;
+		public static const DEFAULT_GROWTH_EDUCATION_POINTS:int = 275;
+		//Penalty/Reward when having enough resources
+		public static const DEFAULT_HAS_ENOUGH_RESOURCES:Number = 0.05;
 		
 		//Prices
 		public static const BASE_COST_KNOWLEDGE:int		= 30;

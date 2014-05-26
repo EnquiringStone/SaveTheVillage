@@ -22,12 +22,15 @@ package screens
 			createScreen();
 			
 			var buttonKnowledge:Button = new Button(AssetManager.getSingleAsset("ui", "SettingsChoiceBtn"));
-			setButtonAttributes(getQuad().x + Config.SPACING_LEFT_PX, getDescription().y + Config.SPACING_ABOVE_PX, buttonKnowledge, "Buy knowledge");
+			setButtonAttributes(getQuad().x + Config.SPACING_LEFT_PX, getDescription().y + getDescription().height + Config.SPACING_ABOVE_PX, buttonKnowledge, "Buy knowledge");
 			buttonKnowledge.addEventListener(Event.TRIGGERED, buyKnowledge);
 			
 			var buttonResources:Button = new Button(AssetManager.getSingleAsset("ui", "SettingsChoiceBtn"));
 			setButtonAttributes(buttonKnowledge.x + buttonKnowledge.width + Config.SPACING_LEFT_PX, buttonKnowledge.y, buttonResources, "Buy resources");
 			buttonResources.addEventListener(Event.TRIGGERED, buyResources);
+			
+			addChild(buttonKnowledge);
+			addChild(buttonResources);
 		}
 		
 		public function buyKnowledge(event:Event):void {
@@ -38,7 +41,7 @@ package screens
 			transfer("resources");
 		}
 		
-		public function transfer(type:String) {
+		public function transfer(type:String):void {
 			
 		}
 	}

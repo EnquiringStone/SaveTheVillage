@@ -8,6 +8,7 @@ package screens
 	import starling.utils.HAlign;
 	import util.Config;
 	import util.AssetManager;
+	import util.ArrayUtil;
 	/**
 	 * ...
 	 * @author Johan
@@ -22,6 +23,8 @@ package screens
 		private var structureImage:Image;
 		private var title:TextField;
 		private var keyValueVector:Vector.<TextField>;
+		private var ignoreKeyWords:Array = new Array("Resource consume", "Knowledge consume", "Knowledge gain", "Limit resources", "Limit knowledge", "Population");
+		
 		public function StructureScreen(mainGame:MainGameScreen, info:Object) 
 		{
 			super(mainGame.getMain());
@@ -114,7 +117,7 @@ package screens
 				var i:int = 1;
 				keyValueVector = new Vector.<TextField>();
 				for (var key:String in data) {
-					if (key != "Resource consume" && key != "Knowledge consume" && key != "Knowledge gain") {
+					if (!ArrayUtil.inArray(ignoreKeyWords, key)) {
 						var unit:String = getUnitByKey(key);
 						var keyField:TextField = new TextField(structureImage.width, textHeight, key + ":", Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL, true);
 						keyField.x = quad.x + Config.SPACING_LEFT_PX;

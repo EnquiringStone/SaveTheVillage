@@ -1,5 +1,6 @@
 package  
 {
+	import flash.events.KeyboardEvent;
 	import screens.BaseScreen;
 	import screens.HighscoresScreen;
 	import screens.LoadGameScreen;
@@ -10,6 +11,8 @@ package
 	import screens.StoryScreen;
 	import starling.display.Sprite;
 	import starling.events.Event;
+	import flash.desktop.NativeApplication;
+	import flash.ui.Keyboard;
 	
 	/**
 	 * The controller of the MVC. Its purpose is to fetch the correct screen to the user
@@ -19,6 +22,7 @@ package
 	{
 		
 		private var currentScreen:BaseScreen;
+		private var screenName:String = "";
 		
 		/**
 		 * The constructor of ScreenMaster
@@ -26,6 +30,7 @@ package
 		public function ScreenMaster() 
 		{
 			super();
+			NativeApplication.nativeApplication.addEventListener(KeyboardEvent.KEY_DOWN, handleBackButton);
 			addEventListener(Event.ADDED_TO_STAGE, initialize);
 		}
 		
@@ -43,6 +48,7 @@ package
 		 */
 		public function loadScreen(screenName:String, additionalInfo:String = ""):void {
 			disposeScreen();
+			this.screenName = screenName;
 			if (screenName == "start") {
 				currentScreen = new StartScreen(this);
 			} else if (screenName == "main_game") {
@@ -65,6 +71,20 @@ package
 		public function loadSavedGame(gameScreen:MainGameScreen):void {
 			disposeScreen();
 			currentScreen = gameScreen;
+		}
+		
+		public function handleBackButton(event:KeyboardEvent):void {
+			if (event.keyCode == Keyboard.BACK) {
+				if (screenName != "" && screenName != "start") {
+					event.preventDefault();
+					if (screenName == "main_game") {
+						var screen:MainGameScreen = currentScreen as MainGameScreen;
+						screen.getMenuBtn().dispatchEvent(new Event(Event.TRIGGERED));
+					} else {
+						this.loadScreen("start");
+					}
+				}
+			}
 		}
 		
 		private function disposeScreen():void {

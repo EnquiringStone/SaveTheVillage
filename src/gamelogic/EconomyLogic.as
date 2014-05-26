@@ -23,7 +23,7 @@ package gamelogic
 			} else {
 				this.allData = allData;
 			}
-			this.educationPoints = educationPoints == -1 ? Config.DEFAULT_STARTING_RESOURCE_POINTS : educationPoints;
+			this.educationPoints = educationPoints == -1 ? Config.DEFAULT_STARTING_EDUCATION_POINTS : educationPoints;
 		}
 		
 		public function getValuesByStructureName(name:String):Object {
@@ -84,16 +84,26 @@ package gamelogic
 			var difficulty:String = this.mainGame.processSettings().difficulty;
 			difficulty = difficulty == "" ? Config.DIFFICULTY_SETTINGS[Config.STANDARD_DIFFICULTY_SETTING] : difficulty;
 			for (var name:String in allData) {
-				allData[name]["Infection rate"] = 100;
-				allData[name]["Infected"] = 2000;
-				allData[name]["Resources"] = 500;
-				allData[name]["Knowledge"] = 50;
-				allData[name]["Resource consume"] = 30;
-				
-				if (Config.STRUCTURE_POSITIONS[name].type == "village") {
-					allData[name]["Knowledge consume"] = 1;
-				} else if (Config.STRUCTURE_POSITIONS[name].type == "city") {
-					allData[name]["Knowledge gain"] = 1;
+				if (Config.STRUCTURE_POSITIONS[name].type == "city") {
+					allData[name]["Knowledge gain"] = Config.DEFAULT_GROWING_RATE_KNOWLEDGE;
+					allData[name]["Spread rate"] = Config.DEFAULT_SPREAD_RATE_CITY;
+					allData[name]["Infected"] = Config.DEFAULT_INFECTED_PEOPLE_CITY;
+					allData[name]["Resources"] = Config.DEFAULT_STARTING_RESOURCES_CITY;
+					allData[name]["Knowledge"] = Config.DEFAULT_STARTING_KNOWLEDGE_CITY;
+					allData[name]["Resource consume"] = Config.DEFAULT_CONSUME_RESOURCES_CITY;
+					allData[name]["Population"] = Config.DEFAULT_TOTAL_POPULATION_CITY;
+					allData[name]["Limit resources"] = Config.DEFAULT_LIMIT_RESOURCES_CITY;
+					allData[name]["Limit knowledge"] = Config.DEFAULT_LIMIT_KNOWLEDGE_CITY;
+				} else if (Config.STRUCTURE_POSITIONS[name].type == "village") {
+					allData[name]["Spread rate"] = Config.DEFAULT_SPREAD_RATE_VILLAGE;
+					allData[name]["Infected"] = Config.DEFAULT_INFECTED_PEOPLE_VILLAGE;
+					allData[name]["Resources"] = Config.DEFAULT_STARTING_RESOURCES_VILLAGE;
+					allData[name]["Knowledge"] = 0;
+					allData[name]["Resource consume"] = Config.DEFAULT_CONSUME_RESOURCES_VILLAGE;
+					allData[name]["Population"] = Config.DEFAULT_TOTAL_POPULATION_VILLAGE;
+					allData[name]["Limit resources"] = Config.DEFAULT_LIMIT_RESOURCES_VILLAGE;
+					allData[name]["Limit knowledge"] = Config.DEFAULT_LIMIT_KNOWLEDGE_VILLAGE;
+					
 				}
 			}
 		}
