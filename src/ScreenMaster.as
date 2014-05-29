@@ -87,6 +87,10 @@ package
 			}
 		}
 		
+		public function getScreenName():String {
+			return this.screenName;
+		}
+		
 		private function disposeScreen():void {
 			if (currentScreen != null) {
 				currentScreen.disposeScreen();

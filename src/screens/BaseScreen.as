@@ -1,5 +1,7 @@
 package screens 
 {
+	import flash.media.Sound;
+	import flash.media.SoundChannel;
 	import starling.display.Button;
 	import starling.display.Image;
 	import starling.display.Sprite;

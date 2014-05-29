@@ -40,7 +40,11 @@ package screens
 		
 		public function updateTransferKnowledgeBtn():void {
 			var data:Object = this.getMainGame().getEconomyLogic().getValuesByStructureName(this.getInfo().name);
-			transferKnowledgeBtn.enabled = data["Knowledge"] >= transferAmount;
+			if (data != null) {
+				transferKnowledgeBtn.enabled = data["Knowledge"] >= transferAmount;
+			} else {
+				transferKnowledgeBtn.enabled = false;
+			}
 		}
 		
 		private function transferKnowledge(event:Event):void {

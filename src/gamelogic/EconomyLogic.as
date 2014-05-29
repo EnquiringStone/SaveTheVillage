@@ -43,7 +43,9 @@ package gamelogic
 					calculateInfected(name);
 					calculateSpreadRate(name);
 					calculateResources(name);
-					calculateKnowledge(name);
+					if (Config.STRUCTURE_POSITIONS[name].type == "city") {
+						calculateKnowledge(name);
+					}
 				}
 			}
 			if (this.mainGame.getDayLogic().getDayCount() % 7 == 0) {
@@ -73,6 +75,14 @@ package gamelogic
 		public function removeKnowledge(name:String, amount:int):void {
 			var data:Object = allData[name];
 			data["Knowledge"] = data["Knowledge"] - amount;
+		}
+		
+		public function addEducationPoints(amount:Number):void {
+			this.educationPoints += parseInt(amount.toFixed());
+		}
+		
+		public function removeEducationPoints(amount:Number):void {
+			this.educationPoints -= parseInt(amount.toFixed());
 		}
 		
 		

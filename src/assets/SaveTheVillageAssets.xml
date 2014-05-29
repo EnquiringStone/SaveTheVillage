@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:af3f6e550cc554625c97101fcbbe9dcf:40d61609c844edf7cb4be88a6d3ba5f4:7920d4805623fbd1128a5e33a414c88e$ -->
+<!-- $TexturePacker:SmartUpdate:aa8b4c3aca0a7f7917ec774040debe9c:03197eefd3ce1b06fe7e10e1c8415bed:7920d4805623fbd1128a5e33a414c88e$ -->
 <TextureAtlas imagePath="SaveTheVillageAssets.png">
-    <SubTexture name="GameLogo" x="2" y="746" width="200" height="60"/>
-    <SubTexture name="MainGameMenuBtn" x="196" y="686" width="90" height="20"/>
+    <SubTexture name="DertuaImage" x="206" y="746" width="100" height="100"/>
+    <SubTexture name="GameLogo" x="2" y="950" width="200" height="60"/>
+    <SubTexture name="GumulioImage" x="206" y="644" width="100" height="100"/>
+    <SubTexture name="KisusmeImage" x="104" y="848" width="100" height="100"/>
+    <SubTexture name="KoriruImage" x="104" y="746" width="100" height="100"/>
+    <SubTexture name="MainGameMenuBtn" x="204" y="992" width="90" height="20"/>
     <SubTexture name="MaingameBg" x="2" y="2" width="960" height="640"/>
-    <SubTexture name="MenuBtn" x="104" y="644" width="170" height="40"/>
-    <SubTexture name="SettingsChoiceBtn" x="104" y="686" width="90" height="40"/>
-    <SubTexture name="StructureCityImage" x="2" y="644" width="100" height="100"/>
+    <SubTexture name="MenuBtn" x="204" y="950" width="170" height="40"/>
+    <SubTexture name="MommbassImage" x="104" y="644" width="100" height="100"/>
+    <SubTexture name="SauuraImage" x="2" y="848" width="100" height="100"/>
+    <SubTexture name="SettingsChoiceBtn" x="206" y="848" width="90" height="40"/>
+    <SubTexture name="StructureCityImage" x="2" y="746" width="100" height="100"/>
+    <SubTexture name="TiuyImage" x="2" y="644" width="100" height="100"/>
 </TextureAtlas>

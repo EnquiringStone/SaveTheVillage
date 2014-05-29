@@ -6,6 +6,7 @@ package screens
 	import starling.events.Event;
 	import starling.text.TextField;
 	import starling.utils.HAlign;
+	import starling.utils.VAlign;
 	import util.Config;
 	import util.AssetManager;
 	import util.ArrayUtil;
@@ -22,6 +23,7 @@ package screens
 		private var description:TextField;
 		private var structureImage:Image;
 		private var title:TextField;
+		private var deadText:TextField;
 		private var keyValueVector:Vector.<TextField>;
 		private var ignoreKeyWords:Array = new Array("Resource consume", "Knowledge consume", "Knowledge gain", "Limit resources", "Limit knowledge", "Population");
 		
@@ -37,6 +39,7 @@ package screens
 			if (info != null) {
 				createScreen();
 				addSpecificDetails();
+				createButtons();
 			}
 			
 		}
@@ -50,7 +53,7 @@ package screens
 			quad.y = (stage.stageHeight - quad.height) / 2;
 		}
 		
-		public function updateValues(values:Object):void {
+		public function updateValues(values:Object = null):void {
 			for each(var field:TextField in keyValueVector) {
 				removeChild(field);
 			}
@@ -93,24 +96,22 @@ package screens
 			
 			description = new TextField(textWidthNextToPicture, descriptionHeight, info.description, Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL);
 			description.autoScale = true;
-			description.hAlign = HAlign.LEFT;;
+			description.hAlign = HAlign.LEFT;
+			description.vAlign = VAlign.TOP;
 			description.x = structureImage.x + structureImage.width + Config.SPACING_LEFT_PX;
 			description.y = title.y + title.height;
 			
-			exitBtn = new Button(AssetManager.getSingleAsset("ui", "SettingsChoiceBtn"));
-			setButtonAttributes(quad.x + Config.SPACING_LEFT_PX, (quad.y + quad.height) - exitBtn.height - Config.SPACING_BENEATH_PX, exitBtn, "Exit");
-			exitBtn.addEventListener(Event.TRIGGERED, mainGame.removeAdditionalScreen);
+			
 			
 			addChild(quad);
 			addChild(structureImage);
 			addChild(title);
 			addChild(description);
-			addChild(exitBtn);
 		}
 		
 		protected function addSpecificDetails(values:Object = null):void {
 			var data:Object = values == null ? mainGame.getEconomyLogic().getValuesByStructureName(info.name) : values;
-			if (data == null) createDeadText();
+			if (data == null && this.info.type != "hq") createDeadText();		//hq can't die
 			else {
 				var textHeight:int = 20;
 				var textHeightBase:int = description.y + description.height + Config.SPACING_ABOVE_PX;
@@ -134,12 +135,21 @@ package screens
 			}
 		}
 		
+		protected function createButtons():void {
+			exitBtn = new Button(AssetManager.getSingleAsset("ui", "SettingsChoiceBtn"));
+			setButtonAttributes(quad.x + Config.SPACING_LEFT_PX, (quad.y + quad.height) - exitBtn.height - Config.SPACING_BENEATH_PX, exitBtn, "Exit");
+			exitBtn.addEventListener(Event.TRIGGERED, mainGame.removeAdditionalScreen);
+			addChild(exitBtn);
+		}
+		
 		private function createDeadText():void {
-			var deadText:TextField = new TextField(quad.width - Config.SPACING_LEFT_PX - Config.SPACING_RIGHT_PX, exitBtn.y - Config.SPACING_BENEATH_PX - (description.y + description.height), Config.DEAD_TEXT, Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL);
-			deadText.x = quad.x + Config.SPACING_LEFT_PX;
-			deadText.y = description.y + description.height + Config.SPACING_ABOVE_PX;
-			deadText.hAlign = HAlign.LEFT;
-			addChild(deadText);
+			if (getChildIndex(deadText) < 0) {
+				deadText = new TextField(quad.width - Config.SPACING_LEFT_PX - Config.SPACING_RIGHT_PX, exitBtn.y - Config.SPACING_BENEATH_PX - (description.y + description.height), Config.DEAD_TEXT, Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL);
+				deadText.x = quad.x + Config.SPACING_LEFT_PX;
+				deadText.y = description.y + description.height + Config.SPACING_ABOVE_PX;
+				deadText.hAlign = HAlign.LEFT;
+				addChild(deadText);
+			}
 		}
 		
 		private function setValueFieldForKey(data:Object, key:String, keyField:TextField, textHeight:int):void {

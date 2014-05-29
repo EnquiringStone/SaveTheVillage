@@ -37,10 +37,14 @@ package util
 		public static const ID_NUMBERS_FILE:String			= "Save the Village/id.txt";
 		
 		//Village, City and HQ locations on map
-		public static const STRUCTURE_POSITIONS:Object = { 	"Pinopilis": 		{ "x":423, "y":419, "type":"city", 		"name":"Pinopilis", 		"description":"Pinopilis is a municipality and a city in the northeastern Netherlands, and is the capital of the province of Drenthe. It received city rights in 1809. Pinopilis's main claim to fame is the TT Circuit Assen the motorcycle racing circuit, where on the last Saturday in June the Dutch TT is run. Assen has a railway station.", "asset":"StructureCityImage" },
-															"Head Quarters": 	{ "x":539, "y":315, "type":"hq", 		"name":"Head Quarters", 	"description":"This is the HQ. Your operation base.", 	"asset":"StructureCityImage" },
-															"Village1": 		{ "x":659, "y":460, "type":"village", 	"name":"Village1", 			"description":"The first village of the game", 			"asset":"StructureCityImage" },
-															"Village2": 		{ "x":701, "y":301, "type":"village", 	"name":"Village2", 			"description":"The second village of the game", 		"asset":"StructureCityImage"}};
+		public static const STRUCTURE_POSITIONS:Object = { 	"Mommbass": 		{ "x":423, "y":419, "type":"city", 		"name":"Mommbass", 			"description":"Mommbass has a population of about 9.700. A regional cultural and economic hub, Mommbass has a large port and an international airport, and is an important regional tourism centre.", "asset":"MommbassImage" },
+															"Head Quarters": 	{ "x":539, "y":315, "type":"hq", 		"name":"Head Quarters", 	"description":"This is the HQ. Your base of operations. Here you can buy knowledge and resources.", 	"asset":"StructureCityImage" },
+															"Kisusme": 			{ "x":659, "y":460, "type":"city", 		"name":"Kisusme", 			"description":"Kisusme is a city with a population of 10.000. It is one of the largest cities in the island. Kisusme has highly fertile land and variations in temperature and rainfall with two rainy seasons per year.", 			"asset":"KisusmeImage" },
+															"Sauura": 			{ "x":701, "y":301, "type":"village", 	"name":"Sauura", 			"description":"Sauura’s well-watered humid and semi-humid zones support arable agriculture and hence a high population density.", 		"asset":"SauuraImage" },
+															"Dertua":			{ "x":538, "y":427, "type":"village", 	"name":"Dertua", 			"description":"Dertua is a low-lying area and is characterized by high poverty levels and for years there has been a high level of dependency on food aid.", "asset":"DertuaImage" },
+															"Gumulio": 			{ "x":332, "y":224, "type":"village", 	"name":"Gumulio", 			"description":"Farming is the primary occupation of at least 25% of the population. The main rain-fed planting season is in November for April harvest.", "asset":"GumulioImage" },
+															"Tiuy": 			{ "x":426, "y":288, "type":"village", 	"name":"Tiuy", 				"description":"Tiuy is one of the poorest villages in the island. It has a long dry season of 9 to 11 months and the cluster only receives about 250-500 millimeters of rain per year.", "asset":"TiuyImage" },
+															"Koriru": 			{ "x":540, "y":225, "type":"village", 	"name":"Koriru", 			"description":"The area is semi-arid with a short rainy season, receiving about 500 millimeters of rain per year.", "asset":"KoriruImage"}};
 		
 		//Vilage and City dimensions
 		public static const VILLAGE_HEIGHT:int 	= 60;	//in pixels
@@ -51,16 +55,20 @@ package util
 		public static const HQ_WIDTH:int		= 45;	//in pixels
 		
 		//Day settings
-		public static const DAYS_IN_SECONDS:int = 5;	//Default 60
+		public static const DAYS_IN_SECONDS:int = 5;
 		
 		//Text
-		public static const DEAD_TEXT:String			= "The city is dead because of your incompetence. Think hard about what you did to all these people who lived here. The horror they have experienced. And it's all your fault!";
+		public static const DEAD_TEXT:String			= "All the people who lived here are sick. This means you can't play with this city/village anymore";
 		public static const TRANSFER_HELP_TEXT:String 	= "Touch the village or city you want to have the knowledge/resources";
 		
 		//Economy
-		public static const DEFAULT_DATA_OBJECT:Object					= { "Pinopilis": 	{ "Spread rate": "", "Infected": "", "Resources": "", "Knowledge": "", "Resource consume": "", "Population": "", "Limit resources": "", "Limit knowledge": "", "Knowledge gain": "" },
-																			"Village1": 	{ "Spread rate": "", "Infected": "", "Resources": "", "Knowledge": "", "Resource consume": "", "Population": "", "Limit resources": "", "Limit knowledge": "" },
-																			"Village2": 	{ "Spread rate": "", "Infected": "", "Resources": "", "Knowledge": "", "Resource consume": "", "Population": "", "Limit resources": "", "Limit knowledge": "" }};
+		public static const DEFAULT_DATA_OBJECT:Object					= { "Mommbass": 	{ "Spread rate": "", "Infected": "", "Resources": "", "Knowledge": "", "Resource consume": "", "Population": "", "Limit resources": "", "Limit knowledge": "", "Knowledge gain": "" },
+																			"Kisusme": 	{ "Spread rate": "", "Infected": "", "Resources": "", "Knowledge": "", "Resource consume": "", "Population": "", "Limit resources": "", "Limit knowledge": "" },
+																			"Sauura": 	{ "Spread rate": "", "Infected": "", "Resources": "", "Knowledge": "", "Resource consume": "", "Population": "", "Limit resources": "", "Limit knowledge": "" },
+																			"Dertua": 	{ "Spread rate": "", "Infected": "", "Resources": "", "Knowledge": "", "Resource consume": "", "Population": "", "Limit resources": "", "Limit knowledge": "" },
+																			"Gumulio": 	{ "Spread rate": "", "Infected": "", "Resources": "", "Knowledge": "", "Resource consume": "", "Population": "", "Limit resources": "", "Limit knowledge": "" },
+																			"Tiuy": 	{ "Spread rate": "", "Infected": "", "Resources": "", "Knowledge": "", "Resource consume": "", "Population": "", "Limit resources": "", "Limit knowledge": "" },
+																			"Koriru": 	{ "Spread rate": "", "Infected": "", "Resources": "", "Knowledge": "", "Resource consume": "", "Population": "", "Limit resources": "", "Limit knowledge": "" }};
 		//Population
 		public static const DEFAULT_TOTAL_POPULATION_VILLAGE:int = 1000;
 		public static const DEFAULT_TOTAL_POPULATION_CITY:int = 5000;
@@ -88,6 +96,8 @@ package util
 		//Buying value of resources/knowledge
 		public static const DEFAULT_VALUE_RESOURCES:int = 150;
 		public static const DEFAULT_VALUE_KNOWLEDGE:int = 300;
+		public static const DEFAULT_VALUE_RESOURCES_BOUGHT:int = 100;
+		public static const DEFAULT_VALUE_KNOWLEDGE_BOUGHT:int = 5;
 		//Growing rates
 		public static const DEFAULT_GROWING_RATE_KNOWLEDGE:Number = 0.2;
 		public static const DEFAULT_GROWTH_EDUCATION_POINTS:int = 275;
@@ -95,11 +105,6 @@ package util
 		public static const DEFAULT_HAS_ENOUGH_RESOURCES:Number = 0.05;
 		//Max number of infected
 		public static const DEFAULT_MAX_PERCENTAGE_INFECTED:int = 80;
-		
-		//Prices
-		public static const BASE_COST_KNOWLEDGE:int		= 30;
-		public static const BASE_COST_RESOURCES:int		= 50;
-		
 	}
 
 }

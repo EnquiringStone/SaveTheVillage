@@ -3,6 +3,7 @@ package gamelogic
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	import screens.CityDetailScreen;
+	import screens.HQDetailScreen;
 	import screens.MainGameScreen;
 	import util.Config;
 	import util.ArrayUtil;
@@ -46,17 +47,24 @@ package gamelogic
 				dayTimer.stop();
 				this.mainGame.getMain().loadScreen("score");
 			}
+			
 			this.mainGame.getEconomyLogic().update();
 			this.mainGame.getMapLogic().update();
-			
 			this.mainGame.updateDayField();
 			this.mainGame.updateEducationPointsField();
 			
 			if (this.mainGame.getStructureScreen() != null) {
-				this.mainGame.getStructureScreen().updateValues(this.mainGame.getEconomyLogic().getAllData()[this.mainGame.getStructureScreen().getInfo().name]);
-				if (this.mainGame.getStructureScreen().getInfo().type == "city") {
-					var screen:CityDetailScreen = this.mainGame.getStructureScreen() as CityDetailScreen;
-					screen.updateTransferKnowledgeBtn();
+				var name:String = this.mainGame.getStructureScreen().getInfo().name;
+				if (this.mainGame.getMapLogic().isDead(name)) this.mainGame.getStructureScreen().updateValues();
+				else { this.mainGame.getStructureScreen().updateValues(this.mainGame.getEconomyLogic().getAllData()[name]); }
+				
+				var type:String = this.mainGame.getStructureScreen().getInfo().type;
+				if (type == "city" && !this.mainGame.getMapLogic().isDead(name)) {
+					var cityScreen:CityDetailScreen = this.mainGame.getStructureScreen() as CityDetailScreen;
+					cityScreen.updateTransferKnowledgeBtn();
+				} else if (type == "hq") {
+					var hqScreen:HQDetailScreen = this.mainGame.getStructureScreen() as HQDetailScreen;
+					hqScreen.updateButtons();
 				}
 			}
 		}

@@ -43,6 +43,7 @@ package screens
 		private var id:int;
 		
 		private var structureScreen:StructureScreen;
+		private var previousStructureScreen:StructureScreen;
 		
 		private var transferHelpMessage:Quad;
 		private var messageField:TextField;
@@ -199,6 +200,14 @@ package screens
 		}
 		
 		/**
+		 * Returns the previous structure screen that was visible
+		 * @return
+		 */
+		public function getPreviousStructureScreen():StructureScreen {
+			return this.previousStructureScreen;
+		}
+		
+		/**
 		 * Returns the background image
 		 * @return bgImage
 		 */
@@ -282,6 +291,7 @@ package screens
 		public function removeInformationScreen():void {
 			if (structureScreen != null) {
 				this.removeChild(structureScreen);
+				previousStructureScreen = structureScreen;
 				structureScreen = null;
 			}
 		}
@@ -338,17 +348,42 @@ package screens
 								this.getEconomyLogic().addKnowledge(structure.name);
 								bgImage.removeEventListener(TouchEvent.TOUCH, selectTargetKnowledge);
 							}
-							else {
+							else if(type == "resources") {
 								this.getEconomyLogic().addResources(structure.name);
 								bgImage.removeEventListener(TouchEvent.TOUCH, selectTargetResources);
 							}
-							enableListeners();
-							removeHelpMessage();
-							if(!this.dayLogic.getTimer().running) this.dayLogic.getTimer().start();
+						} else {
+							//cancel stuff
+							cancelTransfer(type);
 						}
+						enableListeners();
+						removeHelpMessage();
+						if(!this.dayLogic.getTimer().running) this.dayLogic.getTimer().start();
 					}
 				}
 			}
+		}
+		
+		private function cancelTransfer(type:String):void {
+			if (previousStructureScreen.getInfo().type == "hq") {
+				if (type == "knowledge") {
+					this.getEconomyLogic().addEducationPoints(Config.DEFAULT_VALUE_KNOWLEDGE);
+					bgImage.removeEventListener(TouchEvent.TOUCH, selectTargetKnowledge);
+				} else if (type == "resources") {
+					this.getEconomyLogic().addEducationPoints(Config.DEFAULT_VALUE_RESOURCES);
+					bgImage.removeEventListener(TouchEvent.TOUCH, selectTargetResources);
+				}
+				updateEducationPointsField();
+			} else if (previousStructureScreen.getInfo().type == "city") {
+				if (type == "knowledge") {
+					this.getEconomyLogic().addKnowledge(previousStructureScreen.getInfo().name);
+					bgImage.removeEventListener(TouchEvent.TOUCH, selectTargetKnowledge);
+				} else if (type == "resources") {
+					this.getEconomyLogic().addResources(previousStructureScreen.getInfo().name);
+					bgImage.removeEventListener(TouchEvent.TOUCH, selectTargetResources);
+				}
+			}
+			
 		}
 		
 		/**

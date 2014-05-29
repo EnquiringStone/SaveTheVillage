@@ -43,9 +43,7 @@ package gamelogic
 				}
 				
 				if (x >= data.x - width && x <= data.x + width && y >= data.y - height && y <= data.y + height) {
-					if (!isDead(data.name)) {
-						return data;
-					}
+					return data;
 				}
 			}
 			return null;
