@@ -57,7 +57,7 @@ package screens
 			addSpecificDetails(values);
 		}
 		
-		protected function getInfo():Object {
+		public function getInfo():Object {
 			return this.info;
 		}
 		
@@ -118,21 +118,16 @@ package screens
 				keyValueVector = new Vector.<TextField>();
 				for (var key:String in data) {
 					if (!ArrayUtil.inArray(ignoreKeyWords, key)) {
-						var unit:String = getUnitByKey(key);
 						var keyField:TextField = new TextField(structureImage.width, textHeight, key + ":", Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL, true);
 						keyField.x = quad.x + Config.SPACING_LEFT_PX;
 						keyField.y = (i * textHeight) + textHeightBase;
 						keyField.hAlign = HAlign.RIGHT;
 						
-						var valueField:TextField = new TextField(quad.width - structureImage.width - Config.SPACING_LEFT_PX - Config.SPACING_RIGHT_PX, textHeight, data[key] + unit, Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL);
-						valueField.x = keyField.x + Config.SPACING_LEFT_PX + keyField.width;
-						valueField.y = keyField.y;
-						valueField.hAlign = HAlign.LEFT;
-						
-						keyValueVector.push(keyField, valueField);
-						
+						keyValueVector.push(keyField);
 						addChild(keyField);
-						addChild(valueField);
+						
+						setValueFieldForKey(data, key, keyField, textHeight);
+						
 						i++;
 					}
 				}
@@ -147,18 +142,28 @@ package screens
 			addChild(deadText);
 		}
 		
-		private function getUnitByKey(key:String):String {
-			var unit:String = "";
-			if (key == "Infection rate") {
-				unit = "%";
+		private function setValueFieldForKey(data:Object, key:String, keyField:TextField, textHeight:int):void {
+			var valueField:TextField = new TextField(quad.width - structureImage.width - Config.SPACING_LEFT_PX - Config.SPACING_RIGHT_PX, textHeight, "", Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL);
+			valueField.x = keyField.x + Config.SPACING_LEFT_PX + keyField.width;
+			valueField.y = keyField.y;
+			valueField.hAlign = HAlign.LEFT;
+			if (key == "Spread rate") {
+				valueField.text = new Number(data[key]).toFixed(2) + "%";
 			} else if (key == "Infected") {
-				unit = " People"
+				valueField.text = new Number(this.getMainGame().getEconomyLogic().getInfectedPercentageByName(info.name).toString()).toFixed() + "%";
 			} else if (key == "Resources") {
-				unit = "";
+				valueField.text = new Number(data[key]).toFixed();
+				//addIcon(valueField, ResourcesIcon);
 			} else if (key == "Knowledge") {
-				unit = ""
+				valueField.text = new Number(data[key]).toFixed(1);
+				//addIcon(valueField, KnowledgeIcon);
 			}
-			return unit;
+			keyValueVector.push(valueField);
+			addChild(valueField);
+		}
+		
+		private function addIcon(valueField:TextField, asset:String):void {
+			
 		}
 	}
 

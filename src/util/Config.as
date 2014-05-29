@@ -93,6 +93,8 @@ package util
 		public static const DEFAULT_GROWTH_EDUCATION_POINTS:int = 275;
 		//Penalty/Reward when having enough resources
 		public static const DEFAULT_HAS_ENOUGH_RESOURCES:Number = 0.05;
+		//Max number of infected
+		public static const DEFAULT_MAX_PERCENTAGE_INFECTED:int = 80;
 		
 		//Prices
 		public static const BASE_COST_KNOWLEDGE:int		= 30;

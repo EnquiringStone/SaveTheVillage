@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:7d39ce92f00352deba0923dd6b5455b6:40d61609c844edf7cb4be88a6d3ba5f4:7920d4805623fbd1128a5e33a414c88e$ -->
+<!-- $TexturePacker:SmartUpdate:af3f6e550cc554625c97101fcbbe9dcf:40d61609c844edf7cb4be88a6d3ba5f4:7920d4805623fbd1128a5e33a414c88e$ -->
 <TextureAtlas imagePath="SaveTheVillageAssets.png">
     <SubTexture name="GameLogo" x="2" y="746" width="200" height="60"/>
     <SubTexture name="MainGameMenuBtn" x="196" y="686" width="90" height="20"/>

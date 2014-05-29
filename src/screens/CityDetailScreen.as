@@ -13,7 +13,8 @@ package screens
 	 */
 	public class CityDetailScreen extends StructureScreen 
 	{
-		private var transferAmount:int = 1;
+		private var transferAmount:int = 1; //How much knowledge will be transfered
+		private var transferKnowledgeBtn:Button;
 		
 		public function CityDetailScreen(mainGame:MainGameScreen, information:Object) 
 		{
@@ -24,22 +25,29 @@ package screens
 		public function added(event:Event):void {
 			initialize(event);
 			
-			var transferKnowledgeBtn:Button = new Button(AssetManager.getSingleAsset("ui", "SettingsChoiceBtn"));
+			transferKnowledgeBtn = new Button(AssetManager.getSingleAsset("ui", "SettingsChoiceBtn"));
 			setButtonAttributes(getExitBtn().x + getExitBtn().width + Config.SPACING_LEFT_PX, getExitBtn().y, transferKnowledgeBtn, "Transfer knowledge");
 			transferKnowledgeBtn.addEventListener(Event.TRIGGERED, transferKnowledge);
 			
-			var data:Object = this.getMainGame().getEconomyLogic().getValuesByStructureName(this.getInfo().name);
-			
-			transferKnowledgeBtn.enabled = parseInt(data["Knowledge"]) >= transferAmount;
+			updateTransferKnowledgeBtn();
 			
 			addChild(transferKnowledgeBtn);
+		}
+		
+		public function getTransferKnowledgeBtn():Button {
+			return this.transferKnowledgeBtn;
+		}
+		
+		public function updateTransferKnowledgeBtn():void {
+			var data:Object = this.getMainGame().getEconomyLogic().getValuesByStructureName(this.getInfo().name);
+			transferKnowledgeBtn.enabled = data["Knowledge"] >= transferAmount;
 		}
 		
 		private function transferKnowledge(event:Event):void {
 			this.getMainGame().getDayLogic().getTimer().stop();
 			this.getMainGame().removeInformationScreen();
 			this.getMainGame().addHelpMessage(Config.TRANSFER_HELP_TEXT);
-			this.getMainGame().getEconomyLogic().setTransferAmount(Config.BASE_COST_KNOWLEDGE);
+			this.getMainGame().getEconomyLogic().setTransferAmount(transferAmount);
 			this.getMainGame().getEconomyLogic().removeKnowledge(this.getInfo().name, transferAmount);
 			this.getMainGame().getBGImage().addEventListener(TouchEvent.TOUCH, this.getMainGame().selectTargetKnowledge);
 		}

@@ -2,6 +2,7 @@ package gamelogic
 {
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
+	import screens.CityDetailScreen;
 	import screens.MainGameScreen;
 	import util.Config;
 	import util.ArrayUtil;
@@ -50,8 +51,14 @@ package gamelogic
 			
 			this.mainGame.updateDayField();
 			this.mainGame.updateEducationPointsField();
-			//update all the things
-			trace("update");
+			
+			if (this.mainGame.getStructureScreen() != null) {
+				this.mainGame.getStructureScreen().updateValues(this.mainGame.getEconomyLogic().getAllData()[this.mainGame.getStructureScreen().getInfo().name]);
+				if (this.mainGame.getStructureScreen().getInfo().type == "city") {
+					var screen:CityDetailScreen = this.mainGame.getStructureScreen() as CityDetailScreen;
+					screen.updateTransferKnowledgeBtn();
+				}
+			}
 		}
 		
 		public function getTimer():Timer {

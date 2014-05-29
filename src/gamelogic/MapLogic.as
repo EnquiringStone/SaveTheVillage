@@ -5,6 +5,7 @@ package gamelogic
 	import starling.display.Quad;
 	import starling.display.Sprite;
 	import util.Config;
+	import util.ArrayUtil;
 	/**
 	 * ...
 	 * @author Johan
@@ -13,11 +14,11 @@ package gamelogic
 	{
 		private var deadStructures:Array = new Array();
 		private var mainGame:MainGameScreen;
-		//City/Village touch, When touched create a Village/City/MainHQ screen
-		//Create getters for the positions of the cities and villages
+
 		public function MapLogic(mainGame:MainGameScreen) 
 		{
 			this.mainGame = mainGame;
+			addBars();
 		}
 		
 		public function isStructure(touchPoint:Point, bgPos:Point):Object {
@@ -33,8 +34,7 @@ package gamelogic
 				if (data.type == "city") {
 					width = Config.CITY_WIDTH / 2;
 					height = Config.CITY_HEIGHT / 2;
-				}
-				else if (data.type == "village") {
+				} else if (data.type == "village") {
 					width = Config.VILLAGE_WIDTH / 2;
 					height = Config.VILLAGE_HEIGHT / 2;
 				} else if (data.type == "hq") {
@@ -56,15 +56,32 @@ package gamelogic
 		}
 		
 		public function isDead(name:String):Boolean {
-			for (var it:int = 0; it < deadStructures.length; it ++) {
-				if (deadStructures[it] == name) {
-					return true;
-				}
-			}
-			return false;
+			return ArrayUtil.inArray(deadStructures, name);
 		}
 		
 		public function update():void {
+			var data:Object = this.mainGame.getEconomyLogic().getAllData();
+			for (var key:String in data) {
+				if (this.mainGame.getEconomyLogic().getInfectedPercentageByName(key) >= Config.DEFAULT_MAX_PERCENTAGE_INFECTED) {
+					addDeadStructure(key);
+				}
+				updateBars(key);
+			}
+		}
+		
+		private function updateBars(structureName:String):void {
+			if (isDead(structureName)) {
+				removeBars();
+			} else {
+				
+			}
+		}
+		
+		private function removeBars():void {
+			
+		}
+		
+		private function addBars():void {
 			
 		}
 		
