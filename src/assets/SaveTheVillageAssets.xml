@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:aa8b4c3aca0a7f7917ec774040debe9c:03197eefd3ce1b06fe7e10e1c8415bed:7920d4805623fbd1128a5e33a414c88e$ -->
+<!-- $TexturePacker:SmartUpdate:8dcbc7e826715a30ec70af6290093ed9:01054acfaeceee45ee013facf8b4909c:7920d4805623fbd1128a5e33a414c88e$ -->
 <TextureAtlas imagePath="SaveTheVillageAssets.png">
     <SubTexture name="DertuaImage" x="206" y="746" width="100" height="100"/>
     <SubTexture name="GameLogo" x="2" y="950" width="200" height="60"/>

@@ -37,14 +37,14 @@ package util
 		public static const ID_NUMBERS_FILE:String			= "Save the Village/id.txt";
 		
 		//Village, City and HQ locations on map
-		public static const STRUCTURE_POSITIONS:Object = { 	"Mommbass": 		{ "x":423, "y":419, "type":"city", 		"name":"Mommbass", 			"description":"Mommbass has a population of about 9.700. A regional cultural and economic hub, Mommbass has a large port and an international airport, and is an important regional tourism centre.", "asset":"MommbassImage" },
-															"Head Quarters": 	{ "x":539, "y":315, "type":"hq", 		"name":"Head Quarters", 	"description":"This is the HQ. Your base of operations. Here you can buy knowledge and resources.", 	"asset":"StructureCityImage" },
-															"Kisusme": 			{ "x":659, "y":460, "type":"city", 		"name":"Kisusme", 			"description":"Kisusme is a city with a population of 10.000. It is one of the largest cities in the island. Kisusme has highly fertile land and variations in temperature and rainfall with two rainy seasons per year.", 			"asset":"KisusmeImage" },
-															"Sauura": 			{ "x":701, "y":301, "type":"village", 	"name":"Sauura", 			"description":"Sauura’s well-watered humid and semi-humid zones support arable agriculture and hence a high population density.", 		"asset":"SauuraImage" },
-															"Dertua":			{ "x":538, "y":427, "type":"village", 	"name":"Dertua", 			"description":"Dertua is a low-lying area and is characterized by high poverty levels and for years there has been a high level of dependency on food aid.", "asset":"DertuaImage" },
-															"Gumulio": 			{ "x":332, "y":224, "type":"village", 	"name":"Gumulio", 			"description":"Farming is the primary occupation of at least 25% of the population. The main rain-fed planting season is in November for April harvest.", "asset":"GumulioImage" },
-															"Tiuy": 			{ "x":426, "y":288, "type":"village", 	"name":"Tiuy", 				"description":"Tiuy is one of the poorest villages in the island. It has a long dry season of 9 to 11 months and the cluster only receives about 250-500 millimeters of rain per year.", "asset":"TiuyImage" },
-															"Koriru": 			{ "x":540, "y":225, "type":"village", 	"name":"Koriru", 			"description":"The area is semi-arid with a short rainy season, receiving about 500 millimeters of rain per year.", "asset":"KoriruImage"}};
+		public static const STRUCTURE_POSITIONS:Object = { 	"Mommbass": 		{ "x":541, "y":223, "type":"city", 		"name":"Mommbass", 			"description":"Mommbass has a population of about 9.700. A regional cultural and economic hub, Mommbass has a large port and an international airport, and is an important regional tourism centre.", "asset":"MommbassImage" },
+															"Head Quarters": 	{ "x":428, "y":426, "type":"hq", 		"name":"Head Quarters", 	"description":"This is the HQ. Your base of operations. Here you can buy knowledge and resources.", 	"asset":"StructureCityImage" },
+															"Kisusme": 			{ "x":658, "y":460, "type":"city", 		"name":"Kisusme", 			"description":"Kisusme is a city with a population of 10.000. It is one of the largest cities in the island. Kisusme has highly fertile land and variations in temperature and rainfall with two rainy seasons per year.", 			"asset":"KisusmeImage" },
+															"Sauura": 			{ "x":333, "y":219, "type":"village", 	"name":"Sauura", 			"description":"Sauura’s well-watered humid and semi-humid zones support arable agriculture and hence a high population density.", 		"asset":"SauuraImage" },
+															"Dertua":			{ "x":429, "y":283, "type":"village", 	"name":"Dertua", 			"description":"Dertua is a low-lying area and is characterized by high poverty levels and for years there has been a high level of dependency on food aid.", "asset":"DertuaImage" },
+															"Gumulio": 			{ "x":544, "y":318, "type":"village", 	"name":"Gumulio", 			"description":"Farming is the primary occupation of at least 25% of the population. The main rain-fed planting season is in November for April harvest.", "asset":"GumulioImage" },
+															"Tiuy": 			{ "x":711, "y":308, "type":"village", 	"name":"Tiuy", 				"description":"Tiuy is one of the poorest villages in the island. It has a long dry season of 9 to 11 months and the cluster only receives about 250-500 millimeters of rain per year.", "asset":"TiuyImage" },
+															"Koriru": 			{ "x":545, "y":436, "type":"village", 	"name":"Koriru", 			"description":"The area is semi-arid with a short rainy season, receiving about 500 millimeters of rain per year.", "asset":"KoriruImage"}};
 		
 		//Vilage and City dimensions
 		public static const VILLAGE_HEIGHT:int 	= 60;	//in pixels
@@ -77,8 +77,8 @@ package util
 		public static const DEFAULT_INFECTED_PEOPLE_CITY:int = 100;
 		//The spread rate of HIV
 		public static const DEFAULT_BASE_SPREAD_RATE:Number = 0.1;
-		public static const DEFAULT_SPREAD_RATE_VILLAGE:Number = 2;
-		public static const DEFAULT_SPREAD_RATE_CITY:Number = 3;
+		public static const DEFAULT_SPREAD_RATE_VILLAGE:Number = 1.5; //2
+		public static const DEFAULT_SPREAD_RATE_CITY:Number = 1.8; //3
 		//Starting resources
 		public static const DEFAULT_STARTING_RESOURCES_VILLAGE:int = 100;
 		public static const DEFAULT_STARTING_RESOURCES_CITY:int = 400;
