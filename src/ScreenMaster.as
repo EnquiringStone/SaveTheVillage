@@ -1,6 +1,8 @@
 package  
 {
 	import flash.events.KeyboardEvent;
+	import flash.media.Sound;
+	import flash.media.SoundChannel;
 	import screens.BaseScreen;
 	import screens.HighscoresScreen;
 	import screens.LoadGameScreen;
@@ -13,6 +15,7 @@ package
 	import starling.events.Event;
 	import flash.desktop.NativeApplication;
 	import flash.ui.Keyboard;
+	import util.AssetManager;
 	
 	/**
 	 * The controller of the MVC. Its purpose is to fetch the correct screen to the user
@@ -23,6 +26,8 @@ package
 		
 		private var currentScreen:BaseScreen;
 		private var screenName:String = "";
+		private var soundChannel:SoundChannel;
+		private var sound:Sound;
 		
 		/**
 		 * The constructor of ScreenMaster
@@ -59,12 +64,12 @@ package
 				currentScreen = new SettingsScreen(this);
 			} else if (screenName == "highscores_menu") {
 				currentScreen = new HighscoresScreen(this);
-			} else if (screenName == "story_play") {
-				currentScreen = new StoryScreen(this);
 			} else if (screenName == "score") {
 				currentScreen = new ScoreScreen(this, additionalInfo);
+			} else if (screenName == "tutorial") {
+				//tutorial screen
 			}
-			
+			//loadMusic(screenName);
 			addChild(currentScreen);
 		}
 		
@@ -96,6 +101,26 @@ package
 				currentScreen.disposeScreen();
 				removeChild(currentScreen);
 			}
+		}
+		
+		private function loadMusic(screen:String):void {
+			var prevSound:Sound = sound;
+			if (screen == "main_game") {
+				sound = AssetManager.getAudioAsset(AssetManager.MapThemeSound);
+			} else {
+				sound = AssetManager.getAudioAsset(AssetManager.MenuThemeSound);
+			}
+			if (prevSound != sound) {
+				if (soundChannel != null) {
+					soundChannel.stop();
+				}
+				soundChannel = sound.play();
+				soundChannel.addEventListener(flash.events.Event.SOUND_COMPLETE, restartSound);
+			}
+		}
+		
+		private function restartSound(event:flash.events.Event):void {
+			soundChannel = sound.play();
 		}
 		
 	}

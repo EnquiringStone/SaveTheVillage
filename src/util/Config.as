@@ -17,9 +17,9 @@ package util
 		public static const GAME_MENU_COLOR:uint 			= 0x000000;
 		public static const TEXT_COLOR_BUTTON:uint 			= 0xffffff;
 		public static const TEXT_COLOR_GENERAL:uint			= 0xffffff;
-		public static const TEXT_SIZE_BUTTON:Number 		= 12;
-		public static const TEXT_SIZE_GENERAL:Number		= 12;
-		public static const TEXT_SIZE_TITLE:Number			= 16;
+		public static const TEXT_SIZE_BUTTON:Number 		= 16;
+		public static const TEXT_SIZE_GENERAL:Number		= 16;
+		public static const TEXT_SIZE_TITLE:Number			= 24;
 		public static const TEXT_FONT_TYPE:String			= "Verdana";
 		
 		//Standard settings
@@ -38,7 +38,7 @@ package util
 		
 		//Village, City and HQ locations on map
 		public static const STRUCTURE_POSITIONS:Object = { 	"Mommbass": 		{ "x":541, "y":223, "type":"city", 		"name":"Mommbass", 			"description":"Mommbass has a population of about 9.700. A regional cultural and economic hub, Mommbass has a large port and an international airport, and is an important regional tourism centre.", "asset":"MommbassImage" },
-															"Head Quarters": 	{ "x":428, "y":426, "type":"hq", 		"name":"Head Quarters", 	"description":"This is the HQ. Your base of operations. Here you can buy knowledge and resources.", 	"asset":"StructureCityImage" },
+															"Hospital":	 		{ "x":428, "y":426, "type":"hq", 		"name":"Hospital", 			"description":"This is the Hospital. Your base of operations. Here you can buy knowledge and resources.", 	"asset":"StructureCityImage" },
 															"Kisusme": 			{ "x":658, "y":460, "type":"city", 		"name":"Kisusme", 			"description":"Kisusme is a city with a population of 10.000. It is one of the largest cities in the island. Kisusme has highly fertile land and variations in temperature and rainfall with two rainy seasons per year.", 			"asset":"KisusmeImage" },
 															"Sauura": 			{ "x":333, "y":219, "type":"village", 	"name":"Sauura", 			"description":"Sauura’s well-watered humid and semi-humid zones support arable agriculture and hence a high population density.", 		"asset":"SauuraImage" },
 															"Dertua":			{ "x":429, "y":283, "type":"village", 	"name":"Dertua", 			"description":"Dertua is a low-lying area and is characterized by high poverty levels and for years there has been a high level of dependency on food aid.", "asset":"DertuaImage" },
@@ -55,7 +55,7 @@ package util
 		public static const HQ_WIDTH:int		= 45;	//in pixels
 		
 		//Day settings
-		public static const DAYS_IN_SECONDS:int = 6;
+		public static const DAYS_IN_SECONDS:int = 1;
 		
 		//Text
 		public static const DEAD_TEXT:String			= "All the people who lived here are sick. This means you can't play with this city/village anymore";

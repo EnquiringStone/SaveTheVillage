@@ -7,6 +7,7 @@ package screens
 	import starling.text.TextField;
 	import starling.utils.HAlign;
 	import starling.utils.VAlign;
+	import starling.text.TextFieldAutoSize;
 	import util.Config;
 	import util.AssetManager;
 	import util.ArrayUtil;
@@ -90,6 +91,7 @@ package screens
 			
 			title = new TextField(textWidthNextToPicture, 20, info.name, Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_TITLE, Config.TEXT_COLOR_GENERAL, true);
 			title.hAlign = HAlign.LEFT;
+			title.height = title.textBounds.height + 4;
 			var descriptionHeight:int = structureImage.height - title.height;
 			
 			title.x = quad.x + structureImage.width + Config.SPACING_LEFT_PX;
@@ -122,13 +124,14 @@ package screens
 					if (!ArrayUtil.inArray(ignoreKeyWords, key)) {
 						var keyField:TextField = new TextField(structureImage.width, textHeight, key + ":", Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL, true);
 						keyField.x = quad.x + Config.SPACING_LEFT_PX;
-						keyField.y = (i * textHeight) + textHeightBase;
-						keyField.hAlign = HAlign.RIGHT;
+						keyField.height = Config.TEXT_SIZE_GENERAL + 4;
+						keyField.autoSize = TextFieldAutoSize.HORIZONTAL;
+						keyField.y = (i * keyField.height) + textHeightBase;
 						
 						keyValueVector.push(keyField);
 						addChild(keyField);
 						
-						setValueFieldForKey(data, key, keyField, textHeight);
+						setValueFieldForKey(data, key, keyField);
 						
 						i++;
 					}
@@ -157,6 +160,7 @@ package screens
 		
 		private function createDeadText():void {
 			if (getChildIndex(deadText) < 0) {
+				createButtons();
 				deadText = new TextField(quad.width - Config.SPACING_LEFT_PX - Config.SPACING_RIGHT_PX, exitBtn.y - Config.SPACING_BENEATH_PX - (description.y + description.height), Config.DEAD_TEXT, Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL);
 				deadText.x = quad.x + Config.SPACING_LEFT_PX;
 				deadText.y = description.y + description.height + Config.SPACING_ABOVE_PX;
@@ -165,8 +169,8 @@ package screens
 			}
 		}
 		
-		private function setValueFieldForKey(data:Object, key:String, keyField:TextField, textHeight:int):void {
-			var valueField:TextField = new TextField(quad.width - structureImage.width - Config.SPACING_LEFT_PX - Config.SPACING_RIGHT_PX, textHeight, "", Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL);
+		private function setValueFieldForKey(data:Object, key:String, keyField:TextField):void {
+			var valueField:TextField = new TextField(quad.width - structureImage.width - Config.SPACING_LEFT_PX - Config.SPACING_RIGHT_PX, keyField.height, "", Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL);
 			valueField.x = keyField.x + Config.SPACING_LEFT_PX + keyField.width;
 			valueField.y = keyField.y;
 			valueField.hAlign = HAlign.LEFT;

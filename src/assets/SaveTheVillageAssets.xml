@@ -1,19 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:6e193aa8ff8f474117fb37f4b75071a4:b533723e547007f91262acbd7a3b0417:7920d4805623fbd1128a5e33a414c88e$ -->
+<!-- $TexturePacker:SmartUpdate:08897580a4724cd9f3b2ce8bfa837b71:27ac897f90a9b70fa69e6265655ba85d:7920d4805623fbd1128a5e33a414c88e$ -->
 <TextureAtlas imagePath="SaveTheVillageAssets.png">
+    <SubTexture name="BackBtn" x="522" y="715" width="212" height="69"/>
+    <SubTexture name="BarHorizontal" x="664" y="786" width="148" height="34"/>
+    <SubTexture name="BarVertical" x="964" y="2" width="34" height="148"/>
     <SubTexture name="DertuaImage" x="206" y="746" width="100" height="100"/>
-    <SubTexture name="GameLogo" x="2" y="950" width="200" height="60"/>
+    <SubTexture name="EmptyBtn" x="522" y="644" width="212" height="69"/>
+    <SubTexture name="ExitBtn" x="308" y="715" width="212" height="69"/>
+    <SubTexture name="GameLogo" x="206" y="848" width="408" height="77" frameX="0" frameY="-8" frameWidth="408" frameHeight="85"/>
     <SubTexture name="GumulioImage" x="206" y="644" width="100" height="100"/>
+    <SubTexture name="HighscoreBtn" x="308" y="644" width="212" height="69"/>
     <SubTexture name="KisusmeImage" x="104" y="848" width="100" height="100"/>
     <SubTexture name="KoriruImage" x="104" y="746" width="100" height="100"/>
-    <SubTexture name="MainGameMenuBtn" x="204" y="992" width="90" height="20"/>
+    <SubTexture name="MainGameMenuBtn" x="206" y="927" width="90" height="20"/>
     <SubTexture name="MaingameBg" x="2" y="2" width="960" height="640"/>
-    <SubTexture name="MenuBtn" x="204" y="950" width="170" height="40"/>
+    <SubTexture name="MenuBtn" x="308" y="786" width="170" height="40"/>
     <SubTexture name="MommbassImage" x="104" y="644" width="100" height="100"/>
+    <SubTexture name="PlayBtn" x="430" y="927" width="212" height="69"/>
     <SubTexture name="SauuraImage" x="2" y="848" width="100" height="100"/>
-    <SubTexture name="SettingsChoiceBtn" x="206" y="890" width="90" height="40"/>
-    <SubTexture name="SettingsChoiceRedBtn" x="206" y="848" width="90" height="40"/>
+    <SubTexture name="SaveBtn" x="216" y="949" width="212" height="69"/>
+    <SubTexture name="SettingsBtn" x="2" y="950" width="212" height="69"/>
+    <SubTexture name="SettingsChoiceBtn" x="572" y="786" width="90" height="40"/>
+    <SubTexture name="SettingsChoiceRedBtn" x="480" y="786" width="90" height="40"/>
+    <SubTexture name="SmallListBtn" x="756" y="822" width="138" height="69"/>
+    <SubTexture name="SmallPlayBtn" x="644" y="899" width="138" height="69"/>
+    <SubTexture name="SmallSettingsBtn" x="616" y="828" width="138" height="69"/>
     <SubTexture name="StructureCityImage" x="2" y="746" width="100" height="100"/>
     <SubTexture name="TiuyImage" x="2" y="644" width="100" height="100"/>
 </TextureAtlas>

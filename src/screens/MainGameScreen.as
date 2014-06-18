@@ -48,6 +48,10 @@ package screens
 		private var transferHelpMessage:Quad;
 		private var messageField:TextField;
 		
+		private var infectedBars:Object = new Object();
+		private var resourcesBars:Object = new Object();
+		private var knowledgeBars:Object = new Object();
+		
 		/**
 		 * The constructor of MainGameScreen
 		 * @param	main
@@ -93,6 +97,8 @@ package screens
 			addChild(menuBtn);
 			addChild(dayCountText);
 			addChild(educationPointsText);
+			
+			addBarsToStructures();
 		}
 		
 		/**
@@ -121,15 +127,18 @@ package screens
 		 */
 		public function moveImageByTouch(touch:Touch, target:Image):void {
 			var point:Point = touch.getMovement(this);
+			
 			target.x += point.x;
+			target.y += point.y;
+			updateBarLocations(point, target);
 			if (target.x > 0) target.x = 0;
 			if (target.x < (target.width - stage.stageWidth) * -1) target.x = (target.width - stage.stageWidth) * -1;
 			
-			target.y += point.y;
 			if (target.y > menuBtn.height) target.y = menuBtn.height;
 			if (target.y < (target.height - stage.stageHeight) * -1) target.y = (target.height - stage.stageHeight) * -1;
 			
 			menuBtn.visible = true;
+			
 		}
 		
 		/**
@@ -344,6 +353,108 @@ package screens
 			addChild(structureScreen);
 		}
 		
+		public function updateBars():void {
+			
+		}
+		
+		private function updateBarLocations(movePoint:Point, target:Image):void {
+			var object:Object = Config.STRUCTURE_POSITIONS;
+			for (var name:String in infectedBars) {
+				infectedBars[name]["standard"].x += movePoint.x;
+				resourcesBars[name]["standard"].x += movePoint.x;
+				if (target.x > 0) {
+					if (object[name].type == "village") {
+						infectedBars[name]["standard"].x = object[name].x - (Config.VILLAGE_WIDTH / 2) - Config.SPACING_RIGHT_PX - infectedBars[name]["standard"].width;
+						resourcesBars[name]["standard"].x = object[name].x + (Config.VILLAGE_WIDTH / 2) + Config.SPACING_LEFT_PX;
+					} else if (object[name].type == "city") {
+						infectedBars[name]["standard"].x = object[name].x - (Config.CITY_WIDTH / 2) - Config.SPACING_RIGHT_PX - infectedBars[name]["standard"].width;
+						resourcesBars[name]["standard"].x = object[name].x + (Config.CITY_WIDTH / 2) + Config.SPACING_LEFT_PX;
+					}
+				} if (target.x < (target.width - stage.stageWidth) * -1) {
+					if (object[name].type == "village") {
+						infectedBars[name]["standard"].x = object[name].x - (Config.VILLAGE_WIDTH / 2) - Config.SPACING_RIGHT_PX - infectedBars[name]["standard"].width - (bgImage.x * -1);
+						resourcesBars[name]["standard"].x = object[name].x + (Config.VILLAGE_WIDTH / 2) + Config.SPACING_LEFT_PX - (bgImage.x * -1);
+					} else if (object[name].type == "city") {
+						infectedBars[name]["standard"].x = object[name].x - (Config.CITY_WIDTH / 2) - Config.SPACING_RIGHT_PX - infectedBars[name]["standard"].width - (bgImage.x * -1);
+						resourcesBars[name]["standard"].x = object[name].x + (Config.CITY_WIDTH / 2) + Config.SPACING_LEFT_PX - (bgImage.x * -1);
+					}
+				}
+				
+				infectedBars[name]["standard"].y += movePoint.y;
+				resourcesBars[name]["standard"].y += movePoint.y;
+				if (target.y > menuBtn.height) {
+					if (object[name].type == "village") {
+						infectedBars[name]["standard"].y = object[name].y - (Config.VILLAGE_HEIGHT / 2);
+						resourcesBars[name]["standard"].y = object[name].y - (Config.VILLAGE_HEIGHT / 2);
+					} else if (object[name].type == "city") {
+						infectedBars[name]["standard"].y = object[name].y - (Config.CITY_HEIGHT / 2);
+						resourcesBars[name]["standard"].y = object[name].y - (Config.CITY_HEIGHT / 2);
+					}
+				} if (target.y < (target.height - stage.stageHeight) * -1) {
+					if (object[name].type == "village") {
+						infectedBars[name]["standard"].y = object[name].y - (Config.VILLAGE_HEIGHT / 2) - (bgImage.y * -1);
+						resourcesBars[name]["standard"].y = object[name].y - (Config.VILLAGE_HEIGHT / 2) - (bgImage.y * -1);
+					} else if (object[name].type == "city") {
+						infectedBars[name]["standard"].y = object[name].y - (Config.CITY_HEIGHT / 2) - (bgImage.y * -1);
+						resourcesBars[name]["standard"].y = object[name].y - (Config.CITY_HEIGHT / 2) - (bgImage.y * -1);
+					}
+				}
+				
+				
+				
+				
+			}
+		}
+		
+		private function addBarsToStructures():void {
+			var object:Object = Config.STRUCTURE_POSITIONS;
+			for (var name:String in object) {
+				if (object[name].type != "hq") {
+					addInfectedBar(object[name]);
+					addResourcesBar(object[name]);
+					if (object[name].type == "city") {
+						//addKnowledgeBar(object[name]);
+					}
+				}
+				
+			}
+			updateBars();
+		}
+		
+		private function addInfectedBar(object:Object):void {
+			var bar:Image = new Image(AssetManager.getSingleAsset("ui", "BarVertical"));
+			if (object.type == "village") {
+				bar.x = object.x - (Config.VILLAGE_WIDTH / 2) - Config.SPACING_RIGHT_PX - bar.width;
+				bar.y = object.y - (Config.VILLAGE_HEIGHT / 2);
+			} else if (object.type == "city") {
+				bar.x = object.x - (Config.CITY_WIDTH / 2) - Config.SPACING_RIGHT_PX - bar.width;
+				bar.y = object.y - (Config.CITY_HEIGHT / 2);
+			}
+			infectedBars[object.name] = { "standard": bar, "colored": null };
+			addChild(bar);
+		}
+		
+		private function addResourcesBar(object:Object):void {
+			var bar:Image = new Image(AssetManager.getSingleAsset("ui", "BarVertical"));
+			if (object.type == "village") {
+				bar.x = object.x + (Config.VILLAGE_WIDTH / 2) + Config.SPACING_LEFT_PX;
+				bar.y = object.y - (Config.VILLAGE_HEIGHT / 2);
+			} else if (object.type == "city") {
+				bar.x = object.x + (Config.CITY_WIDTH / 2) + Config.SPACING_LEFT_PX;
+				bar.y = object.y - (Config.CITY_HEIGHT / 2);
+			}
+			resourcesBars[object.name] = { "standard": bar, "colored": null };
+			addChild(bar);
+		}
+		
+		private function addKnowledgeBar(object:Object):void {
+			var bar:Image = new Image(AssetManager.getSingleAsset("ui", "BarHorizontal"));
+			bar.x = object.x - (bar.width / 2);
+			bar.y = object.y + (Config.CITY_HEIGHT / 2) + Config.SPACING_ABOVE_PX;
+			knowledgeBars[object.name] = { "standard":bar, "colored": null };
+			addChild(bar);
+		}
+		
 		/**
 		 * Creates the logic for selecting where the resource/knowledge has to go to
 		 * @param	event
@@ -369,7 +480,6 @@ package screens
 								bgImage.removeEventListener(TouchEvent.TOUCH, selectTargetResources);
 							}
 						} else {
-							//cancel stuff
 							cancelTransfer(type);
 						}
 						enableListeners();

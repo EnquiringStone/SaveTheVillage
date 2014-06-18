@@ -15,7 +15,7 @@ package screens
 		private var highScoresBtn:Button;
 		private var loadGameBtn:Button;
 		private var settingsBtn:Button;
-		private var storyBtn:Button;
+		private var tutorialBtn:Button;
 		
 		/**
 		 * The constructor of StartScreen
@@ -33,23 +33,23 @@ package screens
 		 */
 		public function initialize(event:Event):void {
 			putLogoOnScreen();
-			startGameBtn = new Button(AssetManager.getSingleAsset("ui", "MenuBtn"));
+			startGameBtn = new Button(AssetManager.getSingleAsset("ui", "PlayBtn"));
 			setButtonAttributes(0, 0, startGameBtn, "Start game");
 			
-			highScoresBtn = new Button(AssetManager.getSingleAsset("ui", "MenuBtn"));
+			highScoresBtn = new Button(AssetManager.getSingleAsset("ui", "HighscoresBtn"));
 			setButtonAttributes(0, 0, highScoresBtn, "Highscores");
 			
-			loadGameBtn = new Button(AssetManager.getSingleAsset("ui", "MenuBtn"));
+			loadGameBtn = new Button(AssetManager.getSingleAsset("ui", "SaveBtn"));
 			setButtonAttributes(0, 0, loadGameBtn, "Load game");
 			
-			settingsBtn = new Button(AssetManager.getSingleAsset("ui", "MenuBtn"));
+			settingsBtn = new Button(AssetManager.getSingleAsset("ui", "SettingsBtn"));
 			setButtonAttributes(0, 0, settingsBtn, "Settings");
 			
-			storyBtn = new Button(AssetManager.getSingleAsset("ui", "MenuBtn"));
-			setButtonAttributes(0, 0, storyBtn, "Story");
+			tutorialBtn = new Button(AssetManager.getSingleAsset("ui", "EmptyBtn"));
+			setButtonAttributes(0, 0, tutorialBtn, "Tutorial");
 			
 			var buttons:Vector.<Button> = new Vector.<Button>();
-			buttons.push(highScoresBtn, settingsBtn, storyBtn, loadGameBtn, startGameBtn);
+			buttons.push(highScoresBtn, settingsBtn, tutorialBtn, loadGameBtn, startGameBtn);
 			placeButtons(buttons);
 		}
 		
@@ -82,8 +82,8 @@ package screens
 				main.loadScreen("settings_menu");
 			} else if (event.target as Button === highScoresBtn) {
 				main.loadScreen("highscores_menu");
-			} else if (event.target as Button === storyBtn) {
-				main.loadScreen("story_play");
+			} else if (event.target as Button === tutorialBtn) {
+				main.loadScreen("tutorial");
 			}
 		}
 		
