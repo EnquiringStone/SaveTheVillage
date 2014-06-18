@@ -48,7 +48,7 @@ package gamelogic
 					}
 				}
 			}
-			if (this.mainGame.getDayLogic().getDayCount() % 7 == 0) {
+			if (this.mainGame.getDayLogic().getDayCount() % 5 == 0) {
 				calculateEducationPoints();
 			}
 		}

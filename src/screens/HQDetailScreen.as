@@ -31,7 +31,7 @@ package screens
 			addQuad();
 			createScreen();
 			
-			buttonKnowledge = new Button(AssetManager.getSingleAsset("ui", "SettingsChoiceBtn"));
+			buttonKnowledge = new Button(AssetManager.getSingleAsset("ui", "SettingsChoiceRedBtn"));
 			
 			var knowledgeField:TextField = new TextField(getQuad().width - buttonKnowledge.width - Config.SPACING_LEFT_PX - Config.SPACING_RIGHT_PX, 0, "", Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL);
 			knowledgeField.autoSize = TextFieldAutoSize.VERTICAL;
@@ -54,15 +54,15 @@ package screens
 			
 			var buttonResourceWidth:int = resourceField.x + resourceField.width + Config.SPACING_LEFT_PX;
 			
-			buttonCondom = new Button(AssetManager.getSingleAsset("ui", "SettingsChoiceBtn"));
+			buttonCondom = new Button(AssetManager.getSingleAsset("ui", "SettingsChoiceRedBtn"));
 			setButtonAttributes(buttonResourceWidth, resourceField.y, buttonCondom, "Buy condoms");
 			buttonCondom.addEventListener(Event.TRIGGERED, buyCondoms);
 			
-			buttonNeedles = new Button(AssetManager.getSingleAsset("ui", "SettingsChoiceBtn"));
+			buttonNeedles = new Button(AssetManager.getSingleAsset("ui", "SettingsChoiceRedBtn"));
 			setButtonAttributes(buttonResourceWidth, resourceField.y + buttonCondom.height + Config.SPACING_ABOVE_PX, buttonNeedles, "Buy clean needles");
 			buttonNeedles.addEventListener(Event.TRIGGERED, buyCleanNeedles);
 
-			buttonMedicine = new Button(AssetManager.getSingleAsset("ui", "SettingsChoiceBtn"));
+			buttonMedicine = new Button(AssetManager.getSingleAsset("ui", "SettingsChoiceRedBtn"));
 			setButtonAttributes(buttonResourceWidth, buttonNeedles.y + buttonNeedles.height + Config.SPACING_ABOVE_PX, buttonMedicine, "Buy medicine");
 			buttonMedicine.addEventListener(Event.TRIGGERED, buyCleanNeedles);
 			

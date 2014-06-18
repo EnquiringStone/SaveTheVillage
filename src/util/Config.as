@@ -55,14 +55,14 @@ package util
 		public static const HQ_WIDTH:int		= 45;	//in pixels
 		
 		//Day settings
-		public static const DAYS_IN_SECONDS:int = 5;
+		public static const DAYS_IN_SECONDS:int = 6;
 		
 		//Text
 		public static const DEAD_TEXT:String			= "All the people who lived here are sick. This means you can't play with this city/village anymore";
 		public static const TRANSFER_HELP_TEXT:String 	= "Touch the village or city you want to have the knowledge/resources";
 		
 		//Economy
-		public static const DEFAULT_DATA_OBJECT:Object					= { "Mommbass": 	{ "Spread rate": "", "Infected": "", "Resources": "", "Knowledge": "", "Resource consume": "", "Population": "", "Limit resources": "", "Limit knowledge": "", "Knowledge gain": "" },
+		public static const DEFAULT_DATA_OBJECT:Object					= { "Mommbass": { "Spread rate": "", "Infected": "", "Resources": "", "Knowledge": "", "Resource consume": "", "Population": "", "Limit resources": "", "Limit knowledge": "", "Knowledge gain": "" },
 																			"Kisusme": 	{ "Spread rate": "", "Infected": "", "Resources": "", "Knowledge": "", "Resource consume": "", "Population": "", "Limit resources": "", "Limit knowledge": "" },
 																			"Sauura": 	{ "Spread rate": "", "Infected": "", "Resources": "", "Knowledge": "", "Resource consume": "", "Population": "", "Limit resources": "", "Limit knowledge": "" },
 																			"Dertua": 	{ "Spread rate": "", "Infected": "", "Resources": "", "Knowledge": "", "Resource consume": "", "Population": "", "Limit resources": "", "Limit knowledge": "" },
@@ -77,8 +77,8 @@ package util
 		public static const DEFAULT_INFECTED_PEOPLE_CITY:int = 100;
 		//The spread rate of HIV
 		public static const DEFAULT_BASE_SPREAD_RATE:Number = 0.1;
-		public static const DEFAULT_SPREAD_RATE_VILLAGE:Number = 1.5; //2
-		public static const DEFAULT_SPREAD_RATE_CITY:Number = 1.8; //3
+		public static const DEFAULT_SPREAD_RATE_VILLAGE:Number = 1.0; //2
+		public static const DEFAULT_SPREAD_RATE_CITY:Number = 1.3; //3
 		//Starting resources
 		public static const DEFAULT_STARTING_RESOURCES_VILLAGE:int = 100;
 		public static const DEFAULT_STARTING_RESOURCES_CITY:int = 400;
@@ -102,7 +102,7 @@ package util
 		public static const DEFAULT_GROWING_RATE_KNOWLEDGE:Number = 0.2;
 		public static const DEFAULT_GROWTH_EDUCATION_POINTS:int = 275;
 		//Penalty/Reward when having enough resources
-		public static const DEFAULT_HAS_ENOUGH_RESOURCES:Number = 0.05;
+		public static const DEFAULT_HAS_ENOUGH_RESOURCES:Number = 0.03;
 		//Max number of infected
 		public static const DEFAULT_MAX_PERCENTAGE_INFECTED:int = 80;
 	}

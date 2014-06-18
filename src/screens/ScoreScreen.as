@@ -1,5 +1,8 @@
 package screens 
 {
+	import starling.display.Button;
+	import starling.events.Event;
+	import util.AssetManager;
 	/**
 	 * ...
 	 * @author Johan
@@ -12,6 +15,15 @@ package screens
 		{
 			super(main);
 			this.score = parseInt(score);
+			addEventListener(Event.ADDED_TO_STAGE, initialize);
+		}
+		
+		public function initialize():void {
+			var button:Button = new Button(AssetManager.getSingleAsset("ui", "MenuBtn"));
+			setButtonAttributes((stage.stageWidth - button.width) / 2, (stage.stageHeight - button.height) / 2, button, "Back to menu");
+			button.addEventListener(Event.TRIGGERED, toStart);
+			
+			addChild(button);
 		}
 		
 	}

@@ -177,7 +177,6 @@
             <filename>C:/Users/johan_000/Pictures/Game On/Junk/GameLogo.png</filename>
             <filename>C:/Users/johan_000/Pictures/Game On/Junk/MainGameMenuBtn.png</filename>
             <filename>C:/Users/johan_000/Pictures/Game On/Junk/StructureCityImage.png</filename>
-            <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/MaingameBg.png</filename>
             <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/DertuaImage.png</filename>
             <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/KoriruImage.png</filename>
             <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/KisusmeImage.png</filename>
@@ -185,6 +184,8 @@
             <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/MommbassImage.png</filename>
             <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/SauuraImage.png</filename>
             <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/TiuyImage.png</filename>
+            <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/MaingameBg.png</filename>
+            <filename>C:/Users/johan_000/Pictures/Game On/Junk/SettingsChoiceRedBtn.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

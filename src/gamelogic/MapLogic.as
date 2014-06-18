@@ -49,6 +49,10 @@ package gamelogic
 			return null;
 		}
 		
+		public function getStructure(name:String):Object {
+			return Config.STRUCTURE_POSITIONS[name];
+		}
+		
 		public function addDeadStructure(structureName:String):void {
 			deadStructures.push(structureName);
 		}

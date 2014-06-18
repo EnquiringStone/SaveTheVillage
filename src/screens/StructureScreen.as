@@ -20,6 +20,7 @@ package screens
 		private var quad:Quad;
 		private var mainGame:MainGameScreen;
 		private var exitBtn:Button;
+		private var hqBtn:Button;
 		private var description:TextField;
 		private var structureImage:Image;
 		private var title:TextField;
@@ -136,10 +137,22 @@ package screens
 		}
 		
 		protected function createButtons():void {
-			exitBtn = new Button(AssetManager.getSingleAsset("ui", "SettingsChoiceBtn"));
+			exitBtn = new Button(AssetManager.getSingleAsset("ui", "SettingsChoiceRedBtn"));
 			setButtonAttributes(quad.x + Config.SPACING_LEFT_PX, (quad.y + quad.height) - exitBtn.height - Config.SPACING_BENEATH_PX, exitBtn, "Exit");
 			exitBtn.addEventListener(Event.TRIGGERED, mainGame.removeAdditionalScreen);
+			
+			if (!(this is HQDetailScreen)) {
+				hqBtn = new Button(AssetManager.getSingleAsset("ui", "SettingsChoiceRedBtn"));
+				setButtonAttributes(exitBtn.x + exitBtn.width + Config.SPACING_LEFT_PX, exitBtn.y, hqBtn, "Buy");
+				hqBtn.addEventListener(Event.TRIGGERED, toHQ);
+				addChild(hqBtn);
+			}
+			
 			addChild(exitBtn);
+		}
+		
+		protected function getHqButton():Button {
+			return this.hqBtn;
 		}
 		
 		private function createDeadText():void {
@@ -170,6 +183,11 @@ package screens
 			}
 			keyValueVector.push(valueField);
 			addChild(valueField);
+		}
+		
+		private function toHQ(event:Event):void {
+			this.getMainGame().removeAdditionalScreen(event);
+			this.getMainGame().addAdditionalScreen(this.getMainGame().getMapLogic().getStructure("Head Quarters"));
 		}
 		
 		private function addIcon(valueField:TextField, asset:String):void {

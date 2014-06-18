@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:8dcbc7e826715a30ec70af6290093ed9:01054acfaeceee45ee013facf8b4909c:7920d4805623fbd1128a5e33a414c88e$ -->
+<!-- $TexturePacker:SmartUpdate:6e193aa8ff8f474117fb37f4b75071a4:b533723e547007f91262acbd7a3b0417:7920d4805623fbd1128a5e33a414c88e$ -->
 <TextureAtlas imagePath="SaveTheVillageAssets.png">
     <SubTexture name="DertuaImage" x="206" y="746" width="100" height="100"/>
     <SubTexture name="GameLogo" x="2" y="950" width="200" height="60"/>
@@ -12,7 +12,8 @@
     <SubTexture name="MenuBtn" x="204" y="950" width="170" height="40"/>
     <SubTexture name="MommbassImage" x="104" y="644" width="100" height="100"/>
     <SubTexture name="SauuraImage" x="2" y="848" width="100" height="100"/>
-    <SubTexture name="SettingsChoiceBtn" x="206" y="848" width="90" height="40"/>
+    <SubTexture name="SettingsChoiceBtn" x="206" y="890" width="90" height="40"/>
+    <SubTexture name="SettingsChoiceRedBtn" x="206" y="848" width="90" height="40"/>
     <SubTexture name="StructureCityImage" x="2" y="746" width="100" height="100"/>
     <SubTexture name="TiuyImage" x="2" y="644" width="100" height="100"/>
 </TextureAtlas>

@@ -329,6 +329,22 @@ package screens
 		}
 		
 		/**
+		 * Adds an additional screen for the structures
+		 * @param	structure
+		 */
+		public function addAdditionalScreen(structure:Object):void {
+			disableListeners();
+			if (structure.type == "city") {
+				structureScreen = new CityDetailScreen(this, structure);
+			} else if (structure.type == "village") {
+				structureScreen = new VillageDetailScreen(this, structure);
+			} else if (structure.type == "hq") {
+				structureScreen = new HQDetailScreen(this, structure);
+			}
+			addChild(structureScreen);
+		}
+		
+		/**
 		 * Creates the logic for selecting where the resource/knowledge has to go to
 		 * @param	event
 		 * @param	type
@@ -433,22 +449,6 @@ package screens
 				return parseInt(number);
 			}
 			return 0;
-		}
-		
-		/**
-		 * Adds an additional screen for the structures
-		 * @param	structure
-		 */
-		private function addAdditionalScreen(structure:Object):void {
-			disableListeners();
-			if (structure.type == "city") {
-				structureScreen = new CityDetailScreen(this, structure);
-			} else if (structure.type == "village") {
-				structureScreen = new VillageDetailScreen(this, structure);
-			} else if (structure.type == "hq") {
-				structureScreen = new HQDetailScreen(this, structure);
-			}
-			addChild(structureScreen);
 		}
 	}
 

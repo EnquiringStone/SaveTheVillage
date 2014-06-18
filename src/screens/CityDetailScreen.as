@@ -25,8 +25,8 @@ package screens
 		public function added(event:Event):void {
 			initialize(event);
 			
-			transferKnowledgeBtn = new Button(AssetManager.getSingleAsset("ui", "SettingsChoiceBtn"));
-			setButtonAttributes(getExitBtn().x + getExitBtn().width + Config.SPACING_LEFT_PX, getExitBtn().y, transferKnowledgeBtn, "Transfer knowledge");
+			transferKnowledgeBtn = new Button(AssetManager.getSingleAsset("ui", "SettingsChoiceRedBtn"));
+			setButtonAttributes(getHqButton().x + getHqButton().width + Config.SPACING_LEFT_PX, getHqButton().y, transferKnowledgeBtn, "Transfer knowledge");
 			transferKnowledgeBtn.addEventListener(Event.TRIGGERED, transferKnowledge);
 			
 			updateTransferKnowledgeBtn();
