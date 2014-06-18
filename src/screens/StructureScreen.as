@@ -1,5 +1,6 @@
 package screens 
 {
+	import flash.media.Sound;
 	import starling.display.Button;
 	import starling.display.Image;
 	import starling.display.Quad;
@@ -190,8 +191,10 @@ package screens
 		}
 		
 		private function toHQ(event:Event):void {
+			var sound:Sound = AssetManager.getAudioAsset(AssetManager.MenuForwardSound);
+			sound.play();
 			this.getMainGame().removeAdditionalScreen(event);
-			this.getMainGame().addAdditionalScreen(this.getMainGame().getMapLogic().getStructure("Head Quarters"));
+			this.getMainGame().addAdditionalScreen(this.getMainGame().getMapLogic().getStructure("Hospital"));
 		}
 		
 		private function addIcon(valueField:TextField, asset:String):void {

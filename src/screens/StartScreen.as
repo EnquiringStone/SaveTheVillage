@@ -1,5 +1,6 @@
 package screens 
 {
+	import flash.media.Sound;
 	import starling.display.Button;
 	import starling.events.Event;
 	import util.AssetManager;
@@ -36,7 +37,7 @@ package screens
 			startGameBtn = new Button(AssetManager.getSingleAsset("ui", "PlayBtn"));
 			setButtonAttributes(0, 0, startGameBtn, "Start game");
 			
-			highScoresBtn = new Button(AssetManager.getSingleAsset("ui", "HighscoresBtn"));
+			highScoresBtn = new Button(AssetManager.getSingleAsset("ui", "HighscoreBtn"));
 			setButtonAttributes(0, 0, highScoresBtn, "Highscores");
 			
 			loadGameBtn = new Button(AssetManager.getSingleAsset("ui", "SaveBtn"));
@@ -74,6 +75,8 @@ package screens
 		 * @param	event
 		 */
 		public function touched(event:Event):void {
+			var sound:Sound = AssetManager.getAudioAsset(AssetManager.MenuForwardSound);
+			sound.play();
 			if (event.target as Button === startGameBtn) {
 				main.loadScreen("main_game");
 			} else if (event.target as Button === loadGameBtn) {

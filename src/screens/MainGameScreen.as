@@ -4,6 +4,7 @@ package screens
 	import flash.globalization.DateTimeFormatter;
 	import flash.globalization.LocaleID;
 	import flash.globalization.DateTimeStyle;
+	import flash.media.Sound;
 	import starling.display.Button;
 	import starling.display.Image;
 	import starling.display.Quad;
@@ -72,7 +73,7 @@ package screens
 		 */
 		public function initialize(event:Event):void {
 			//TODO put bars at villages and cities
-			menuBtn = new Button(AssetManager.getSingleAsset("ui", "MainGameMenuBtn"));
+			menuBtn = new Button(AssetManager.getSingleAsset("ui", "MainGameMenuBtn")); //MainGameMenuBtn
 			setButtonAttributes(stage.stageWidth - menuBtn.width, 0, menuBtn, "Menu");
 			menuBtn.addEventListener(Event.TRIGGERED, setMenuOptions);
 			
@@ -112,6 +113,8 @@ package screens
 				if (touch.phase == TouchPhase.MOVED) {
 					moveImageByTouch(touch, target);
 				} else if (touch.phase == TouchPhase.BEGAN) {
+					var sound:Sound = AssetManager.getAudioAsset(AssetManager.MapClickSound);
+					sound.play();
 					var structure:Object = this.mapLogic.isStructure(touch.getLocation(this), new Point(bgImage.x, bgImage.y));
 					if (structure != null) {
 						addAdditionalScreen(structure);
@@ -150,13 +153,13 @@ package screens
 			menuBtn.removeEventListener(Event.TRIGGERED, setMenuOptions);
 			this.dayLogic.getTimer().stop();
 			
-			if (saveBtn == null) saveBtn = new Button(AssetManager.getSingleAsset("ui", "MenuBtn"));
+			if (saveBtn == null) saveBtn = new Button(AssetManager.getSingleAsset("ui", "SaveBtn"));
 			setButtonAttributes((stage.stageWidth - saveBtn.width) / 2, (stage.stageHeight - saveBtn.height) / 2, saveBtn, "Save");
 			
-			if (continueBtn == null) continueBtn = new Button(AssetManager.getSingleAsset("ui", "MenuBtn"));
+			if (continueBtn == null) continueBtn = new Button(AssetManager.getSingleAsset("ui", "PlayBtn"));
 			setButtonAttributes(saveBtn.x, saveBtn.y - continueBtn.height - Config.SPACING_ABOVE_PX, continueBtn, "Continue");
 			
-			if (exitBtn == null) exitBtn = new Button(AssetManager.getSingleAsset("ui", "MenuBtn"));
+			if (exitBtn == null) exitBtn = new Button(AssetManager.getSingleAsset("ui", "ExitBtn"));
 			setButtonAttributes(saveBtn.x, saveBtn.y + saveBtn.height + Config.SPACING_ABOVE_PX, exitBtn, "Exit");
 			
 			addChild(saveBtn);
@@ -249,6 +252,8 @@ package screens
 		 * @param	event
 		 */
 		public function removeAdditionalScreen(event:Event):void {
+			var sound:Sound = AssetManager.getAudioAsset(AssetManager.MenuBackwardsSound);
+			sound.play();
 			enableListeners();
 			removeInformationScreen();
 		}

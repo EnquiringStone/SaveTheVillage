@@ -40,15 +40,19 @@ package screens
 		 */
 		public function initialize(event:Event):void {
 			putLogoOnScreen();
-			durationText = new TextField(120, 40, "Duration");
+			durationText = new TextField(120, 60, "Duration");
 			durationText.x = Config.SPACING_LEFT_PX;
 			durationText.y = getLogo().height + Config.SPACING_ABOVE_PX;
+			durationText.fontSize = Config.TEXT_SIZE_GENERAL;
+			durationText.fontName = Config.TEXT_FONT_TYPE;
 			
-			difficultyText = new TextField(120, 40, "Difficulty");
+			difficultyText = new TextField(120, 60, "Difficulty");
 			difficultyText.x = Config.SPACING_LEFT_PX;
 			difficultyText.y = durationText.y + Config.SPACING_ABOVE_PX + durationText.height;
+			difficultyText.fontSize = Config.TEXT_SIZE_GENERAL;
+			difficultyText.fontName = Config.TEXT_FONT_TYPE;
 			
-			exitBtn = new Button(AssetManager.getSingleAsset("ui", "MenuBtn"));
+			exitBtn = new Button(AssetManager.getSingleAsset("ui", "BackBtn"));
 			setButtonAttributes((stage.stageWidth - exitBtn.width) / 2, difficultyText.y + Config.SPACING_ABOVE_PX + difficultyText.height, exitBtn, "Back to menu");
 			
 			addChild(difficultyText);
@@ -73,8 +77,10 @@ package screens
 				var button:Button = event.target as Button;
 				generatedChoices.push(button);
 				if (button == difficultyBtn) {
+					durationBtn.visible = false;
 					createChoices(Config.DIFFICULTY_SETTINGS, button);
 				} else if (button == durationBtn) {
+					difficultyBtn.visible = false;
 					createChoices(Config.DURATION_SETTINGS, button);
 				}
 			}
@@ -102,6 +108,8 @@ package screens
 			}
 			ExternalStorageAO.saveFile(Config.SAVE_SETTINGS_FILE, "duration_"+durationBtn.text+";difficulty_"+difficultyBtn.text);
 			exitBtn.visible = true;
+			difficultyBtn.visible = true;
+			durationBtn.visible = true;
 		}
 		
 		/**
@@ -115,7 +123,7 @@ package screens
 			var previousBtn:Button = button;
 			for (var i:int = 0; i < choices.length; i++) {
 				if (button.text != choices[i]) {
-					var newBtn:Button = new Button(AssetManager.getSingleAsset("ui", "SettingsChoiceBtn"));
+					var newBtn:Button = new Button(AssetManager.getSingleAsset("ui", "SmallSettingsBtn"));
 					setButtonAttributes(previousBtn.x, previousBtn.y + previousBtn.height + Config.SPACING_ABOVE_PX, newBtn, choices[i]);
 					addChild(newBtn);
 					newBtn.addEventListener(Event.TRIGGERED, saveChanges);
@@ -131,8 +139,8 @@ package screens
 		 */
 		private function updateButtons():void {
 			var settings:String = ExternalStorageAO.loadFile(Config.SAVE_SETTINGS_FILE);
-			difficultyBtn = new Button(AssetManager.getSingleAsset("ui", "SettingsChoiceBtn"));
-			durationBtn = new Button(AssetManager.getSingleAsset("ui", "SettingsChoiceBtn"));
+			difficultyBtn = new Button(AssetManager.getSingleAsset("ui", "SmallListBtn"));
+			durationBtn = new Button(AssetManager.getSingleAsset("ui", "SmallListBtn"));
 			if (settings != "" && settings != null) {
 				var map:Object = ArrayUtil.getValuePair(settings);
 				setButtonAttributes(stage.stageWidth - (Config.SPACING_RIGHT_PX + difficultyBtn.width),  difficultyText.y, difficultyBtn, map.difficulty);

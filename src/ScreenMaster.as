@@ -10,7 +10,6 @@ package
 	import screens.ScoreScreen;
 	import screens.SettingsScreen;
 	import screens.StartScreen;
-	import screens.StoryScreen;
 	import starling.display.Sprite;
 	import starling.events.Event;
 	import flash.desktop.NativeApplication;

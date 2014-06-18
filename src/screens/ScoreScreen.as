@@ -19,7 +19,7 @@ package screens
 		}
 		
 		public function initialize():void {
-			var button:Button = new Button(AssetManager.getSingleAsset("ui", "MenuBtn"));
+			var button:Button = new Button(AssetManager.getSingleAsset("ui", "BackBtn"));
 			setButtonAttributes((stage.stageWidth - button.width) / 2, (stage.stageHeight - button.height) / 2, button, "Back to menu");
 			button.addEventListener(Event.TRIGGERED, toStart);
 			

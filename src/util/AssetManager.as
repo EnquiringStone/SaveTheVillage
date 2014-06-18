@@ -16,11 +16,11 @@ package util
 		[Embed(source = "/assets/SaveTheVillageAssets.png")]
 		private static const UITexture:Class;
 		
-		[Embed(source = "../assets/sounds/BackwardsMenu.wav", mimeType = "application/octet-stream")]
+		[Embed(source = "../assets/sounds/BackwardsMenu.mp3")]
 		public static const MenuBackwardsSound:Class;
-		[Embed(source = "../assets/sounds/ClickSoundMap.wav", mimeType = "application/octet-stream")]
+		[Embed(source = "../assets/sounds/ClickSoundMap.mp3")]
 		public static const MapClickSound:Class;
-		[Embed(source = "../assets/sounds/ForwardsMenu.wav", mimeType = "application/octet-stream")]
+		[Embed(source = "../assets/sounds/ForwardsMenu.mp3")]
 		public static const MenuForwardSound:Class;
 		[Embed(source = "../assets/sounds/SaveTheIslandMapTune.mp3")]
 		public static const MapThemeSound:Class;

@@ -30,7 +30,7 @@ package screens
 		public function initialize(event:Event):void {
 			putLogoOnScreen();
 			
-			exitBtn = new Button(AssetManager.getSingleAsset("ui", "MenuBtn"));
+			exitBtn = new Button(AssetManager.getSingleAsset("ui", "BackBtn"));
 			setButtonAttributes((stage.stageWidth - exitBtn.width) / 2, getLogo().y + getLogo().height + Config.SPACING_ABOVE_PX, exitBtn, "Back to menu");
 			exitBtn.addEventListener(Event.TRIGGERED, toStart);
 			

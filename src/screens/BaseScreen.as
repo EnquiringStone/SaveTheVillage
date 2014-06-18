@@ -78,9 +78,9 @@ package screens
 		 * Loads the start screen
 		 */
 		protected function toStart():void {
+			var sound:Sound = AssetManager.getAudioAsset(AssetManager.MenuBackwardsSound);
+			sound.play();
 			main.loadScreen("start");
-			//var sound:Sound = AssetManager.getAudioAsset(AssetManager.MenuBackwardsSound);
-			//sound.play();
 		}
 		
 		public function getMain():ScreenMaster {
