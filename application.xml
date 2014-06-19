@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <application xmlns="http://ns.adobe.com/air/application/3.9">
   <id>air.SavetheVillage</id>
-  <versionNumber>0.1</versionNumber>
+  <versionNumber>1.0</versionNumber>
   <supportedProfiles>mobileDevice</supportedProfiles>
   <filename>SavetheIsland</filename>
   <name>Save the Island</name>
@@ -42,17 +42,19 @@
     <!--<depthAndStencil>true</depthAndStencil>-->
     <!-- required for 3D -->
     <systemChrome>standard</systemChrome>
+    <resizable>true</resizable>
+    <aspectRatio>portrait</aspectRatio>
   </initialWindow>
   <icon>
-    <image48x48>icons/icon_48.png</image48x48>
-    <image57x57>icons/icon_57.png</image57x57>
-    <image72x72>icons/icon_72.png</image72x72>
-    <image76x76>icons/icon_76.png</image76x76>
+    <image48x48>icons/SavetheIsland48.png</image48x48>
+    <image57x57>icons/SavetheIsland57.png</image57x57>
+    <image72x72>icons/SavetheIsland72.png</image72x72>
+    <image76x76>icons/SavetheIsland76.png</image76x76>
     <image96x96>icons/icon_96.png</image96x96>
-    <image114x114>icons/icon_114.png</image114x114>
-    <image120x120>icons/icon_120.png</image120x120>
-    <image144x144>icons/icon_144.png</image144x144>
-    <image152x152>icons/icon_152.png</image152x152>
+    <image114x114>icons/SavetheIsland114.png</image114x114>
+    <image120x120>icons/SavetheIsland120.png</image120x120>
+    <image144x144>icons/SavetheIsland144.png</image144x144>
+    <image152x152>icons/SavetheIsland152.png</image152x152>
     <!--<image512x512>icons/icon_512.png</image512x512>-->
   </icon>
   <!-- 
@@ -68,4 +70,6 @@
 	Android manifest documentation:
 	http://developer.android.com/guide/topics/manifest/manifest-intro.html
 	-->
+  <description>Save the Island is a RTS teaching children about the prevention of HIV/AIDS. The player has to manage their resources to save the cities and villages of being infected. Can you save them all?</description>
+  <supportedLanguages>en</supportedLanguages>
 </application>

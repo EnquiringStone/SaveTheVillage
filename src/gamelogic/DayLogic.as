@@ -50,6 +50,7 @@ package gamelogic
 			
 			this.mainGame.getEconomyLogic().update();
 			this.mainGame.getMapLogic().update();
+			this.mainGame.updateBars();
 			this.mainGame.updateDayField();
 			this.mainGame.updateEducationPointsField();
 			

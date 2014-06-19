@@ -174,7 +174,6 @@
         <array>
             <filename>C:/Users/johan_000/Pictures/Game On/Junk/SettingsChoiceBtn.png</filename>
             <filename>C:/Users/johan_000/Pictures/Game On/Junk/MenuBtn.png</filename>
-            <filename>C:/Users/johan_000/Pictures/Game On/Junk/GameLogo.png</filename>
             <filename>C:/Users/johan_000/Pictures/Game On/Junk/MainGameMenuBtn.png</filename>
             <filename>C:/Users/johan_000/Pictures/Game On/Junk/StructureCityImage.png</filename>
             <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/DertuaImage.png</filename>
@@ -186,6 +185,21 @@
             <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/TiuyImage.png</filename>
             <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/MaingameBg.png</filename>
             <filename>C:/Users/johan_000/Pictures/Game On/Junk/SettingsChoiceRedBtn.png</filename>
+            <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/BarVertical.png</filename>
+            <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/BarHorizontal.png</filename>
+            <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/Buttons/SmallSettingsBtn.png</filename>
+            <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/Buttons/BackBtn.png</filename>
+            <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/Buttons/EmptyBtn.png</filename>
+            <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/Buttons/ExitBtn.png</filename>
+            <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/Buttons/HighscoreBtn.png</filename>
+            <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/Buttons/PlayBtn.png</filename>
+            <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/Buttons/SaveBtn.png</filename>
+            <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/Buttons/SettingsBtn.png</filename>
+            <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/Buttons/SmallListBtn.png</filename>
+            <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/Buttons/SmallPlayBtn.png</filename>
+            <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/BarVerticalRed.png</filename>
+            <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/GameLogo.png</filename>
+            <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/BarVerticalYellow.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

@@ -83,8 +83,8 @@ package util
 		public static const DEFAULT_STARTING_RESOURCES_VILLAGE:int = 100;
 		public static const DEFAULT_STARTING_RESOURCES_CITY:int = 400;
 		//Limit of resources and knowledge
-		public static const DEFAULT_LIMIT_RESOURCES_VILLAGE:int = 5000;
-		public static const DEFAULT_LIMIT_RESOURCES_CITY:int = 10000;
+		public static const DEFAULT_LIMIT_RESOURCES_VILLAGE:int = 500;
+		public static const DEFAULT_LIMIT_RESOURCES_CITY:int = 500;
 		public static const DEFAULT_LIMIT_KNOWLEDGE_VILLAGE:int = 40;
 		public static const DEFAULT_LIMIT_KNOWLEDGE_CITY:int = 50;
 		//The number of resources that will be consumed (daily)

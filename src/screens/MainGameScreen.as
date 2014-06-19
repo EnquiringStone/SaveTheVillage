@@ -358,8 +358,24 @@ package screens
 			addChild(structureScreen);
 		}
 		
-		public function updateBars():void {
+		public function updateBars(name:String = ""):void {
+			if (name == "") {
+				for (var name:String in infectedBars) {
+					updateBarValues(name);
+				}
+			} else {
+				updateBarValues(name);
+			}
+		}
+		
+		private function updateBarValues(name:String):void {
+			var infected:Number = this.economyLogic.getInfectedPercentageByName(name);
+			var scaleYInfected:Number = (infected / 100) * -1;
+			infectedBars[name]["colored"].scaleY = scaleYInfected >= -1 ? scaleYInfected : -1;
 			
+			var resources:Number = this.economyLogic.getResourcesPercentageByName(name);
+			var scaleYResources:Number = (resources / 100) * -1;
+			resourcesBars[name]["colored"].scaleY = scaleYResources >= -1 ? scaleYResources : -1;
 		}
 		
 		private function updateBarLocations(movePoint:Point, target:Image):void {
@@ -384,16 +400,18 @@ package screens
 						resourcesBars[name]["standard"].x = object[name].x + (Config.CITY_WIDTH / 2) + Config.SPACING_LEFT_PX - (bgImage.x * -1);
 					}
 				}
+				infectedBars[name]["colored"].x = infectedBars[name]["standard"].x;
+				resourcesBars[name]["colored"].x = resourcesBars[name]["standard"].x;
 				
 				infectedBars[name]["standard"].y += movePoint.y;
 				resourcesBars[name]["standard"].y += movePoint.y;
 				if (target.y > menuBtn.height) {
 					if (object[name].type == "village") {
-						infectedBars[name]["standard"].y = object[name].y - (Config.VILLAGE_HEIGHT / 2);
-						resourcesBars[name]["standard"].y = object[name].y - (Config.VILLAGE_HEIGHT / 2);
+						infectedBars[name]["standard"].y = object[name].y - (Config.VILLAGE_HEIGHT / 2) - (bgImage.y * -1);
+						resourcesBars[name]["standard"].y = object[name].y - (Config.VILLAGE_HEIGHT / 2) - (bgImage.y * -1);
 					} else if (object[name].type == "city") {
-						infectedBars[name]["standard"].y = object[name].y - (Config.CITY_HEIGHT / 2);
-						resourcesBars[name]["standard"].y = object[name].y - (Config.CITY_HEIGHT / 2);
+						infectedBars[name]["standard"].y = object[name].y - (Config.CITY_HEIGHT / 2) - (bgImage.y * -1);
+						resourcesBars[name]["standard"].y = object[name].y - (Config.CITY_HEIGHT / 2) - (bgImage.y * -1);
 					}
 				} if (target.y < (target.height - stage.stageHeight) * -1) {
 					if (object[name].type == "village") {
@@ -404,10 +422,8 @@ package screens
 						resourcesBars[name]["standard"].y = object[name].y - (Config.CITY_HEIGHT / 2) - (bgImage.y * -1);
 					}
 				}
-				
-				
-				
-				
+				infectedBars[name]["colored"].y = infectedBars[name]["standard"].y + infectedBars[name]["standard"].height;
+				resourcesBars[name]["colored"].y = resourcesBars[name]["standard"].y + infectedBars[name]["standard"].height;
 			}
 		}
 		
@@ -421,7 +437,6 @@ package screens
 						//addKnowledgeBar(object[name]);
 					}
 				}
-				
 			}
 			updateBars();
 		}
@@ -435,7 +450,13 @@ package screens
 				bar.x = object.x - (Config.CITY_WIDTH / 2) - Config.SPACING_RIGHT_PX - bar.width;
 				bar.y = object.y - (Config.CITY_HEIGHT / 2);
 			}
-			infectedBars[object.name] = { "standard": bar, "colored": null };
+			
+			var coloredBar:Image = new Image(AssetManager.getSingleAsset("ui", "BarVerticalRed"));
+			coloredBar.x = bar.x;
+			coloredBar.y = bar.y + bar.height;
+			
+			infectedBars[object.name] = { "standard": bar, "colored": coloredBar };
+			addChild(coloredBar);
 			addChild(bar);
 		}
 		
@@ -448,7 +469,12 @@ package screens
 				bar.x = object.x + (Config.CITY_WIDTH / 2) + Config.SPACING_LEFT_PX;
 				bar.y = object.y - (Config.CITY_HEIGHT / 2);
 			}
-			resourcesBars[object.name] = { "standard": bar, "colored": null };
+			
+			var coloredBar:Image = new Image(AssetManager.getSingleAsset("ui", "BarVerticalYellow"));
+			coloredBar.x = bar.x;
+			coloredBar.y = bar.y + bar.height;
+			resourcesBars[object.name] = { "standard": bar, "colored": coloredBar };
+			addChild(coloredBar);
 			addChild(bar);
 		}
 		
@@ -484,6 +510,7 @@ package screens
 								this.getEconomyLogic().addResources(structure.name);
 								bgImage.removeEventListener(TouchEvent.TOUCH, selectTargetResources);
 							}
+							updateBars(structure.name);
 						} else {
 							cancelTransfer(type);
 						}
