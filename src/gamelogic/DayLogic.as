@@ -20,17 +20,16 @@ package gamelogic
 		private var duration:int;
 		private var mainGame:MainGameScreen;
 		private var unlimited:Boolean = false;
+		private var durationSetting:String;
 		
 		//Update meters, When timer is dispatched see if there is a random event
-		public function DayLogic(mainGame:MainGameScreen, durationSetting:int = -1) 
+		public function DayLogic(mainGame:MainGameScreen) 
 		{
 			this.mainGame = mainGame;
 			randomEvent = new RandomEventLogic();
 			
-			var duration:String = durationSetting == -1 ? this.mainGame.processSettings().duration : Config.DURATION_SETTINGS[durationSetting];
-			if (duration == "Unlimited") unlimited = true;
-			else if (duration == "") { this.duration = Config.DURATION_SETTINGS[Config.STANDARD_DURATION_SETTING]; } //file doesn't exist
-			else { this.duration = parseInt(duration); }
+			parseDuration(this.mainGame.processSettings().duration);
+			this.durationSetting = this.mainGame.processSettings().duration;
 			
 			dayTimer = new Timer(Config.DAYS_IN_SECONDS * 1000);
 			dayTimer.addEventListener(TimerEvent.TIMER, update);
@@ -75,12 +74,13 @@ package gamelogic
 		}
 		
 		public function getRawData():String {
-			return "{\"DayLogic\" : {\"dayCount\":"+this.dayCount+"}}";
+			return "\"DayLogic\" : {\"dayCount\":"+this.dayCount+", \"durationSetting\": \""+this.durationSetting+"\"}";
 		}
 		
 		public function setValuesFromRawData(json:String):void {
 			var data:Object = JSON.parse(json);
 			setDayCount(parseInt(data.dayCount));
+			parseDuration(data.durationSetting);
 		}
 		
 		public function setDayCount(dayCount:Number):void {
@@ -93,6 +93,12 @@ package gamelogic
 		
 		public function calculateScore():Number {
 			return 0;
+		}
+		
+		private function parseDuration(value:String):void {
+			if 		(value == "Unlimited") 	{ unlimited = true; } 
+			else if (value == "") 			{ this.duration = Config.DURATION_SETTINGS[Config.STANDARD_DURATION_SETTING]; } 
+			else 							{ this.duration = parseInt(value); }
 		}
 	}
 

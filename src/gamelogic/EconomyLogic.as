@@ -14,16 +14,22 @@ package gamelogic
 		private var transferAmount:int;
 		
 		//The class that updates and remembers everything that has to do with the economy
-		public function EconomyLogic(mainGame:MainGameScreen, allData:Object = null, educationPoints:int = -1) 
+		public function EconomyLogic(mainGame:MainGameScreen) 
 		{
 			this.mainGame = mainGame;
-			if (allData == null) {
-				this.allData = Config.DEFAULT_DATA_OBJECT;
-				setDefaultValues();
-			} else {
-				this.allData = allData;
+			
+			this.allData = Config.DEFAULT_DATA_OBJECT;
+			setDefaultValues();
+			
+			var data:Object = this.mainGame.processSettings();
+			this.educationPoints = Config.DEFAULT_STARTING_EDUCATION_POINTS;
+			if (data != "") {
+				if (data.difficulty == "Easy") {
+					this.educationPoints += Config.DEFAULT_VARIATION_DIFFICULTY_EDUCATION_POINTS;
+				} else if (data.difficulty == "Hard") {
+					this.educationPoints -= Config.DEFAULT_VARIATION_DIFFICULTY_EDUCATION_POINTS;
+				}
 			}
-			this.educationPoints = educationPoints == -1 ? Config.DEFAULT_STARTING_EDUCATION_POINTS : educationPoints;
 		}
 		
 		public function getValuesByStructureName(name:String):Object {
@@ -87,11 +93,23 @@ package gamelogic
 		
 		
 		public function getRawData():String {
-			return "{\"EconomyLogic\":{}}";
+			var dataObject:String = "";
+			for (var name:String in allData) {
+				dataObject += "\""+name+"\": {";
+				for (var key:String in allData[name]) {
+					dataObject += "\"" + key + "\": \"" + allData[name][key] +"\",";
+				}
+				dataObject = dataObject.slice(0, -1);
+				dataObject += "},";
+			}
+			dataObject = dataObject.slice(0, -1);
+			return "\"EconomyLogic\":{ \"educationPoints\": "+this.educationPoints+", \"allData\": { "+dataObject+" } }";
 		}
 		
 		public function setValuesFromRawData(json:String):void {
-			
+			var data:Object = JSON.parse(json);
+			this.educationPoints = parseInt(data.educationPoints);
+			this.allData = data.allData;
 		}
 		
 		public function setTransferAmount(amount:int):void {

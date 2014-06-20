@@ -18,7 +18,6 @@ package gamelogic
 		public function MapLogic(mainGame:MainGameScreen) 
 		{
 			this.mainGame = mainGame;
-			addBars();
 		}
 		
 		public function isStructure(touchPoint:Point, bgPos:Point):Object {
@@ -67,38 +66,30 @@ package gamelogic
 				if (this.mainGame.getEconomyLogic().getInfectedPercentageByName(key) >= Config.DEFAULT_MAX_PERCENTAGE_INFECTED) {
 					addDeadStructure(key);
 				}
-				updateBars(key);
 			}
-		}
-		
-		private function updateBars(structureName:String):void {
-			if (isDead(structureName)) {
-				removeBars();
-			} else {
-				
-			}
-		}
-		
-		private function removeBars():void {
-			
-		}
-		
-		private function addBars():void {
-			
 		}
 		
 		/**
 		 * @inheritDoc
 		 */
 		public function getRawData():String {
-			return "{\"MapLogic\": {}}";
+			var structures:String = "[";
+			for each(var item:String in deadStructures) {
+				structures += "\""+item+"\",";
+			}
+			if (structures != "[") {
+				structures = structures.slice(0, -1);
+			}
+			structures += "]";
+			return "\"MapLogic\": { \"deadStructures\": "+structures+" }";
 		}
 		
 		/**
 		 * @inheritDoc
 		 */
 		public function setValuesFromRawData(json:String):void {
-			
+			var data:Object = JSON.parse(json);
+			this.deadStructures = data.deadStructures;
 		}
 	}
 

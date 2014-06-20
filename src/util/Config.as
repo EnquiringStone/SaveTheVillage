@@ -93,6 +93,7 @@ package util
 		//Starting knowledge and education points
 		public static const DEFAULT_STARTING_KNOWLEDGE_CITY:int = 5;
 		public static const DEFAULT_STARTING_EDUCATION_POINTS:int = 450;
+		public static const DEFAULT_VARIATION_DIFFICULTY_EDUCATION_POINTS:int = 100;
 		//Buying value of resources/knowledge
 		public static const DEFAULT_VALUE_RESOURCES:int = 150;
 		public static const DEFAULT_VALUE_KNOWLEDGE:int = 300;

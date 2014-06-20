@@ -550,10 +550,9 @@ package screens
 		 */
 		private function saveGameState(event:Event):void {
 			//TODO
-			//get raw game data put this into a file
 			var currentSettings:Object = ArrayUtil.getValuePair(ExternalStorageAO.loadFile(Config.SAVE_SETTINGS_FILE));
-			var rawData:String = "{\"id\":"+this.getId()+", \"logic\":"+this.dayLogic.getRawData()+", "+this.economyLogic.getRawData()+", "+this.mapLogic.getRawData()+", \"settings\":{\"duration\":\""+currentSettings.duration+"\", \"difficulty\":\""+currentSettings.difficulty+"\"}}";
-			
+			var rawData:String = "{\"id\":"+this.getId()+", \"logic\": {"+this.dayLogic.getRawData()+", "+this.economyLogic.getRawData()+", "+this.mapLogic.getRawData()+"}, \"settings\":{\"duration\":\""+currentSettings.duration+"\", \"difficulty\":\""+currentSettings.difficulty+"\"}}";
+			trace(rawData);
 			//ExternalStorageAO.saveFile(Config.ID_NUMBERS_FILE, this.getId().toString());
 			var df:DateTimeFormatter = new DateTimeFormatter(LocaleID.DEFAULT, DateTimeStyle.SHORT, DateTimeStyle.SHORT);
 			var date:Date = new Date();
