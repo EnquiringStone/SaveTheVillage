@@ -23,13 +23,15 @@ package gamelogic
 		private var durationSetting:String;
 		
 		//Update meters, When timer is dispatched see if there is a random event
-		public function DayLogic(mainGame:MainGameScreen) 
+		public function DayLogic(mainGame:MainGameScreen = null) 
 		{
 			this.mainGame = mainGame;
 			randomEvent = new RandomEventLogic();
 			
-			parseDuration(this.mainGame.processSettings().duration);
-			this.durationSetting = this.mainGame.processSettings().duration;
+			if (mainGame != null) {
+				parseDuration(this.mainGame.processSettings().duration);
+				this.durationSetting = this.mainGame.processSettings().duration;
+			}
 			
 			dayTimer = new Timer(Config.DAYS_IN_SECONDS * 1000);
 			dayTimer.addEventListener(TimerEvent.TIMER, update);
@@ -77,8 +79,7 @@ package gamelogic
 			return "\"DayLogic\" : {\"dayCount\":"+this.dayCount+", \"durationSetting\": \""+this.durationSetting+"\"}";
 		}
 		
-		public function setValuesFromRawData(json:String):void {
-			var data:Object = JSON.parse(json);
+		public function setValuesFromRawData(data:Object):void {
 			setDayCount(parseInt(data.dayCount));
 			parseDuration(data.durationSetting);
 		}
@@ -95,7 +96,12 @@ package gamelogic
 			return 0;
 		}
 		
+		public function setMainGame(mainGame:MainGameScreen):void {
+			this.mainGame = mainGame;
+		}
+		
 		private function parseDuration(value:String):void {
+			this.durationSetting = value;
 			if 		(value == "Unlimited") 	{ unlimited = true; } 
 			else if (value == "") 			{ this.duration = Config.DURATION_SETTINGS[Config.STANDARD_DURATION_SETTING]; } 
 			else 							{ this.duration = parseInt(value); }

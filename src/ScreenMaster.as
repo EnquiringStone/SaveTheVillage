@@ -75,6 +75,7 @@ package
 		public function loadSavedGame(gameScreen:MainGameScreen):void {
 			disposeScreen();
 			currentScreen = gameScreen;
+			addChild(currentScreen);
 		}
 		
 		public function handleBackButton(event:KeyboardEvent):void {

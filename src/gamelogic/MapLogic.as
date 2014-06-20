@@ -15,7 +15,7 @@ package gamelogic
 		private var deadStructures:Array = new Array();
 		private var mainGame:MainGameScreen;
 
-		public function MapLogic(mainGame:MainGameScreen) 
+		public function MapLogic(mainGame:MainGameScreen = null) 
 		{
 			this.mainGame = mainGame;
 		}
@@ -87,9 +87,12 @@ package gamelogic
 		/**
 		 * @inheritDoc
 		 */
-		public function setValuesFromRawData(json:String):void {
-			var data:Object = JSON.parse(json);
+		public function setValuesFromRawData(data:Object):void {
 			this.deadStructures = data.deadStructures;
+		}
+		
+		public function setMainGame(mainGame:MainGameScreen):void {
+			this.mainGame = mainGame;
 		}
 	}
 

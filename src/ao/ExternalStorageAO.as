@@ -25,6 +25,18 @@ package ao
 			fs.close();
 		}
 		
+		public static function saveFileToDirectory(fileName:String, directory:String, data:String):void {
+			var direct:File = File.documentsDirectory.resolvePath(directory);
+			if (direct.isDirectory) {
+				direct.createDirectory();
+			}
+			var file:File = File.documentsDirectory.resolvePath(direct.url + "/" + fileName);
+			var fs:FileStream = new FileStream();
+			fs.open(file, FileMode.WRITE);
+			fs.writeUTFBytes(data);
+			fs.close();
+		}
+		
 		/**
 		 * Loads a file from the given filePath
 		 * @param	filePath

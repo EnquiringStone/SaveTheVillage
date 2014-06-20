@@ -21,7 +21,7 @@ package gamelogic
 		 * Sets the values from the load file (json)
 		 * @param	json
 		 */
-		function setValuesFromRawData(json:String):void;
+		function setValuesFromRawData(data:Object):void;
 	}
 	
 }

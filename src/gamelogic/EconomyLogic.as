@@ -14,20 +14,22 @@ package gamelogic
 		private var transferAmount:int;
 		
 		//The class that updates and remembers everything that has to do with the economy
-		public function EconomyLogic(mainGame:MainGameScreen) 
+		public function EconomyLogic(mainGame:MainGameScreen = null) 
 		{
 			this.mainGame = mainGame;
 			
-			this.allData = Config.DEFAULT_DATA_OBJECT;
-			setDefaultValues();
-			
-			var data:Object = this.mainGame.processSettings();
-			this.educationPoints = Config.DEFAULT_STARTING_EDUCATION_POINTS;
-			if (data != "") {
-				if (data.difficulty == "Easy") {
-					this.educationPoints += Config.DEFAULT_VARIATION_DIFFICULTY_EDUCATION_POINTS;
-				} else if (data.difficulty == "Hard") {
-					this.educationPoints -= Config.DEFAULT_VARIATION_DIFFICULTY_EDUCATION_POINTS;
+			if (mainGame != null) {
+				this.allData = Config.DEFAULT_DATA_OBJECT;
+				setDefaultValues();
+				
+				var data:Object = this.mainGame.processSettings();
+				this.educationPoints = Config.DEFAULT_STARTING_EDUCATION_POINTS;
+				if (data != "") {
+					if (data.difficulty == "Easy") {
+						this.educationPoints += Config.DEFAULT_VARIATION_DIFFICULTY_EDUCATION_POINTS;
+					} else if (data.difficulty == "Hard") {
+						this.educationPoints -= Config.DEFAULT_VARIATION_DIFFICULTY_EDUCATION_POINTS;
+					}
 				}
 			}
 		}
@@ -97,7 +99,7 @@ package gamelogic
 			for (var name:String in allData) {
 				dataObject += "\""+name+"\": {";
 				for (var key:String in allData[name]) {
-					dataObject += "\"" + key + "\": \"" + allData[name][key] +"\",";
+					dataObject += "\"" + key + "\": " + allData[name][key] +",";
 				}
 				dataObject = dataObject.slice(0, -1);
 				dataObject += "},";
@@ -106,10 +108,10 @@ package gamelogic
 			return "\"EconomyLogic\":{ \"educationPoints\": "+this.educationPoints+", \"allData\": { "+dataObject+" } }";
 		}
 		
-		public function setValuesFromRawData(json:String):void {
-			var data:Object = JSON.parse(json);
+		public function setValuesFromRawData(data:Object):void {
 			this.educationPoints = parseInt(data.educationPoints);
 			this.allData = data.allData;
+			
 		}
 		
 		public function setTransferAmount(amount:int):void {
@@ -147,6 +149,10 @@ package gamelogic
 		
 		public function getAllData():Object {
 			return this.allData;
+		}
+		
+		public function setMainGame(mainGame:MainGameScreen):void {
+			this.mainGame = mainGame;
 		}
 		
 		/**

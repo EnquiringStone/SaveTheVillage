@@ -42,6 +42,7 @@ package screens
 		private var educationPointsText:TextField;
 		
 		private var id:int;
+		private var saveCounter:int;
 		
 		private var structureScreen:StructureScreen;
 		private var previousStructureScreen:StructureScreen;
@@ -57,14 +58,16 @@ package screens
 		 * The constructor of MainGameScreen
 		 * @param	main
 		 */
-		public function MainGameScreen(main:ScreenMaster, dayLogic:DayLogic=null, economyLogic:EconomyLogic=null, mapLogic:MapLogic=null, id:int = -1) 
+		public function MainGameScreen(main:ScreenMaster, dayLogic:DayLogic=null, economyLogic:EconomyLogic=null, mapLogic:MapLogic=null, id:int = -1, saveCounter:int = -1) 
 		{
 			super(main);
 			addEventListener(Event.ADDED_TO_STAGE, initialize);
-			this.dayLogic 		= dayLogic 		=== null ? new DayLogic(this) 			: dayLogic;
-			this.economyLogic 	= economyLogic 	=== null ? new EconomyLogic(this) 		: economyLogic;
-			this.mapLogic 		= mapLogic 		=== null ? new MapLogic(this) 			: mapLogic;
-			this.id 			= id 			=== -1	 ? getHighestId() + 1			: id;
+			
+			this.dayLogic 		= dayLogic 		== null ? new DayLogic(this) 			: dayLogic;
+			this.economyLogic 	= economyLogic 	== null ? new EconomyLogic(this) 		: economyLogic;
+			this.mapLogic 		= mapLogic 		== null ? new MapLogic(this) 			: mapLogic;
+			this.id 			= id 			== -1	 ? getHighestId() + 1			: id;
+			this.saveCounter 	= saveCounter 	== -1 	 ? 0 							: saveCounter;
 		}
 		
 		/**
@@ -549,16 +552,13 @@ package screens
 		 * @param	event
 		 */
 		private function saveGameState(event:Event):void {
-			//TODO
+			this.saveCounter += 1;
 			var currentSettings:Object = ArrayUtil.getValuePair(ExternalStorageAO.loadFile(Config.SAVE_SETTINGS_FILE));
-			var rawData:String = "{\"id\":"+this.getId()+", \"logic\": {"+this.dayLogic.getRawData()+", "+this.economyLogic.getRawData()+", "+this.mapLogic.getRawData()+"}, \"settings\":{\"duration\":\""+currentSettings.duration+"\", \"difficulty\":\""+currentSettings.difficulty+"\"}}";
-			trace(rawData);
-			//ExternalStorageAO.saveFile(Config.ID_NUMBERS_FILE, this.getId().toString());
-			var df:DateTimeFormatter = new DateTimeFormatter(LocaleID.DEFAULT, DateTimeStyle.SHORT, DateTimeStyle.SHORT);
-			var date:Date = new Date();
+			var rawData:String = "{\"id\":"+this.getId()+", \"saveCounter\": "+this.saveCounter+", \"logic\": {"+this.dayLogic.getRawData()+", "+this.economyLogic.getRawData()+", "+this.mapLogic.getRawData()+"}, \"settings\":{\"duration\":\""+currentSettings.duration+"\", \"difficulty\":\""+currentSettings.difficulty+"\"}}";
+			ExternalStorageAO.saveFile(Config.ID_NUMBERS_FILE, this.getId().toString());
 			
-			var name:String = df.format(date);
-			//ExternalStorageAO.saveFile(Config.SAVE_GAME_DIRECTORY + name + ".dat", rawData);
+			var name:String = "SaveGame" + this.getId() + "(" + this.saveCounter + ")";
+			ExternalStorageAO.saveFileToDirectory(name + ".txt", Config.SAVE_GAME_DIRECTORY, rawData);
 			continueGame(event);
 		}
 		
