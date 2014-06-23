@@ -46,6 +46,7 @@ package gamelogic
 			dayCount ++;
 			if (!unlimited && dayCount > duration) {
 				dayTimer.stop();
+				this.mainGame.disableListeners(); //Too avoid any nullpointer exceptions
 				this.mainGame.getMain().loadScreen("score");
 			}
 			
@@ -54,6 +55,7 @@ package gamelogic
 			this.mainGame.updateBars();
 			this.mainGame.updateDayField();
 			this.mainGame.updateEducationPointsField();
+			this.mainGame.getRandomEventLogic().update();
 			
 			if (this.mainGame.getStructureScreen() != null) {
 				var name:String = this.mainGame.getStructureScreen().getInfo().name;

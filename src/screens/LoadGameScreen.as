@@ -4,6 +4,7 @@ package screens
 	import gamelogic.DayLogic;
 	import gamelogic.EconomyLogic;
 	import gamelogic.MapLogic;
+	import gamelogic.RandomEventLogic;
 	import starling.display.Button;
 	import starling.events.Event;
 	import starling.text.TextField;
@@ -42,6 +43,7 @@ package screens
 			
 			var saves:Array = ExternalStorageAO.loadFilesFromDirectory(Config.SAVE_GAME_DIRECTORY);
 			var counter:int = 0;
+			if (saves.length == 0) emptyScreen();
 			for each(var file:File in saves) {
 				var button:Button = new Button(AssetManager.getSingleAsset("ui", "SmallPlayBtn"));
 				var text:TextField = new TextField((stage.stageWidth / 3) - Config.SPACING_LEFT_PX, button.height, file.name.slice(0, -4), Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.GAME_MENU_COLOR);
@@ -79,6 +81,14 @@ package screens
 			addChild(exitBtn);
 		}
 		
+		private function emptyScreen():void {
+			var text:TextField = new TextField(stage.stageWidth - Config.SPACING_LEFT_PX - Config.SPACING_RIGHT_PX, 40, "You don't have any saved files. To save a file, play the game and click on menu. Than click save.", Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.GAME_MENU_COLOR);
+			text.x = Config.SPACING_LEFT_PX;
+			text.y = (stage.stageHeight - text.height) / 2;
+			
+			addChild(text);
+		}
+		
 		private function loadGame(event:Event):void {
 			for (var name:String in buttons) {
 				if (buttons[name].play == event.target as Button) {
@@ -87,15 +97,18 @@ package screens
 					var dayLogic:DayLogic = new DayLogic();
 					var economyLogic:EconomyLogic = new EconomyLogic();
 					var mapLogic:MapLogic = new MapLogic();
+					var randomEventLogic:RandomEventLogic = new RandomEventLogic();
 					
 					dayLogic.setValuesFromRawData(jsonData.logic.DayLogic);
 					economyLogic.setValuesFromRawData(jsonData.logic.EconomyLogic);
 					mapLogic.setValuesFromRawData(jsonData.logic.MapLogic);
+					randomEventLogic.setValuesFromRawData(jsonData.logic.RandomEventLogic);
 					
-					var mainGame:MainGameScreen = new MainGameScreen(main, dayLogic, economyLogic, mapLogic, parseInt(jsonData.id), parseInt(jsonData.saveCounter));
+					var mainGame:MainGameScreen = new MainGameScreen(main, dayLogic, economyLogic, mapLogic, randomEventLogic, parseInt(jsonData.id), parseInt(jsonData.saveCounter));
 					dayLogic.setMainGame(mainGame);
 					economyLogic.setMainGame(mainGame);
 					mapLogic.setMainGame(mainGame);
+					randomEventLogic.setMainGame(mainGame);
 					
 					main.loadSavedGame(mainGame);
 					break;
@@ -104,7 +117,12 @@ package screens
 		}
 		
 		private function deleteSave(event:Event):void {
-			
+			for (var name:String in buttons) {
+				if (buttons[name]["delete"] == event.target as Button) {
+					ExternalStorageAO.removeFile(name);
+					this.main.reloadScreen();
+				}
+			}
 		}
 		
 	}

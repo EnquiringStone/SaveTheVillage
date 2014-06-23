@@ -21,6 +21,8 @@ package screens
 	import gamelogic.DayLogic;
 	import gamelogic.EconomyLogic;
 	import gamelogic.MapLogic;
+	import gamelogic.RandomEventLogic;
+	import screens.RandomEventDetailScreen;
 	
 	/**
 	 * The RTS game screen mode of the game
@@ -37,6 +39,7 @@ package screens
 		private var dayLogic:DayLogic;
 		private var economyLogic:EconomyLogic;
 		private var mapLogic:MapLogic;
+		private var randomEventLogic:RandomEventLogic;
 		
 		private var dayCountText:TextField;
 		private var educationPointsText:TextField;
@@ -54,20 +57,23 @@ package screens
 		private var resourcesBars:Object = new Object();
 		private var knowledgeBars:Object = new Object();
 		
+		private var randomEventScreen:RandomEventDetailScreen;
+		
 		/**
 		 * The constructor of MainGameScreen
 		 * @param	main
 		 */
-		public function MainGameScreen(main:ScreenMaster, dayLogic:DayLogic=null, economyLogic:EconomyLogic=null, mapLogic:MapLogic=null, id:int = -1, saveCounter:int = -1) 
+		public function MainGameScreen(main:ScreenMaster, dayLogic:DayLogic=null, economyLogic:EconomyLogic=null, mapLogic:MapLogic=null, randomEventLogic:RandomEventLogic=null, id:int = -1, saveCounter:int = -1) 
 		{
 			super(main);
 			addEventListener(Event.ADDED_TO_STAGE, initialize);
 			
-			this.dayLogic 		= dayLogic 		== null ? new DayLogic(this) 			: dayLogic;
-			this.economyLogic 	= economyLogic 	== null ? new EconomyLogic(this) 		: economyLogic;
-			this.mapLogic 		= mapLogic 		== null ? new MapLogic(this) 			: mapLogic;
-			this.id 			= id 			== -1	 ? getHighestId() + 1			: id;
-			this.saveCounter 	= saveCounter 	== -1 	 ? 0 							: saveCounter;
+			this.dayLogic 			= dayLogic 			== null ? new DayLogic(this) 			: dayLogic;
+			this.economyLogic 		= economyLogic 		== null ? new EconomyLogic(this) 		: economyLogic;
+			this.mapLogic 			= mapLogic 			== null ? new MapLogic(this) 			: mapLogic;
+			this.randomEventLogic 	= randomEventLogic 	== null ? new RandomEventLogic(this) 	: randomEventLogic;
+			this.id 				= id 				== -1	? getHighestId() + 1			: id;
+			this.saveCounter 		= saveCounter 		== -1 	? 0 							: saveCounter;
 		}
 		
 		/**
@@ -204,6 +210,10 @@ package screens
 		 */
 		public function getDayLogic():DayLogic {
 			return this.dayLogic;
+		}
+		
+		public function getRandomEventLogic():RandomEventLogic {
+			return this.randomEventLogic;
 		}
 		
 		/**
@@ -345,6 +355,23 @@ package screens
 			}
 		}
 		
+		public function createRandomEventMessage(data:Object):void {
+			if (this.randomEventScreen == null) {
+				this.randomEventScreen = new RandomEventDetailScreen(data, this);
+			}
+			disableListeners();
+			this.dayLogic.getTimer().stop();
+			addChild(randomEventScreen);
+		}
+		
+		public function removeRandomEventMessage():void {
+			removeChild(randomEventScreen);
+			this.randomEventScreen = null;
+			this.dayLogic.getTimer().start();
+			enableListeners();
+			updateBars();
+		}
+		
 		/**
 		 * Adds an additional screen for the structures
 		 * @param	structure
@@ -382,52 +409,60 @@ package screens
 		}
 		
 		private function updateBarLocations(movePoint:Point, target:Image):void {
-			var object:Object = Config.STRUCTURE_POSITIONS;
 			for (var name:String in infectedBars) {
-				infectedBars[name]["standard"].x += movePoint.x;
-				resourcesBars[name]["standard"].x += movePoint.x;
-				if (target.x > 0) {
-					if (object[name].type == "village") {
-						infectedBars[name]["standard"].x = object[name].x - (Config.VILLAGE_WIDTH / 2) - Config.SPACING_RIGHT_PX - infectedBars[name]["standard"].width;
-						resourcesBars[name]["standard"].x = object[name].x + (Config.VILLAGE_WIDTH / 2) + Config.SPACING_LEFT_PX;
-					} else if (object[name].type == "city") {
-						infectedBars[name]["standard"].x = object[name].x - (Config.CITY_WIDTH / 2) - Config.SPACING_RIGHT_PX - infectedBars[name]["standard"].width;
-						resourcesBars[name]["standard"].x = object[name].x + (Config.CITY_WIDTH / 2) + Config.SPACING_LEFT_PX;
-					}
-				} if (target.x < (target.width - stage.stageWidth) * -1) {
-					if (object[name].type == "village") {
-						infectedBars[name]["standard"].x = object[name].x - (Config.VILLAGE_WIDTH / 2) - Config.SPACING_RIGHT_PX - infectedBars[name]["standard"].width - (bgImage.x * -1);
-						resourcesBars[name]["standard"].x = object[name].x + (Config.VILLAGE_WIDTH / 2) + Config.SPACING_LEFT_PX - (bgImage.x * -1);
-					} else if (object[name].type == "city") {
-						infectedBars[name]["standard"].x = object[name].x - (Config.CITY_WIDTH / 2) - Config.SPACING_RIGHT_PX - infectedBars[name]["standard"].width - (bgImage.x * -1);
-						resourcesBars[name]["standard"].x = object[name].x + (Config.CITY_WIDTH / 2) + Config.SPACING_LEFT_PX - (bgImage.x * -1);
-					}
-				}
-				infectedBars[name]["colored"].x = infectedBars[name]["standard"].x;
-				resourcesBars[name]["colored"].x = resourcesBars[name]["standard"].x;
-				
-				infectedBars[name]["standard"].y += movePoint.y;
-				resourcesBars[name]["standard"].y += movePoint.y;
-				if (target.y > menuBtn.height) {
-					if (object[name].type == "village") {
-						infectedBars[name]["standard"].y = object[name].y - (Config.VILLAGE_HEIGHT / 2) - (bgImage.y * -1);
-						resourcesBars[name]["standard"].y = object[name].y - (Config.VILLAGE_HEIGHT / 2) - (bgImage.y * -1);
-					} else if (object[name].type == "city") {
-						infectedBars[name]["standard"].y = object[name].y - (Config.CITY_HEIGHT / 2) - (bgImage.y * -1);
-						resourcesBars[name]["standard"].y = object[name].y - (Config.CITY_HEIGHT / 2) - (bgImage.y * -1);
-					}
-				} if (target.y < (target.height - stage.stageHeight) * -1) {
-					if (object[name].type == "village") {
-						infectedBars[name]["standard"].y = object[name].y - (Config.VILLAGE_HEIGHT / 2) - (bgImage.y * -1);
-						resourcesBars[name]["standard"].y = object[name].y - (Config.VILLAGE_HEIGHT / 2) - (bgImage.y * -1);
-					} else if (object[name].type == "city") {
-						infectedBars[name]["standard"].y = object[name].y - (Config.CITY_HEIGHT / 2) - (bgImage.y * -1);
-						resourcesBars[name]["standard"].y = object[name].y - (Config.CITY_HEIGHT / 2) - (bgImage.y * -1);
-					}
-				}
-				infectedBars[name]["colored"].y = infectedBars[name]["standard"].y + infectedBars[name]["standard"].height;
-				resourcesBars[name]["colored"].y = resourcesBars[name]["standard"].y + infectedBars[name]["standard"].height;
+				updateBarX(name, movePoint, target);
+				updareBarY(name, movePoint, target);
 			}
+		}
+		
+		private function updateBarX(name:String, movePoint:Point, target:Image):void {
+			var object:Object = Config.STRUCTURE_POSITIONS;
+			infectedBars[name]["standard"].x += movePoint.x;
+			resourcesBars[name]["standard"].x += movePoint.x;
+			if (target.x > 0) {
+				if (object[name].type == "village") {
+					infectedBars[name]["standard"].x = object[name].x - (Config.VILLAGE_WIDTH / 2) - Config.SPACING_RIGHT_PX - infectedBars[name]["standard"].width;
+					resourcesBars[name]["standard"].x = object[name].x + (Config.VILLAGE_WIDTH / 2) + Config.SPACING_LEFT_PX;
+				} else if (object[name].type == "city") {
+					infectedBars[name]["standard"].x = object[name].x - (Config.CITY_WIDTH / 2) - Config.SPACING_RIGHT_PX - infectedBars[name]["standard"].width;
+					resourcesBars[name]["standard"].x = object[name].x + (Config.CITY_WIDTH / 2) + Config.SPACING_LEFT_PX;
+				}
+			} if (target.x < (target.width - stage.stageWidth) * -1) {
+				if (object[name].type == "village") {
+					infectedBars[name]["standard"].x = object[name].x - (Config.VILLAGE_WIDTH / 2) - Config.SPACING_RIGHT_PX - infectedBars[name]["standard"].width - (bgImage.x * -1);
+					resourcesBars[name]["standard"].x = object[name].x + (Config.VILLAGE_WIDTH / 2) + Config.SPACING_LEFT_PX - (bgImage.x * -1);
+				} else if (object[name].type == "city") {
+					infectedBars[name]["standard"].x = object[name].x - (Config.CITY_WIDTH / 2) - Config.SPACING_RIGHT_PX - infectedBars[name]["standard"].width - (bgImage.x * -1);
+					resourcesBars[name]["standard"].x = object[name].x + (Config.CITY_WIDTH / 2) + Config.SPACING_LEFT_PX - (bgImage.x * -1);
+				}
+			}
+			infectedBars[name]["colored"].x = infectedBars[name]["standard"].x;
+			resourcesBars[name]["colored"].x = resourcesBars[name]["standard"].x;
+		}
+		
+		private function updareBarY(name:String, movePoint:Point, target:Image):void {
+			var object:Object = Config.STRUCTURE_POSITIONS;
+			infectedBars[name]["standard"].y += movePoint.y;
+			resourcesBars[name]["standard"].y += movePoint.y;
+			if (target.y > menuBtn.height) {
+				if (object[name].type == "village") {
+					infectedBars[name]["standard"].y = object[name].y - (Config.VILLAGE_HEIGHT / 2) - (bgImage.y * -1);
+					resourcesBars[name]["standard"].y = object[name].y - (Config.VILLAGE_HEIGHT / 2) - (bgImage.y * -1);
+				} else if (object[name].type == "city") {
+					infectedBars[name]["standard"].y = object[name].y - (Config.CITY_HEIGHT / 2) - (bgImage.y * -1);
+					resourcesBars[name]["standard"].y = object[name].y - (Config.CITY_HEIGHT / 2) - (bgImage.y * -1);
+				}
+			} if (target.y < (target.height - stage.stageHeight) * -1) {
+				if (object[name].type == "village") {
+					infectedBars[name]["standard"].y = object[name].y - (Config.VILLAGE_HEIGHT / 2) - (bgImage.y * -1);
+					resourcesBars[name]["standard"].y = object[name].y - (Config.VILLAGE_HEIGHT / 2) - (bgImage.y * -1);
+				} else if (object[name].type == "city") {
+					infectedBars[name]["standard"].y = object[name].y - (Config.CITY_HEIGHT / 2) - (bgImage.y * -1);
+					resourcesBars[name]["standard"].y = object[name].y - (Config.CITY_HEIGHT / 2) - (bgImage.y * -1);
+				}
+			}
+			infectedBars[name]["colored"].y = infectedBars[name]["standard"].y + infectedBars[name]["standard"].height;
+			resourcesBars[name]["colored"].y = resourcesBars[name]["standard"].y + infectedBars[name]["standard"].height;
 		}
 		
 		private function addBarsToStructures():void {
@@ -554,12 +589,12 @@ package screens
 		private function saveGameState(event:Event):void {
 			this.saveCounter += 1;
 			var currentSettings:Object = ArrayUtil.getValuePair(ExternalStorageAO.loadFile(Config.SAVE_SETTINGS_FILE));
-			var rawData:String = "{\"id\":"+this.getId()+", \"saveCounter\": "+this.saveCounter+", \"logic\": {"+this.dayLogic.getRawData()+", "+this.economyLogic.getRawData()+", "+this.mapLogic.getRawData()+"}, \"settings\":{\"duration\":\""+currentSettings.duration+"\", \"difficulty\":\""+currentSettings.difficulty+"\"}}";
+			var rawData:String = "{\"id\":"+this.getId()+", \"saveCounter\": "+this.saveCounter+", \"logic\": {"+this.dayLogic.getRawData()+", "+this.economyLogic.getRawData()+", "+this.mapLogic.getRawData()+", "+this.randomEventLogic.getRawData()+"}, \"settings\":{\"duration\":\""+currentSettings.duration+"\", \"difficulty\":\""+currentSettings.difficulty+"\"}}";
 			ExternalStorageAO.saveFile(Config.ID_NUMBERS_FILE, this.getId().toString());
 			
 			var name:String = "SaveGame" + this.getId() + "(" + this.saveCounter + ")";
 			ExternalStorageAO.saveFileToDirectory(name + ".txt", Config.SAVE_GAME_DIRECTORY, rawData);
-			continueGame(event);
+			toStart();
 		}
 		
 		/**

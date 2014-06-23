@@ -68,6 +68,13 @@ package ao
 			return files;
 		}
 		
+		public static function removeFile(filePath:String):void {
+			var file:File = File.documentsDirectory.resolvePath(filePath);
+			if (file.exists && !file.isDirectory) {
+				file.deleteFile();
+			}
+		}
+		
 	}
 
 }

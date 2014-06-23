@@ -106,6 +106,21 @@ package util
 		public static const DEFAULT_HAS_ENOUGH_RESOURCES:Number = 0.03;
 		//Max number of infected
 		public static const DEFAULT_MAX_PERCENTAGE_INFECTED:int = 80;
+		
+		//Random Events
+		public static const RANDOM_EVENTS:Object = { 	"Event1": { "message": "Needles are being shared! This means that all cities and villages will get more infected", "type": ["village", "city"], "effects": { "Infected": 3 } },
+														"Event2": { "message": "Church opposes condoms! This means that all cities and villages will get an increased change to get infected", type: ["village", "city"], effects: { "Spread rate": 0.4 } },
+														"Event3": { "message": "Myths about HIV are spreading! This means that all cities and villages will get an increased change to get infected", type: ["village", "city"], effects: { "Spread rate": 0.2, "Infected": 2 } },
+														"Event4": { "message": "Doctors appear at all the cities! This means that all cities will get a decreased chnage to get infected", type: ["city"], effects: { "Spread rate": -0.7 } },
+														"Event5": { "message": "Condoms are being used more often! This means that all cities and villages will get a decreased change to get infected", type: ["village", "city"], effects: { "Spread rate": -1.0 } },
+														"Event6": { "message": "Medicines are being sent to all the villages! This means that all villages will get a decreased change to get infected", type: ["village"], effects: { "Spread rate": -0.6 } }, 
+														"Event7": { "message": "Hospitals in cities are using clean needles! This means that all villages and cities will get a decreased change to get infected", type: ["city"], effects: { "Spread rate": -0.7 } },
+														"Event8": { "message": "Teachers are teaching the children about HIV/AIDS in the villages! This means that all villages will extra knowledge", type: ["village"], effects: { "Knowledge": 2 } },
+														"Event9": { "message": "Europe has send condoms to all the villages and cities! This means that all villages and cities will get extra resources", type: ["village", "city"], effects: { "Resources": 200 } },
+														"Event10": { "message": "The president launches an HIV campaign to let everyone know the dangers of not using a condom ", type: ["city", "village"], effects: { "Knowledge": 1, "Resources": 250, "Spread rate": -0.2 } }
+		};
+		public static const STARTING_CHANGE:Number = 5.0;
+		public static const CHANGE_INCREASE:Number = 5.0;
 	}
 
 }

@@ -72,6 +72,10 @@ package
 			addChild(currentScreen);
 		}
 		
+		public function reloadScreen():void {
+			loadScreen(screenName);
+		}
+		
 		public function loadSavedGame(gameScreen:MainGameScreen):void {
 			disposeScreen();
 			currentScreen = gameScreen;
