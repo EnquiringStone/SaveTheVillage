@@ -155,6 +155,32 @@ package gamelogic
 			this.mainGame = mainGame;
 		}
 		
+		public function calculateScore():Number {
+			var score:Number = 100;
+			if (this.mainGame.processSettings().difficulty == "Easy") score = 0;
+			else if (this.mainGame.processSettings().difficulty == "Hard") score = 200;
+			
+			for (var name:String in allData) {
+				if (!this.mainGame.getMapLogic().isDead(name)) {
+					var minScore:Number = 0;
+					if (Config.STRUCTURE_POSITIONS[name].type == "city") {
+						score += Config.DEFAULT_MAX_SCORE_CITY;
+						minScore = Config.DEFAULT_MAX_SCORE_CITY * (getInfectedPercentageByName(name) / 100);
+					} else if (Config.STRUCTURE_POSITIONS[name].type == "village") {
+						score += Config.DEFAULT_MAX_SCORE_VILLAGE;
+						minScore = Config.DEFAULT_MAX_SCORE_VILLAGE * (getInfectedPercentageByName(name) / 100);
+					}
+					score -= minScore;
+				} else {
+					score -= 1000;
+				}
+			}
+			if (this.mainGame.processSettings().duration != "Unlimited") {
+				score *= parseInt(this.mainGame.processSettings().duration);
+			}
+			return score < 0 ? 0 : parseInt(score.toString());
+		}
+		
 		/**
 		 * Checks whether the structure has enough resources
 		 * @param	structureName

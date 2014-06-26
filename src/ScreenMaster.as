@@ -3,6 +3,8 @@ package
 	import flash.events.KeyboardEvent;
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
+	import flash.media.SoundTransform;
+	import starling.core.Starling;
 	import screens.BaseScreen;
 	import screens.HighscoresScreen;
 	import screens.LoadGameScreen;
@@ -79,6 +81,7 @@ package
 		public function loadSavedGame(gameScreen:MainGameScreen):void {
 			disposeScreen();
 			currentScreen = gameScreen;
+			//loadMusic("main_game");
 			addChild(currentScreen);
 		}
 		
@@ -92,6 +95,11 @@ package
 					} else {
 						this.loadScreen("start");
 					}
+				} else {
+					if (soundChannel != null) {
+						soundChannel.stop();
+					}
+					NativeApplication.nativeApplication.exit();
 				}
 			}
 		}
@@ -104,6 +112,7 @@ package
 			if (currentScreen != null) {
 				currentScreen.disposeScreen();
 				removeChild(currentScreen);
+				Starling.current.nativeOverlay.removeChildren();
 			}
 		}
 		
@@ -118,13 +127,15 @@ package
 				if (soundChannel != null) {
 					soundChannel.stop();
 				}
-				soundChannel = sound.play();
-				soundChannel.addEventListener(flash.events.Event.SOUND_COMPLETE, restartSound);
+				restartSound();
 			}
 		}
 		
-		private function restartSound(event:flash.events.Event):void {
+		private function restartSound(event:flash.events.Event = null):void {
 			soundChannel = sound.play();
+			var transform:SoundTransform = soundChannel.soundTransform;
+			transform.volume = 0.6;
+			soundChannel.addEventListener(flash.events.Event.SOUND_COMPLETE, restartSound);
 		}
 		
 	}

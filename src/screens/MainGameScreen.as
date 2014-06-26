@@ -59,11 +59,13 @@ package screens
 		
 		private var randomEventScreen:RandomEventDetailScreen;
 		
+		private var settings:Object;
+		
 		/**
 		 * The constructor of MainGameScreen
 		 * @param	main
 		 */
-		public function MainGameScreen(main:ScreenMaster, dayLogic:DayLogic=null, economyLogic:EconomyLogic=null, mapLogic:MapLogic=null, randomEventLogic:RandomEventLogic=null, id:int = -1, saveCounter:int = -1) 
+		public function MainGameScreen(main:ScreenMaster, dayLogic:DayLogic=null, economyLogic:EconomyLogic=null, mapLogic:MapLogic=null, randomEventLogic:RandomEventLogic=null, id:int = -1, saveCounter:int = -1, settings:Object = null) 
 		{
 			super(main);
 			addEventListener(Event.ADDED_TO_STAGE, initialize);
@@ -74,6 +76,7 @@ package screens
 			this.randomEventLogic 	= randomEventLogic 	== null ? new RandomEventLogic(this) 	: randomEventLogic;
 			this.id 				= id 				== -1	? getHighestId() + 1			: id;
 			this.saveCounter 		= saveCounter 		== -1 	? 0 							: saveCounter;
+			this.settings = settings;
 		}
 		
 		/**
@@ -276,6 +279,7 @@ package screens
 		 * @return setting
 		 */
 		public function processSettings():Object {
+			if (this.settings != null) return settings;
 			var dataString:String = ExternalStorageAO.loadFile(Config.SAVE_SETTINGS_FILE);
 			if (dataString == null || dataString == "") return ""; //file doesn't exist (not yet changed the settings)
 			var dataObject:Object = ArrayUtil.getValuePair(dataString);

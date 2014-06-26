@@ -30,7 +30,7 @@ package ao
 			if (direct.isDirectory) {
 				direct.createDirectory();
 			}
-			var file:File = File.documentsDirectory.resolvePath(direct.url + "/" + fileName);
+			var file:File = File.documentsDirectory.resolvePath(directory + "/" + fileName);
 			var fs:FileStream = new FileStream();
 			fs.open(file, FileMode.WRITE);
 			fs.writeUTFBytes(data);

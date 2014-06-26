@@ -32,7 +32,7 @@ package util
 		
 		//File and Directory Paths
 		public static const SAVE_SETTINGS_FILE:String 		= "Save the Village/settings.txt";
-		public static const SAVED_HIGHSCORES_FILE:String 	= "Save the Village/highscores.dat";
+		public static const SAVED_HIGHSCORES_FILE:String 	= "Save the Village/highscores.txt";
 		public static const SAVE_GAME_DIRECTORY:String 		= "Save the Village/saves/";
 		public static const ID_NUMBERS_FILE:String			= "Save the Village/id.txt";
 		
@@ -60,6 +60,7 @@ package util
 		//Text
 		public static const DEAD_TEXT:String			= "All the people who lived here are sick. This means you can't play with this city/village anymore";
 		public static const TRANSFER_HELP_TEXT:String 	= "Touch the village or city you want to have the knowledge/resources";
+		public static const SCORE_TEXT:String			= "Your score is:";
 		
 		//Economy
 		public static const DEFAULT_DATA_OBJECT:Object					= { "Mommbass": { "Spread rate": "", "Infected": "", "Resources": "", "Knowledge": "", "Resource consume": "", "Population": "", "Limit resources": "", "Limit knowledge": "", "Knowledge gain": "" },
@@ -106,6 +107,11 @@ package util
 		public static const DEFAULT_HAS_ENOUGH_RESOURCES:Number = 0.03;
 		//Max number of infected
 		public static const DEFAULT_MAX_PERCENTAGE_INFECTED:int = 80;
+		
+		//Score
+		public static const DEFAULT_MAX_SCORE_VILLAGE:int = 1000;
+		public static const DEFAULT_MAX_SCORE_CITY:int = 2000;
+		public static const DEFAULT_MAX_SAVES:int = 4;
 		
 		//Random Events
 		public static const RANDOM_EVENTS:Object = { 	"Event1": { "message": "Needles are being shared! This means that all cities and villages will get more infected", "type": ["village", "city"], "effects": { "Infected": 3 } },

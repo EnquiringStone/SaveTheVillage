@@ -34,6 +34,14 @@ package util
 			}
 			return map;
 		}
+		
+		public static function getObjectSize(data:Object):int {
+			var counter:int = 0;
+			for (var name:String in data) {
+				counter ++;
+			}
+			return counter;
+		}
 	}
 
 }

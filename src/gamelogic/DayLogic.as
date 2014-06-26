@@ -47,7 +47,8 @@ package gamelogic
 			if (!unlimited && dayCount > duration) {
 				dayTimer.stop();
 				this.mainGame.disableListeners(); //Too avoid any nullpointer exceptions
-				this.mainGame.getMain().loadScreen("score");
+				this.mainGame.getMain().loadScreen("score", this.mainGame.getEconomyLogic().calculateScore().toString());
+				return;
 			}
 			
 			this.mainGame.getEconomyLogic().update();
@@ -92,10 +93,6 @@ package gamelogic
 		
 		public function getDayCount():int {
 			return this.dayCount;
-		}
-		
-		public function calculateScore():Number {
-			return 0;
 		}
 		
 		public function setMainGame(mainGame:MainGameScreen):void {
