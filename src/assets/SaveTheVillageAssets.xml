@@ -1,33 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:56873cd74324a8823145df41acc8a09e:20fb3d5bf986fe43c06639cbe7f74ce6:7920d4805623fbd1128a5e33a414c88e$ -->
+<!-- $TexturePacker:SmartUpdate:938185367a474673010c3855426c3be3:a670b811ce27187990ffb6ed6fc1c44f:7920d4805623fbd1128a5e33a414c88e$ -->
 <TextureAtlas imagePath="SaveTheVillageAssets.png">
-    <SubTexture name="BackBtn" x="644" y="899" width="212" height="69"/>
-    <SubTexture name="BarHorizontal" x="858" y="644" width="148" height="34"/>
+    <SubTexture name="BackBtn" x="2" y="1588" width="212" height="69"/>
+    <SubTexture name="BackToGameBtn" x="324" y="797" width="155" height="46"/>
+    <SubTexture name="BarHorizontal" x="324" y="845" width="148" height="34"/>
     <SubTexture name="BarVertical" x="964" y="64" width="19" height="60"/>
     <SubTexture name="BarVerticalRed" x="985" y="2" width="19" height="60"/>
     <SubTexture name="BarVerticalYellow" x="964" y="2" width="19" height="60"/>
-    <SubTexture name="DertuaImage" x="206" y="746" width="100" height="100"/>
-    <SubTexture name="EmptyBtn" x="528" y="828" width="212" height="69"/>
-    <SubTexture name="ExitBtn" x="308" y="715" width="212" height="69"/>
-    <SubTexture name="GameLogo" x="206" y="848" width="320" height="73" frameX="0" frameY="-9" frameWidth="320" frameHeight="83"/>
-    <SubTexture name="GumulioImage" x="206" y="644" width="100" height="100"/>
-    <SubTexture name="HighscoreBtn" x="308" y="644" width="212" height="69"/>
-    <SubTexture name="KisusmeImage" x="104" y="848" width="100" height="100"/>
-    <SubTexture name="KoriruImage" x="104" y="746" width="100" height="100"/>
-    <SubTexture name="MainGameMenuBtn" x="206" y="923" width="90" height="20"/>
+    <SubTexture name="BuyBtn" x="728" y="1225" width="277" height="80"/>
+    <SubTexture name="BuyCleanNeedlesBtn" x="748" y="1141" width="274" height="82"/>
+    <SubTexture name="BuyCondomsBtn" x="728" y="1307" width="276" height="78"/>
+    <SubTexture name="BuyKnowledgeBtn" x="276" y="1423" width="271" height="79"/>
+    <SubTexture name="BuyMedicineBtn" x="728" y="1482" width="273" height="82"/>
+    <SubTexture name="DataField" x="274" y="1504" width="270" height="100"/>
+    <SubTexture name="DertuaImage" x="104" y="1659" width="100" height="100"/>
+    <SubTexture name="EmptyBtn" x="808" y="1070" width="212" height="69"/>
+    <SubTexture name="ExitBtn" x="808" y="999" width="212" height="69"/>
+    <SubTexture name="ExtraGameBG" x="2" y="644" width="482" height="151"/>
+    <SubTexture name="GameLogo" x="426" y="1126" width="320" height="68"/>
+    <SubTexture name="GumulioImage" x="2" y="1659" width="100" height="100"/>
+    <SubTexture name="HelpMessageScreen" x="2" y="1279" width="300" height="80"/>
+    <SubTexture name="HighscoreBtn" x="808" y="928" width="212" height="69"/>
+    <SubTexture name="HospitalInfoField" x="728" y="1387" width="273" height="93"/>
+    <SubTexture name="InfoField" x="2" y="1444" width="270" height="142"/>
+    <SubTexture name="KisusmeImage" x="216" y="1606" width="100" height="100"/>
+    <SubTexture name="KoriruImage" x="546" y="1544" width="100" height="100"/>
+    <SubTexture name="MainGameMenuBtn" x="2" y="1761" width="80" height="30"/>
     <SubTexture name="MaingameBg" x="2" y="2" width="960" height="640"/>
-    <SubTexture name="MenuBtn" x="308" y="786" width="170" height="40"/>
-    <SubTexture name="MommbassImage" x="104" y="644" width="100" height="100"/>
-    <SubTexture name="PlayBtn" x="430" y="923" width="212" height="69"/>
-    <SubTexture name="SauuraImage" x="2" y="848" width="100" height="100"/>
-    <SubTexture name="SaveBtn" x="216" y="945" width="212" height="69"/>
-    <SubTexture name="SettingsBtn" x="2" y="950" width="212" height="69"/>
-    <SubTexture name="SettingsChoiceBtn" x="644" y="970" width="90" height="40"/>
-    <SubTexture name="SettingsChoiceRedBtn" x="480" y="786" width="90" height="40"/>
-    <SubTexture name="SmallListBtn" x="712" y="644" width="138" height="69"/>
-    <SubTexture name="SmallPlayBtn" x="572" y="751" width="138" height="69"/>
-    <SubTexture name="SmallSettingsBtn" x="858" y="680" width="138" height="69"/>
-    <SubTexture name="StructureCityImage" x="2" y="746" width="100" height="100"/>
-    <SubTexture name="TiuyImage" x="2" y="644" width="100" height="100"/>
+    <SubTexture name="MenuBG" x="2" y="797" width="320" height="480"/>
+    <SubTexture name="MenuBtn" x="549" y="1502" width="170" height="40"/>
+    <SubTexture name="MommbassImage" x="626" y="1400" width="100" height="100"/>
+    <SubTexture name="PlayBtn" x="808" y="857" width="212" height="69"/>
+    <SubTexture name="PopupScreen" x="324" y="1196" width="300" height="225"/>
+    <SubTexture name="SauuraImage" x="626" y="1298" width="100" height="100"/>
+    <SubTexture name="SaveBtn" x="808" y="786" width="212" height="69"/>
+    <SubTexture name="SettingsBtn" x="808" y="715" width="212" height="69"/>
+    <SubTexture name="SettingsChoiceBtn" x="410" y="1606" width="90" height="40"/>
+    <SubTexture name="SettingsChoiceRedBtn" x="318" y="1606" width="90" height="40"/>
+    <SubTexture name="SmallDeleteBtn" x="549" y="1423" width="62" height="69"/>
+    <SubTexture name="SmallListBtn" x="324" y="1023" width="138" height="69"/>
+    <SubTexture name="SmallPlayBtn" x="324" y="952" width="138" height="69"/>
+    <SubTexture name="SmallSettingsBtn" x="324" y="881" width="138" height="69"/>
+    <SubTexture name="StructureBG" x="486" y="644" width="320" height="480"/>
+    <SubTexture name="StructureCityImage" x="626" y="1196" width="100" height="100"/>
+    <SubTexture name="TiuyImage" x="324" y="1094" width="100" height="100"/>
+    <SubTexture name="TransferKnowledgeBtn" x="2" y="1361" width="272" height="81"/>
+    <SubTexture name="TutorialBtn" x="808" y="644" width="212" height="69"/>
 </TextureAtlas>

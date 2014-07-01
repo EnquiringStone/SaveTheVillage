@@ -29,22 +29,23 @@ package screens
 		}
 		
 		public function initialize():void {
+			putBackgroundOnScreen();
 			putLogoOnScreen();
 			
-			var congratsText:TextField = new TextField(stage.stageWidth - Config.SPACING_LEFT_PX - Config.SPACING_RIGHT_PX, 100, "Congratulations", Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_TITLE, Config.GAME_MENU_COLOR);
+			var congratsText:TextField = new TextField(stage.stageWidth - Config.SPACING_LEFT_PX - Config.SPACING_RIGHT_PX, 100, "Congratulations", Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_TITLE, Config.TEXT_COLOR_GENERAL);
 			congratsText.x = Config.SPACING_LEFT_PX;
 			congratsText.y = getLogo().y + getLogo().height + Config.SPACING_BENEATH_PX;
 			
-			var scoreText:TextField = new TextField(stage.stageWidth - Config.SPACING_LEFT_PX - Config.SPACING_RIGHT_PX, 40, Config.SCORE_TEXT, Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.GAME_MENU_COLOR);
+			var scoreText:TextField = new TextField(stage.stageWidth - Config.SPACING_LEFT_PX - Config.SPACING_RIGHT_PX, 40, Config.SCORE_TEXT, Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL);
 			scoreText.x = Config.SPACING_LEFT_PX;
 			scoreText.y = congratsText.y + congratsText.height + Config.SPACING_BENEATH_PX;
 			
-			var score:TextField = new TextField(scoreText.width, 100, this.score.toString(), Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_TITLE, Config.GAME_MENU_COLOR, true);
+			var score:TextField = new TextField(scoreText.width, 100, this.score.toString(), Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_TITLE, Config.TEXT_COLOR_GENERAL, true);
 			score.x = scoreText.x;
 			score.y = scoreText.y + scoreText.height + 5;
 			
 			playerText = new flash.text.TextField();
-			var textFormat:TextFormat = new TextFormat(Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.GAME_MENU_COLOR);
+			var textFormat:TextFormat = new TextFormat(Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL);
 			textFormat.align = "center";
 			playerText.defaultTextFormat = textFormat;
 			playerText.width = scoreText.width;
@@ -63,7 +64,7 @@ package screens
 			
 			
 			var button:Button = new Button(AssetManager.getSingleAsset("ui", "BackBtn"));
-			setButtonAttributes((stage.stageWidth - button.width) / 2, stage.stageHeight - Config.SPACING_BENEATH_PX - button.height, button, "Back to menu");
+			setButtonAttributes((stage.stageWidth - button.width) / 2, stage.stageHeight - Config.SPACING_BENEATH_PX - button.height, button, "Highscores");
 			button.addEventListener(Event.TRIGGERED, saveResults);
 			
 			addChild(congratsText);
@@ -82,10 +83,17 @@ package screens
 		public function deactivate(event:SoftKeyboardEvent):void {
 			if (playerText.text == "") {
 				playerText.text = text;
+			} else if (playerText.text.indexOf(";") != -1 || playerText.text.indexOf("_") != -1) {
+				playerText.text = "Can't use ; or _";
 			}
 		}
 		
 		public function saveResults(event:Event):void {
+			if (playerText.text.indexOf(";") != -1 || playerText.text.indexOf("_") != -1) {
+				playerText.text = "Can't use ; or _";
+				playerText.borderColor = 0xff0000;
+				return;
+			}
 			var scores:String = ExternalStorageAO.loadFile(Config.SAVED_HIGHSCORES_FILE);
 			if (scores == "") {
 				var score:String = playerText.text + "_" + this.score.toString();
@@ -105,7 +113,7 @@ package screens
 				}
 				ExternalStorageAO.saveFile(Config.SAVED_HIGHSCORES_FILE, resultsToString(arr));
 			}
-			toStart(); //exit
+			main.loadScreen("highscores_menu"); //exit
 		}
 		
 		private function orderResults(results:Object):Array {

@@ -11,7 +11,20 @@ package screens
 		public function VillageDetailScreen(mainGame:MainGameScreen, information:Object) 
 		{
 			super(mainGame, information);
-			addEventListener(Event.ADDED_TO_STAGE, initialize);
+			addEventListener(Event.ADDED_TO_STAGE, addedToStage);
+		}
+		
+		public function addedToStage(event:Event):void {
+			initialize(event);
+			if (!this.getMainGame().getMapLogic().isDead(this.getInfo().name)) {
+				addInfoField();
+				addDataField();
+				addBuyButton();
+				addSpecificDetails();
+			} else {
+				this.createDeadText();
+			}
+			
 		}
 	}
 

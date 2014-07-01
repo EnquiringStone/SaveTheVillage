@@ -19,13 +19,12 @@ package screens
 	public class StructureScreen extends BaseScreen 
 	{
 		private var info:Object;
-		private var quad:Quad;
 		private var mainGame:MainGameScreen;
+		private var structureBackground:Image;
 		private var exitBtn:Button;
-		private var hqBtn:Button;
-		private var description:TextField;
-		private var structureImage:Image;
-		private var title:TextField;
+		private var infoField:Image;
+		private var dataField:Image;
+		private var buyBtn:Button;
 		private var deadText:TextField;
 		private var keyValueVector:Vector.<TextField>;
 		private var ignoreKeyWords:Array = new Array("Resource consume", "Knowledge consume", "Knowledge gain", "Limit resources", "Limit knowledge", "Population");
@@ -38,22 +37,8 @@ package screens
 		}
 		
 		public function initialize(event:Event):void {
-			addQuad();
-			if (info != null) {
-				createScreen();
-				addSpecificDetails();
-				createButtons();
-			}
-			
-		}
-		
-		protected function addQuad():void {
-			var height:int = (Config.MIN_HEIGHT_ADD_SCREEN <= stage.stageHeight - Config.SPACING_BENEATH_LARGE_PX - Config.SPACING_ABOVE_LARGE_PX) 
-				? Config.MIN_HEIGHT_ADD_SCREEN 
-				: stage.stageHeight - Config.SPACING_BENEATH_LARGE_PX - Config.SPACING_ABOVE_LARGE_PX;
-			quad = new Quad(stage.stageWidth - Config.SPACING_LEFT_PX - Config.SPACING_RIGHT_PX, height, Config.GAME_MENU_COLOR);
-			quad.x = (stage.stageWidth - quad.width) / 2;
-			quad.y = (stage.stageHeight - quad.height) / 2;
+			addBackground();
+			addExitBtn();
 		}
 		
 		public function updateValues(values:Object = null):void {
@@ -67,10 +52,6 @@ package screens
 			return this.info;
 		}
 		
-		protected function getQuad():Quad {
-			return this.quad;
-		}
-		
 		protected function getMainGame():MainGameScreen {
 			return this.mainGame;
 		}
@@ -79,115 +60,138 @@ package screens
 			return this.exitBtn;
 		}
 		
-		protected function getDescription():TextField {
-			return this.description;
+		protected function getStructureBackground():Image {
+			return this.structureBackground;
 		}
 		
-		protected function createScreen():void {
-			structureImage = new Image(AssetManager.getSingleAsset("ui", info.asset));
-			structureImage.x = quad.x;
-			structureImage.y = quad.y;
-				
-			var textWidthNextToPicture:int = quad.width - structureImage.width - Config.SPACING_LEFT_PX;
-			
-			title = new TextField(textWidthNextToPicture, 20, info.name, Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_TITLE, Config.TEXT_COLOR_GENERAL, true);
-			title.hAlign = HAlign.LEFT;
-			title.height = title.textBounds.height + 4;
-			var descriptionHeight:int = structureImage.height - title.height;
-			
-			title.x = quad.x + structureImage.width + Config.SPACING_LEFT_PX;
-			title.y = quad.y + Config.SPACING_ABOVE_PX;
-			
-			description = new TextField(textWidthNextToPicture, descriptionHeight, info.description, Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL);
-			description.autoScale = true;
-			description.hAlign = HAlign.LEFT;
-			description.vAlign = VAlign.TOP;
-			description.x = structureImage.x + structureImage.width + Config.SPACING_LEFT_PX;
-			description.y = title.y + title.height;
-			
-			
-			
-			addChild(quad);
-			addChild(structureImage);
-			addChild(title);
-			addChild(description);
+		protected function getInfoField():Image {
+			return this.infoField;
+		}
+		
+		protected function getDataField():Image {
+			return this.dataField;
+		}
+		
+		protected function getBuyButton():Button {
+			return this.buyBtn;
 		}
 		
 		protected function addSpecificDetails(values:Object = null):void {
 			var data:Object = values == null ? mainGame.getEconomyLogic().getValuesByStructureName(info.name) : values;
 			if (data == null && this.info.type != "hq") createDeadText();		//hq can't die
 			else {
-				var textHeight:int = 20;
-				var textHeightBase:int = description.y + description.height + Config.SPACING_ABOVE_PX;
-				var i:int = 1;
 				keyValueVector = new Vector.<TextField>();
 				for (var key:String in data) {
 					if (!ArrayUtil.inArray(ignoreKeyWords, key)) {
-						var keyField:TextField = new TextField(structureImage.width, textHeight, key + ":", Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL, true);
-						keyField.x = quad.x + Config.SPACING_LEFT_PX;
-						keyField.height = Config.TEXT_SIZE_GENERAL + 4;
-						keyField.autoSize = TextFieldAutoSize.HORIZONTAL;
-						keyField.y = (i * keyField.height) + textHeightBase;
-						
-						keyValueVector.push(keyField);
-						addChild(keyField);
-						
-						setValueFieldForKey(data, key, keyField);
-						
-						i++;
+						var valueField:TextField = new TextField(60, 20, "", Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL);
+						valueField.x = dataField.x + dataField.width - valueField.width;
+						valueField.hAlign = HAlign.LEFT;
+						valueField.autoSize = TextFieldAutoSize.HORIZONTAL;
+						if (key == "Infected") {
+							valueField.text = this.mainGame.getEconomyLogic().getInfectedPercentageByName(this.info.name).toFixed().toString() + "%";
+							valueField.y = dataField.y + 10;
+						} else if (key == "Resources") {
+							valueField.text = new Number(data[key]).toFixed().toString();
+							valueField.y = dataField.y + 30;
+						} else if (key == "Knowledge") {
+							valueField.text = new Number(data[key]).toFixed(1).toString();
+							valueField.y = dataField.y + 50;
+						} else if (key == "Spread rate") {
+							valueField.text = new Number(data[key]).toFixed(1).toString() + "%";
+							valueField.y = dataField.y + 70;
+						}
+						keyValueVector.push(valueField);
+						addChild(valueField);
 					}
 				}
 			}
 		}
 		
-		protected function createButtons():void {
-			exitBtn = new Button(AssetManager.getSingleAsset("ui", "SettingsChoiceRedBtn"));
-			setButtonAttributes(quad.x + Config.SPACING_LEFT_PX, (quad.y + quad.height) - exitBtn.height - Config.SPACING_BENEATH_PX, exitBtn, "Exit");
-			exitBtn.addEventListener(Event.TRIGGERED, mainGame.removeAdditionalScreen);
-			
-			if (!(this is HQDetailScreen)) {
-				hqBtn = new Button(AssetManager.getSingleAsset("ui", "SettingsChoiceRedBtn"));
-				setButtonAttributes(exitBtn.x + exitBtn.width + Config.SPACING_LEFT_PX, exitBtn.y, hqBtn, "Buy");
-				hqBtn.addEventListener(Event.TRIGGERED, toHQ);
-				addChild(hqBtn);
+		protected function addBuyButton():void {
+			if (buyBtn == null) {
+				buyBtn = new Button(AssetManager.getSingleAsset("ui", "BuyBtn"));
+				buyBtn.y = dataField.y + dataField.height + Config.SPACING_ABOVE_PX;
+				buyBtn.x = structureBackground.x + ((structureBackground.width - buyBtn.width) / 2);
 			}
-			
+			buyBtn.addEventListener(Event.TRIGGERED, toHQ);
+			addChild(buyBtn);
+		}
+		
+		protected function addBackground():void {
+			if (structureBackground == null) {
+				structureBackground = new Image(AssetManager.getSingleAsset("ui", "StructureBG"));
+				structureBackground.x = (stage.stageWidth - structureBackground.width) / 2;
+				structureBackground.y = (stage.stageHeight - structureBackground.height) / 2;
+			}
+			addChild(structureBackground);
+		}
+		
+		protected function addExitBtn():void {
+			if (exitBtn == null) {
+				exitBtn = new Button(AssetManager.getSingleAsset("ui", "BackToGameBtn"));
+				setButtonAttributes(structureBackground.x + ((structureBackground.width - exitBtn.width) / 2), structureBackground.y + structureBackground.height - exitBtn.height, exitBtn, "");
+			}
+			exitBtn.addEventListener(Event.TRIGGERED, mainGame.removeAdditionalScreen);
 			addChild(exitBtn);
 		}
 		
-		protected function getHqButton():Button {
-			return this.hqBtn;
+		protected function addInfoField():void {
+			if (infoField == null) {
+				infoField = new Image(AssetManager.getSingleAsset("ui", "InfoField"));
+				infoField.x = structureBackground.x + ((structureBackground.width - infoField.width) / 2);
+				infoField.y = structureBackground.y + 5;
+			}
+			var structureImage:Image = new Image(AssetManager.getSingleAsset("ui", this.info.asset));
+			structureImage.x = infoField.x;
+			structureImage.y = infoField.y;
+			
+			var title:TextField = new TextField(infoField.width - structureImage.width, Config.TEXT_SIZE_TITLE + 4, this.info.name, Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_TITLE, Config.TEXT_COLOR_GENERAL);
+			title.x = structureImage.x + structureImage.width + 5;
+			title.y = infoField.y + 5;
+			title.hAlign = HAlign.LEFT;
+			title.autoSize = TextFieldAutoSize.HORIZONTAL;
+			
+			var infoText:TextField = new TextField(infoField.width - structureImage.width - 10, infoField.height - (Config.TEXT_SIZE_TITLE + 4) - 10, this.info.description, Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL);
+			infoText.x = infoField.x + structureImage.width + 5;
+			infoText.y = infoField.y + title.height + 5;
+			infoText.hAlign = HAlign.LEFT;
+			infoText.vAlign = VAlign.TOP;
+			infoText.autoScale = true;
+			
+			addChild(infoField);
+			addChild(structureImage);
+			addChild(title);
+			addChild(infoText);
 		}
 		
-		private function createDeadText():void {
+		protected function addDataField():void {
+			if (dataField == null) {
+				dataField = new Image(AssetManager.getSingleAsset("ui", "DataField"));
+				dataField.x = infoField.x;
+				dataField.y = infoField.y + infoField.height + Config.SPACING_ABOVE_PX;
+			}
+			addChild(dataField);
+		}
+		
+		protected function createDeadText():void {
 			if (getChildIndex(deadText) < 0) {
-				createButtons();
-				deadText = new TextField(quad.width - Config.SPACING_LEFT_PX - Config.SPACING_RIGHT_PX, exitBtn.y - Config.SPACING_BENEATH_PX - (description.y + description.height), Config.DEAD_TEXT, Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL);
-				deadText.x = quad.x + Config.SPACING_LEFT_PX;
-				deadText.y = description.y + description.height + Config.SPACING_ABOVE_PX;
-				deadText.hAlign = HAlign.LEFT;
+				if (getChildIndex(dataField) 	>= 0) 	removeChild(dataField);
+				if (getChildIndex(infoField) 	>= 0) 	removeChild(infoField);
+				if (getChildIndex(buyBtn) 		>= 0) 	removeChild(buyBtn);
+				addInfoField();
+				
+				var textBackground:Image = new Image(AssetManager.getSingleAsset("ui", "InfoField"));
+				textBackground.x = structureBackground.x + ((structureBackground.width - textBackground.width) / 2);
+				textBackground.y = infoField.y + infoField.height + Config.SPACING_ABOVE_PX;
+				
+				deadText = new TextField(textBackground.width - 10, textBackground.height - 10, Config.DEAD_TEXT, Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL);
+				deadText.x = textBackground.x + 5;
+				deadText.y = textBackground.y + 5;
+				deadText.autoSize = TextFieldAutoSize.VERTICAL;
+				
+				addChild(textBackground);
 				addChild(deadText);
 			}
-		}
-		
-		private function setValueFieldForKey(data:Object, key:String, keyField:TextField):void {
-			var valueField:TextField = new TextField(quad.width - structureImage.width - Config.SPACING_LEFT_PX - Config.SPACING_RIGHT_PX, keyField.height, "", Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL);
-			valueField.x = keyField.x + Config.SPACING_LEFT_PX + keyField.width;
-			valueField.y = keyField.y;
-			valueField.hAlign = HAlign.LEFT;
-			if (key == "Spread rate") {
-				valueField.text = new Number(data[key]).toFixed(2) + "%";
-			} else if (key == "Infected") {
-				valueField.text = new Number(this.getMainGame().getEconomyLogic().getInfectedPercentageByName(info.name).toString()).toFixed() + "%";
-			} else if (key == "Resources") {
-				valueField.text = new Number(data[key]).toFixed();
-				//addIcon(valueField, ResourcesIcon);
-			} else if (key == "Knowledge") {
-				valueField.text = new Number(data[key]).toFixed(1);
-				//addIcon(valueField, KnowledgeIcon);
-			}
-			keyValueVector.push(valueField);
-			addChild(valueField);
 		}
 		
 		private function toHQ(event:Event):void {
@@ -195,10 +199,6 @@ package screens
 			sound.play();
 			this.getMainGame().removeAdditionalScreen(event);
 			this.getMainGame().addAdditionalScreen(this.getMainGame().getMapLogic().getStructure("Hospital"));
-		}
-		
-		private function addIcon(valueField:TextField, asset:String):void {
-			
 		}
 	}
 

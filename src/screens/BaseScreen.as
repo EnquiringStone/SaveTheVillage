@@ -4,6 +4,7 @@ package screens
 	import flash.media.SoundChannel;
 	import starling.display.Button;
 	import starling.display.Image;
+	import starling.display.Quad;
 	import starling.display.Sprite;
 	import starling.events.Event;
 	import starling.events.TouchEvent;
@@ -18,6 +19,8 @@ package screens
 	{
 		protected var main:ScreenMaster;
 		private var logo:Image;
+		private var background:Image;
+		private var bgGradient:Quad;
 		
 		/**
 		 * Constructor of the BaseScreen
@@ -30,11 +33,15 @@ package screens
 		}
 		
 		/**
-		 * Disposes current screen and removes the logo, if present
+		 * Disposes current screen and removes the logo and background, if present
 		 */
 		public function disposeScreen():void {
 			if (getChildIndex(logo) != -1) {
 				removeChild(logo);
+			} if (getChildIndex(background) != -1) {
+				removeChild(background);
+			} if (getChildIndex(bgGradient) != -1) {
+				removeChild(bgGradient);
 			}
 		}
 		
@@ -51,11 +58,43 @@ package screens
 		}
 		
 		/**
+		 * Adds a background to the screen. Needs to be called before putLogoOnScreen!
+		 */
+		protected function putBackgroundOnScreen():void {
+			putBackgroundColor();
+			if (background == null) {
+				background = new Image(AssetManager.getSingleAsset("ui", "MenuBG"));
+				background.x = (stage.stageWidth - background.width) / 2;
+				background.y = 0;
+			}
+			addChild(background);
+		}
+		
+		protected function putBackgroundColor():void {
+			if (bgGradient == null) {
+				bgGradient = new Quad(stage.stageWidth, stage.stageHeight);
+				bgGradient.setVertexColor(0, 0xa49e14);
+				bgGradient.setVertexColor(1, 0xa49e14);
+				bgGradient.setVertexColor(2, 0x34502c);
+				bgGradient.setVertexColor(3, 0x34502c);
+			}
+			addChild(bgGradient);
+		}
+		
+		/**
 		 * Return the image of the logo
 		 * @return Image
 		 */
 		protected function getLogo():Image {
 			return logo;
+		}
+		
+		/**
+		 * Return the background of the screen
+		 * @return Image
+		 */
+		protected function getBackground():Image {
+			return background;
 		}
 		
 		/**

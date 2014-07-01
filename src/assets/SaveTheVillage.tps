@@ -174,7 +174,6 @@
         <array>
             <filename>C:/Users/johan_000/Pictures/Game On/Junk/SettingsChoiceBtn.png</filename>
             <filename>C:/Users/johan_000/Pictures/Game On/Junk/MenuBtn.png</filename>
-            <filename>C:/Users/johan_000/Pictures/Game On/Junk/MainGameMenuBtn.png</filename>
             <filename>C:/Users/johan_000/Pictures/Game On/Junk/StructureCityImage.png</filename>
             <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/DertuaImage.png</filename>
             <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/KoriruImage.png</filename>
@@ -200,6 +199,24 @@
             <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/BarVerticalRed.png</filename>
             <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/GameLogo.png</filename>
             <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/BarVerticalYellow.png</filename>
+            <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/MenuBG.png</filename>
+            <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/Buttons/TutorialBtn.png</filename>
+            <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/Buttons/SmallDeleteBtn.png</filename>
+            <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/StructureScreen/StructureBG.png</filename>
+            <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/StructureScreen/City/TransferKnowledgeBtn.png</filename>
+            <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/StructureScreen/Hospital/BuyCondomsBtn.png</filename>
+            <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/StructureScreen/Hospital/BuyKnowledgeBtn.png</filename>
+            <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/StructureScreen/Hospital/BuyMedicineBtn.png</filename>
+            <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/StructureScreen/Hospital/HospitalInfoField.png</filename>
+            <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/StructureScreen/BackToGameBtn.png</filename>
+            <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/StructureScreen/BuyBtn.png</filename>
+            <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/StructureScreen/DataField.png</filename>
+            <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/StructureScreen/InfoField.png</filename>
+            <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/StructureScreen/Hospital/BuyCleanNeedlesBtn.png</filename>
+            <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/PopupScreen.png</filename>
+            <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/HelpMessageScreen.png</filename>
+            <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/Buttons/MainGameMenuBtn.png</filename>
+            <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/ExtraGameBG.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

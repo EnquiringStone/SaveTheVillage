@@ -30,6 +30,7 @@ package screens
 	 */
 	public class MainGameScreen extends BaseScreen 
 	{
+		private var quad:Quad;
 		private var bgImage:Image;
 		private var menuBtn:Button;
 		private var continueBtn:Button;
@@ -50,7 +51,7 @@ package screens
 		private var structureScreen:StructureScreen;
 		private var previousStructureScreen:StructureScreen;
 		
-		private var transferHelpMessage:Quad;
+		private var transferHelpMessage:Image;
 		private var messageField:TextField;
 		
 		private var infectedBars:Object = new Object();
@@ -84,12 +85,11 @@ package screens
 		 * @param	event
 		 */
 		public function initialize(event:Event):void {
-			//TODO put bars at villages and cities
-			menuBtn = new Button(AssetManager.getSingleAsset("ui", "MainGameMenuBtn")); //MainGameMenuBtn
+			menuBtn = new Button(AssetManager.getSingleAsset("ui", "MainGameMenuBtn"));
 			setButtonAttributes(stage.stageWidth - menuBtn.width, 0, menuBtn, "Menu");
 			menuBtn.addEventListener(Event.TRIGGERED, setMenuOptions);
 			
-			var quad:Quad = new Quad(stage.stageWidth, menuBtn.height, Config.GAME_MENU_COLOR);
+			quad = new Quad(stage.stageWidth, menuBtn.height, 0x565656);
 			
 			dayCountText = new TextField(50, quad.height, "Day: " + this.getDayLogic().getDayCount(), Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL);
 			dayCountText.x = 0;
@@ -102,9 +102,13 @@ package screens
 			dayCountText.autoSize = TextFieldAutoSize.HORIZONTAL;
 			
 			bgImage = new Image(AssetManager.getSingleAsset("ui", "MaingameBg"));
-			bgImage.y = menuBtn.height;
+			bgImage.y = menuBtn.height
 			bgImage.addEventListener(TouchEvent.TOUCH, detectMoveTouch);
 			
+			if (stage.stageHeight > bgImage.height || stage.stageWidth > bgImage.width) {
+				addAdditionalBG(0, bgImage.height);
+			}
+
 			addChild(bgImage);
 			addChild(quad);
 			addChild(menuBtn);
@@ -146,11 +150,17 @@ package screens
 			target.x += point.x;
 			target.y += point.y;
 			updateBarLocations(point, target);
+			
 			if (target.x > 0) target.x = 0;
 			if (target.x < (target.width - stage.stageWidth) * -1) target.x = (target.width - stage.stageWidth) * -1;
 			
 			if (target.y > menuBtn.height) target.y = menuBtn.height;
-			if (target.y < (target.height - stage.stageHeight) * -1) target.y = (target.height - stage.stageHeight) * -1;
+			if (target.y < (target.height - stage.stageHeight) * -1) {
+				target.y = (target.height - stage.stageHeight) * -1;
+				if (bgImage.height <= stage.stageHeight) {
+					bgImage.y = menuBtn.height;
+				}
+			}
 			
 			menuBtn.visible = true;
 			
@@ -272,6 +282,10 @@ package screens
 			sound.play();
 			enableListeners();
 			removeInformationScreen();
+			quad.visible = true;
+			menuBtn.visible = true;
+			dayCountText.visible = true;
+			educationPointsText.visible = true;
 		}
 		
 		/**
@@ -332,16 +346,14 @@ package screens
 		 * @param	message
 		 */
 		public function addHelpMessage(message:String):void {
-			this.transferHelpMessage = new Quad(stage.stageWidth - Config.SPACING_LEFT_PX - Config.SPACING_RIGHT_PX, 20, Config.GAME_MENU_COLOR);
+			this.transferHelpMessage = new Image(AssetManager.getSingleAsset("ui", "HelpMessageScreen"));
 			this.transferHelpMessage.x = (stage.stageWidth - this.transferHelpMessage.width) / 2;
-			this.transferHelpMessage.y = 100;
+			this.transferHelpMessage.y = 10;
 			
-			messageField = new TextField(transferHelpMessage.width, 20, message, Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL);
+			messageField = new TextField(transferHelpMessage.width, transferHelpMessage.height, message, Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL);
 			messageField.x = transferHelpMessage.x;
 			messageField.y = transferHelpMessage.y;
-			messageField.autoSize = TextFieldAutoSize.VERTICAL;
-			
-			transferHelpMessage.height = messageField.height;
+			messageField.autoScale = true;
 			
 			addChild(transferHelpMessage);
 			addChild(messageField);
@@ -382,6 +394,10 @@ package screens
 		 */
 		public function addAdditionalScreen(structure:Object):void {
 			disableListeners();
+			quad.visible = false;
+			menuBtn.visible = false;
+			dayCountText.visible = false;
+			educationPointsText.visible = false;
 			if (structure.type == "city") {
 				structureScreen = new CityDetailScreen(this, structure);
 			} else if (structure.type == "village") {
@@ -558,6 +574,10 @@ package screens
 						}
 						enableListeners();
 						removeHelpMessage();
+						quad.visible = true;
+						menuBtn.visible = true;
+						dayCountText.visible = true;
+						educationPointsText.visible = true;
 						if(!this.dayLogic.getTimer().running) this.dayLogic.getTimer().start();
 					}
 				}
@@ -629,6 +649,16 @@ package screens
 				return parseInt(number);
 			}
 			return 0;
+		}
+		
+		private function addAdditionalBG(x:Number = 0, y:Number = 0):void {
+			var image:Image = new Image(AssetManager.getSingleAsset("ui", "ExtraGameBG"));
+			image.x = x;
+			image.y = y;
+			addChild(image);
+			if (stage.stageWidth > image.width + x) addAdditionalBG(image.width + x);
+			if (stage.stageHeight > image.height + y) addAdditionalBG(image.height + y);
+			return;
 		}
 	}
 

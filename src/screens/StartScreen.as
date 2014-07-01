@@ -33,6 +33,7 @@ package screens
 		 * @param	event
 		 */
 		public function initialize(event:Event):void {
+			putBackgroundOnScreen();
 			putLogoOnScreen();
 			startGameBtn = new Button(AssetManager.getSingleAsset("ui", "PlayBtn"));
 			setButtonAttributes(0, 0, startGameBtn, "Start game");
@@ -46,7 +47,7 @@ package screens
 			settingsBtn = new Button(AssetManager.getSingleAsset("ui", "SettingsBtn"));
 			setButtonAttributes(0, 0, settingsBtn, "Settings");
 			
-			tutorialBtn = new Button(AssetManager.getSingleAsset("ui", "EmptyBtn"));
+			tutorialBtn = new Button(AssetManager.getSingleAsset("ui", "TutorialBtn"));
 			setButtonAttributes(0, 0, tutorialBtn, "Tutorial");
 			
 			var buttons:Vector.<Button> = new Vector.<Button>();

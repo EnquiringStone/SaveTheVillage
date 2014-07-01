@@ -37,6 +37,7 @@ package
 		{
 			super();
 			NativeApplication.nativeApplication.addEventListener(KeyboardEvent.KEY_DOWN, handleBackButton);
+			NativeApplication.nativeApplication.addEventListener(flash.events.Event.DEACTIVATE, stopMusic, false, 0, true);
 			addEventListener(Event.ADDED_TO_STAGE, initialize);
 		}
 		
@@ -70,7 +71,7 @@ package
 			} else if (screenName == "tutorial") {
 				//tutorial screen
 			}
-			//loadMusic(screenName);
+			loadMusic(screenName);
 			addChild(currentScreen);
 		}
 		
@@ -81,11 +82,12 @@ package
 		public function loadSavedGame(gameScreen:MainGameScreen):void {
 			disposeScreen();
 			currentScreen = gameScreen;
-			//loadMusic("main_game");
+			loadMusic("main_game");
 			addChild(currentScreen);
 		}
 		
 		public function handleBackButton(event:KeyboardEvent):void {
+			trace(event.keyCode);
 			if (event.keyCode == Keyboard.BACK) {
 				if (screenName != "" && screenName != "start") {
 					event.preventDefault();
@@ -96,12 +98,16 @@ package
 						this.loadScreen("start");
 					}
 				} else {
-					if (soundChannel != null) {
-						soundChannel.stop();
-					}
-					NativeApplication.nativeApplication.exit();
+					stopMusic();
 				}
 			}
+		}
+		
+		public function stopMusic(event:flash.events.Event = null):void {
+			if (soundChannel != null) {
+				soundChannel.stop();
+			}
+			NativeApplication.nativeApplication.exit();
 		}
 		
 		public function getScreenName():String {

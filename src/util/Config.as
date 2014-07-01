@@ -125,8 +125,8 @@ package util
 														"Event9": { "message": "Europe has send condoms to all the villages and cities! This means that all villages and cities will get extra resources", type: ["village", "city"], effects: { "Resources": 200 } },
 														"Event10": { "message": "The president launches an HIV campaign to let everyone know the dangers of not using a condom ", type: ["city", "village"], effects: { "Knowledge": 1, "Resources": 250, "Spread rate": -0.2 } }
 		};
-		public static const STARTING_CHANGE:Number = 5.0;
-		public static const CHANGE_INCREASE:Number = 5.0;
+		public static const STARTING_CHANGE:Number = 1.5;
+		public static const CHANGE_INCREASE:Number = 0.5;
 	}
 
 }

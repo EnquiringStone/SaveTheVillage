@@ -24,14 +24,21 @@ package screens
 		
 		public function added(event:Event):void {
 			initialize(event);
+			if (!this.getMainGame().getMapLogic().isDead(this.getInfo().name)) {
+				addInfoField();
+				addDataField();
+				addBuyButton();
+				addSpecificDetails();
+				transferKnowledgeBtn = new Button(AssetManager.getSingleAsset("ui", "TransferKnowledgeBtn"));
+				setButtonAttributes(getBuyButton().x, getBuyButton().y + getBuyButton().height + 5, transferKnowledgeBtn, "");
+				transferKnowledgeBtn.addEventListener(Event.TRIGGERED, transferKnowledge);
 			
-			transferKnowledgeBtn = new Button(AssetManager.getSingleAsset("ui", "SettingsChoiceRedBtn"));
-			setButtonAttributes(getHqButton().x + getHqButton().width + Config.SPACING_LEFT_PX, getHqButton().y, transferKnowledgeBtn, "Transfer knowledge");
-			transferKnowledgeBtn.addEventListener(Event.TRIGGERED, transferKnowledge);
+				updateTransferKnowledgeBtn();
 			
-			updateTransferKnowledgeBtn();
-			
-			addChild(transferKnowledgeBtn);
+				addChild(transferKnowledgeBtn);
+			} else {
+				this.createDeadText();
+			}
 		}
 		
 		public function getTransferKnowledgeBtn():Button {

@@ -39,6 +39,7 @@ package screens
 		 * @param	event
 		 */
 		public function initialize(event:Event):void {
+			putBackgroundOnScreen();
 			putLogoOnScreen();
 			durationText = new TextField(120, 60, "Duration");
 			durationText.x = Config.SPACING_LEFT_PX;

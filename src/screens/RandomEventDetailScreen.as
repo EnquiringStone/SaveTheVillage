@@ -1,6 +1,7 @@
 package screens 
 {
 	import starling.display.Button;
+	import starling.display.Image;
 	import starling.display.Quad;
 	import starling.display.Sprite;
 	import starling.events.Event;
@@ -25,7 +26,11 @@ package screens
 		}
 		
 		public function initialize(event:Event):void {
-			var textField:TextField = new TextField(stage.stageWidth - Config.SPACING_LEFT_PX - Config.SPACING_RIGHT_PX, 0, message, Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL);
+			var popUp:Image = new Image(AssetManager.getSingleAsset("ui", "PopupScreen"));
+			popUp.x = (stage.stageWidth - popUp.width) / 2;
+			popUp.y = (stage.stageHeight - popUp.height) / 2;
+			
+			var textField:TextField = new TextField(popUp.width - Config.SPACING_LEFT_PX - Config.SPACING_RIGHT_PX, 0, message, Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL);
 			textField.autoSize = TextFieldAutoSize.VERTICAL;
 			
 			var exitBtn:Button = new Button(AssetManager.getSingleAsset("ui", "SmallPlayBtn"));
@@ -35,17 +40,13 @@ package screens
 			exitBtn.fontName = Config.TEXT_FONT_TYPE;
 			exitBtn.addEventListener(Event.TRIGGERED, this.mainGame.removeRandomEventMessage);
 			
-			var quad:Quad = new Quad(stage.stageWidth, 100 + exitBtn.height + Config.SPACING_BENEATH_PX + Config.SPACING_ABOVE_PX, Config.GAME_MENU_COLOR);
-			quad.x = 0;
-			quad.y = (stage.stageHeight - quad.height) / 2;
+			textField.x = popUp.x + Config.SPACING_LEFT_PX;
+			textField.y = popUp.y + Config.SPACING_ABOVE_PX;
 			
-			textField.x = quad.x + Config.SPACING_LEFT_PX;
-			textField.y = quad.y + Config.SPACING_ABOVE_PX;
+			exitBtn.x = popUp.x + popUp.width - exitBtn.width;
+			exitBtn.y = popUp.y + popUp.height - Config.SPACING_BENEATH_PX - exitBtn.height;
 			
-			exitBtn.x = quad.x + quad.width - exitBtn.width;
-			exitBtn.y = quad.y + quad.height - Config.SPACING_BENEATH_PX - exitBtn.height;
-			
-			addChild(quad);
+			addChild(popUp);
 			addChild(textField);
 			addChild(exitBtn);
 		}

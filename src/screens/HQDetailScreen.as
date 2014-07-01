@@ -2,6 +2,7 @@ package screens
 {
 	import gamelogic.EconomyLogic;
 	import starling.display.Button;
+	import starling.display.Image;
 	import starling.events.Event;
 	import starling.text.TextField;
 	import starling.text.TextFieldAutoSize;
@@ -16,6 +17,7 @@ package screens
 	 */
 	public class HQDetailScreen extends StructureScreen 
 	{	
+		private var infoImage:Image;
 		private var buttonKnowledge:Button;
 		private var buttonCondom:Button;
 		private var buttonNeedles:Button;
@@ -28,53 +30,32 @@ package screens
 		}
 		
 		public function added(event:Event):void {
-			addQuad();
-			createScreen();
+			initialize(event);
+			addInfoText();
 			
-			buttonKnowledge = new Button(AssetManager.getSingleAsset("ui", "SettingsChoiceRedBtn"));
+			buttonNeedles = new Button(AssetManager.getSingleAsset("ui", "BuyCleanNeedlesBtn"));
+			buttonNeedles.x = getStructureBackground().x + ((getStructureBackground().width - buttonNeedles.width) / 2);
+			buttonNeedles.y = infoImage.y + infoImage.height + 5;
 			
-			var knowledgeField:TextField = new TextField(getQuad().width - buttonKnowledge.width - Config.SPACING_LEFT_PX - Config.SPACING_RIGHT_PX, 0, "", Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL);
-			knowledgeField.autoSize = TextFieldAutoSize.VERTICAL;
-			knowledgeField.text = "Buy " + Config.DEFAULT_VALUE_KNOWLEDGE_BOUGHT + " Knowledge for " + Config.DEFAULT_VALUE_KNOWLEDGE + " Education points";
-			knowledgeField.x = getQuad().x + Config.SPACING_LEFT_PX;
-			knowledgeField.y = getDescription().y + getDescription().height + Config.SPACING_BENEATH_PX;
-			knowledgeField.hAlign = HAlign.LEFT;
-			knowledgeField.vAlign = VAlign.CENTER;
+			buttonMedicine = new Button(AssetManager.getSingleAsset("ui", "BuyMedicineBtn"));
+			buttonMedicine.x = getStructureBackground().x + ((getStructureBackground().width - buttonMedicine.width) / 2);
+			buttonMedicine.y = buttonNeedles.y + buttonNeedles.height + 3;
 			
-			setButtonAttributes(knowledgeField.x + knowledgeField.width + Config.SPACING_LEFT_PX, knowledgeField.y, buttonKnowledge, "Buy knowledge");
+			buttonCondom = new Button(AssetManager.getSingleAsset("ui", "BuyCondomsBtn"));
+			buttonCondom.x = getStructureBackground().x + ((getStructureBackground().width - buttonCondom.width) / 2);
+			buttonCondom.y = buttonMedicine.y + buttonMedicine.height + 3;
+			
+			buttonKnowledge = new Button(AssetManager.getSingleAsset("ui", "BuyKnowledgeBtn"));
+			buttonKnowledge.x = getStructureBackground().x + ((getStructureBackground().width - buttonKnowledge.width) / 2);
+			buttonKnowledge.y = buttonCondom.y + buttonCondom.height + 3;
+			
 			buttonKnowledge.addEventListener(Event.TRIGGERED, buyKnowledge);
-			
-			var resourceField:TextField = new TextField(knowledgeField.width, 0, "", Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL);
-			resourceField.autoSize = TextFieldAutoSize.VERTICAL;
-			resourceField.text = "Buy " + Config.DEFAULT_VALUE_RESOURCES_BOUGHT + " Resources for " + Config.DEFAULT_VALUE_RESOURCES + " Education points";
-			resourceField.x = knowledgeField.x;
-			resourceField.y = buttonKnowledge.y + buttonKnowledge.height + Config.SPACING_BENEATH_PX;
-			resourceField.hAlign = HAlign.LEFT;
-			resourceField.vAlign = VAlign.CENTER;
-			
-			var buttonResourceWidth:int = resourceField.x + resourceField.width + Config.SPACING_LEFT_PX;
-			
-			buttonCondom = new Button(AssetManager.getSingleAsset("ui", "SettingsChoiceRedBtn"));
-			setButtonAttributes(buttonResourceWidth, resourceField.y, buttonCondom, "Buy condoms");
 			buttonCondom.addEventListener(Event.TRIGGERED, buyCondoms);
-			
-			buttonNeedles = new Button(AssetManager.getSingleAsset("ui", "SettingsChoiceRedBtn"));
-			setButtonAttributes(buttonResourceWidth, resourceField.y + buttonCondom.height + Config.SPACING_ABOVE_PX, buttonNeedles, "Buy clean needles");
 			buttonNeedles.addEventListener(Event.TRIGGERED, buyCleanNeedles);
-
-			buttonMedicine = new Button(AssetManager.getSingleAsset("ui", "SettingsChoiceRedBtn"));
-			setButtonAttributes(buttonResourceWidth, buttonNeedles.y + buttonNeedles.height + Config.SPACING_ABOVE_PX, buttonMedicine, "Buy medicine");
 			buttonMedicine.addEventListener(Event.TRIGGERED, buyCleanNeedles);
 			
-			getQuad().height += buttonMedicine.height;
-			
-			createButtons();
-			
 			updateButtons();
-			
-			addChild(knowledgeField);
 			addChild(buttonKnowledge);
-			addChild(resourceField);
 			addChild(buttonCondom);
 			addChild(buttonNeedles);
 			addChild(buttonMedicine);
@@ -117,6 +98,15 @@ package screens
 				this.getMainGame().getBGImage().addEventListener(TouchEvent.TOUCH, this.getMainGame().selectTargetResources);
 			}
 			this.getMainGame().updateEducationPointsField();
+		}
+		
+		private function addInfoText():void {
+			if (infoImage == null) {
+				infoImage = new Image(AssetManager.getSingleAsset("ui", "HospitalInfoField"));
+				infoImage.x = getStructureBackground().x + ((getStructureBackground().width - infoImage.width) / 2);
+				infoImage.y = getStructureBackground().y + 10;
+			}
+			addChild(infoImage);
 		}
 	}
 

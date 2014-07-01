@@ -39,6 +39,7 @@ package screens
 		 * @param	event
 		 */
 		public function initialize(event:Event):void {
+			putBackgroundOnScreen();
 			putLogoOnScreen();
 			
 			var saves:Array = ExternalStorageAO.loadFilesFromDirectory(Config.SAVE_GAME_DIRECTORY);
@@ -46,7 +47,7 @@ package screens
 			if (saves.length == 0) emptyScreen();
 			for each(var file:File in saves) {
 				var button:Button = new Button(AssetManager.getSingleAsset("ui", "SmallPlayBtn"));
-				var text:TextField = new TextField((stage.stageWidth / 3) - Config.SPACING_LEFT_PX, button.height, file.name.slice(0, -4), Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.GAME_MENU_COLOR);
+				var text:TextField = new TextField((stage.stageWidth / 3) - Config.SPACING_LEFT_PX, button.height, file.name.slice(0, -4), Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL);
 				
 				text.x = Config.SPACING_LEFT_PX;
 				if (counter == 0) {
@@ -61,8 +62,8 @@ package screens
 				setButtonAttributes(text.x + text.width, text.y, button, "Play");
 				button.addEventListener(Event.TRIGGERED, loadGame);
 				
-				var deleteBtn:Button = new Button(AssetManager.getSingleAsset("ui", "SmallListBtn"));
-				setButtonAttributes(button.x + button.width + Config.SPACING_LEFT_PX, button.y, deleteBtn, "Delete");
+				var deleteBtn:Button = new Button(AssetManager.getSingleAsset("ui", "SmallDeleteBtn"));
+				setButtonAttributes(button.x + button.width + Config.SPACING_LEFT_PX, button.y, deleteBtn, "");
 				deleteBtn.addEventListener(Event.TRIGGERED, deleteSave);
 				
 				buttons[file.url] = { "delete": deleteBtn, "play": button, "name": file.name };
@@ -82,7 +83,7 @@ package screens
 		}
 		
 		private function emptyScreen():void {
-			var text:TextField = new TextField(stage.stageWidth - Config.SPACING_LEFT_PX - Config.SPACING_RIGHT_PX, 150, "You don't have any saved files. To save a file, play the game and click on menu. Than click save.", Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.GAME_MENU_COLOR);
+			var text:TextField = new TextField(stage.stageWidth - Config.SPACING_LEFT_PX - Config.SPACING_RIGHT_PX, 150, "You don't have any saved files. To save a file, play the game and click on menu. Than click save.", Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL);
 			text.x = Config.SPACING_LEFT_PX;
 			text.y = (stage.stageHeight - text.height) / 2;
 			
