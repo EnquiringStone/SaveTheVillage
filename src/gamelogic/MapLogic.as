@@ -60,6 +60,10 @@ package gamelogic
 			return ArrayUtil.inArray(deadStructures, name);
 		}
 		
+		public function getDeadStructures():Array {
+			return this.deadStructures;
+		}
+		
 		public function update():void {
 			var data:Object = this.mainGame.getEconomyLogic().getAllData();
 			for (var key:String in data) {

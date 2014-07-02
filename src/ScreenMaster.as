@@ -4,6 +4,7 @@ package
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
 	import flash.media.SoundTransform;
+	import screens.GameOverScreen;
 	import starling.core.Starling;
 	import screens.BaseScreen;
 	import screens.HighscoresScreen;
@@ -38,6 +39,7 @@ package
 			super();
 			NativeApplication.nativeApplication.addEventListener(KeyboardEvent.KEY_DOWN, handleBackButton);
 			NativeApplication.nativeApplication.addEventListener(flash.events.Event.DEACTIVATE, stopMusic, false, 0, true);
+			NativeApplication.nativeApplication.addEventListener(flash.events.Event.ACTIVATE, restartSound, false, 0, true);
 			addEventListener(Event.ADDED_TO_STAGE, initialize);
 		}
 		
@@ -70,6 +72,8 @@ package
 				currentScreen = new ScoreScreen(this, additionalInfo);
 			} else if (screenName == "tutorial") {
 				//tutorial screen
+			} else if (screenName == "game_over") {
+				currentScreen = new GameOverScreen(this);
 			}
 			loadMusic(screenName);
 			addChild(currentScreen);
@@ -87,7 +91,6 @@ package
 		}
 		
 		public function handleBackButton(event:KeyboardEvent):void {
-			trace(event.keyCode);
 			if (event.keyCode == Keyboard.BACK) {
 				if (screenName != "" && screenName != "start") {
 					event.preventDefault();
@@ -107,7 +110,6 @@ package
 			if (soundChannel != null) {
 				soundChannel.stop();
 			}
-			NativeApplication.nativeApplication.exit();
 		}
 		
 		public function getScreenName():String {

@@ -49,6 +49,11 @@ package gamelogic
 				this.mainGame.disableListeners(); //Too avoid any nullpointer exceptions
 				this.mainGame.getMain().loadScreen("score", this.mainGame.getEconomyLogic().calculateScore().toString());
 				return;
+			} if (this.mainGame.getMapLogic().getDeadStructures().length >= Config.AMOUNT_DEAD_STRUCTURES) {
+				dayTimer.stop();
+				this.mainGame.disableListeners();
+				this.mainGame.getMain().loadScreen("score", this.mainGame.getEconomyLogic().calculateScore().toString());
+				return;
 			}
 			
 			this.mainGame.getEconomyLogic().update();

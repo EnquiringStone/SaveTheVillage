@@ -39,14 +39,30 @@ package screens
 			var data:String = ExternalStorageAO.loadFile(Config.SAVED_HIGHSCORES_FILE);
 			
 			var highscores:Object = ArrayUtil.getValuePair(data);
-			var height:Number = getLogo().height;
-			for (var name:String in highscores) {
-				var nameField:TextField = new TextField((stage.stageWidth / 2) - Config.SPACING_LEFT_PX - Config.SPACING_RIGHT_PX, 60, name, Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL, true);
-				nameField.x = Config.SPACING_LEFT_PX;
+			var ordered:Array = orderResults(highscores);
+			var indexFieldName:TextField = new TextField((stage.stageWidth / 2) - Config.SPACING_LEFT_PX - Config.SPACING_RIGHT_PX, 50, "Name:", Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_TITLE, Config.TEXT_COLOR_GENERAL, true);
+			var indexFieldScore:TextField = new TextField(indexFieldName.width, 50, "Score:", Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_TITLE, Config.TEXT_COLOR_GENERAL, true);
+			
+			indexFieldName.x = Config.SPACING_LEFT_PX;
+			indexFieldName.y = getLogo().y + getLogo().height + Config.SPACING_ABOVE_PX;
+			indexFieldName.hAlign = HAlign.LEFT;
+			
+			indexFieldScore.x = indexFieldName.x + indexFieldName.width + Config.SPACING_LEFT_PX;
+			indexFieldScore.y = indexFieldName.y;
+			indexFieldScore.hAlign = HAlign.LEFT;
+			
+			addChild(indexFieldName);
+			addChild(indexFieldScore);
+			
+			var height:Number = getLogo().height + Config.SPACING_ABOVE_PX +indexFieldName.height;
+			
+			for (var i:int = 0; i < ordered.length; i++ ) {
+				var nameField:TextField = new TextField(indexFieldName.width, 60, "(" + new Number(i + 1).toFixed().toString() + ") " + ordered[i].name, Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL);
+				nameField.x = indexFieldName.x;
 				nameField.y = height + Config.SPACING_ABOVE_PX;
 				nameField.hAlign = HAlign.LEFT;
 				
-				var scoreField:TextField = new TextField(nameField.width, nameField.height, highscores[name], Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL);
+				var scoreField:TextField = new TextField(nameField.width, nameField.height, ordered[i].score, Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL);
 				scoreField.x = nameField.x + nameField.width + Config.SPACING_LEFT_PX;
 				scoreField.y = nameField.y;
 				scoreField.hAlign = HAlign.LEFT;
@@ -62,6 +78,14 @@ package screens
 			
 			addChild(backBtn);
 			backBtn.addEventListener(Event.TRIGGERED, toStart);
+		}
+		
+		private function orderResults(results:Object):Array {
+			var scores:Array = new Array();
+			for (var name:String in results) {
+				scores.push({"name": name, "score": results[name]});
+			}
+			return scores.sortOn("score", Array.DESCENDING | Array.NUMERIC);
 		}
 	}
 

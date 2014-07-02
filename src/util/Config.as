@@ -28,7 +28,7 @@ package util
 		
 		//Available Setting
 		public static const DIFFICULTY_SETTINGS:Array 	= new Array("Easy", "Medium", "Hard");
-		public static const DURATION_SETTINGS:Array 	= new Array("10", "30", "60", "Unlimited");
+		public static const DURATION_SETTINGS:Array 	= new Array("30", "60", "90", "Unlimited");
 		
 		//File and Directory Paths
 		public static const SAVE_SETTINGS_FILE:String 		= "Save the Village/settings.txt";
@@ -55,7 +55,7 @@ package util
 		public static const HQ_WIDTH:int		= 45;	//in pixels
 		
 		//Day settings
-		public static const DAYS_IN_SECONDS:int = 2;
+		public static const DAYS_IN_SECONDS:int = 1;
 		
 		//Text
 		public static const DEAD_TEXT:String			= "All the people who lived here are sick. This means you can't play with this city/village anymore";
@@ -71,7 +71,7 @@ package util
 																			"Tiuy": 	{ "Spread rate": "", "Infected": "", "Resources": "", "Knowledge": "", "Resource consume": "", "Population": "", "Limit resources": "", "Limit knowledge": "" },
 																			"Koriru": 	{ "Spread rate": "", "Infected": "", "Resources": "", "Knowledge": "", "Resource consume": "", "Population": "", "Limit resources": "", "Limit knowledge": "" }};
 		//Population
-		public static const DEFAULT_TOTAL_POPULATION_VILLAGE:int = 1000;
+		public static const DEFAULT_TOTAL_POPULATION_VILLAGE:int = 2000;
 		public static const DEFAULT_TOTAL_POPULATION_CITY:int = 5000;
 		//Number of infected people
 		public static const DEFAULT_INFECTED_PEOPLE_VILLAGE:int = 30;
@@ -81,7 +81,7 @@ package util
 		public static const DEFAULT_SPREAD_RATE_VILLAGE:Number = 1.0; //2
 		public static const DEFAULT_SPREAD_RATE_CITY:Number = 1.3; //3
 		//Starting resources
-		public static const DEFAULT_STARTING_RESOURCES_VILLAGE:int = 100;
+		public static const DEFAULT_STARTING_RESOURCES_VILLAGE:int = 200;
 		public static const DEFAULT_STARTING_RESOURCES_CITY:int = 400;
 		//Limit of resources and knowledge
 		public static const DEFAULT_LIMIT_RESOURCES_VILLAGE:int = 500;
@@ -89,10 +89,10 @@ package util
 		public static const DEFAULT_LIMIT_KNOWLEDGE_VILLAGE:int = 40;
 		public static const DEFAULT_LIMIT_KNOWLEDGE_CITY:int = 50;
 		//The number of resources that will be consumed (daily)
-		public static const DEFAULT_CONSUME_RESOURCES_VILLAGE:int = 30;
-		public static const DEFAULT_CONSUME_RESOURCES_CITY:int = 80;
+		public static const DEFAULT_CONSUME_RESOURCES_VILLAGE:int = 20;
+		public static const DEFAULT_CONSUME_RESOURCES_CITY:int = 70;
 		//Starting knowledge and education points
-		public static const DEFAULT_STARTING_KNOWLEDGE_CITY:int = 5;
+		public static const DEFAULT_STARTING_KNOWLEDGE_CITY:int = 3;
 		public static const DEFAULT_STARTING_EDUCATION_POINTS:int = 450;
 		public static const DEFAULT_VARIATION_DIFFICULTY_EDUCATION_POINTS:int = 100;
 		//Buying value of resources/knowledge
@@ -112,6 +112,9 @@ package util
 		public static const DEFAULT_MAX_SCORE_VILLAGE:int = 1000;
 		public static const DEFAULT_MAX_SCORE_CITY:int = 2000;
 		public static const DEFAULT_MAX_SAVES:int = 4;
+		
+		//Game over condition
+		public static const AMOUNT_DEAD_STRUCTURES:int = 5;
 		
 		//Random Events
 		public static const RANDOM_EVENTS:Object = { 	"Event1": { "message": "Needles are being shared! This means that all cities and villages will get more infected", "type": ["village", "city"], "effects": { "Infected": 3 } },
