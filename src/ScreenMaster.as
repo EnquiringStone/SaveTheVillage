@@ -73,7 +73,7 @@ package
 			} else if (screenName == "tutorial") {
 				currentScreen = new TutorialScreen(this);
 			}
-			//loadMusic(screenName);
+			loadMusic(screenName);
 			addChild(currentScreen);
 		}
 		
@@ -84,7 +84,7 @@ package
 		public function loadSavedGame(gameScreen:MainGameScreen):void {
 			disposeScreen();
 			currentScreen = gameScreen;
-			//loadMusic("main_game");
+			loadMusic("main_game");
 			addChild(currentScreen);
 		}
 		

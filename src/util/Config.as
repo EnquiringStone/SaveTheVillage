@@ -55,7 +55,7 @@ package util
 		public static const HQ_WIDTH:int		= 45;	//in pixels
 		
 		//Day settings
-		public static const DAYS_IN_SECONDS:int = 1;
+		public static const DAYS_IN_SECONDS:int = 8;
 		
 		//Text
 		public static const DEAD_TEXT:String			= "All the people who lived here are sick. This means you can't play with this city/village anymore";
@@ -135,7 +135,7 @@ package util
 		public static const INTRODUCTION_TEXT:Array = new Array(	"Welcome to the island Mauchelle! It is an island in the Indian Ocean with two cities and five villages.", 
 																	"It used to be a peaceful, healthy island but now the HIV virus is spreading. HIV affects the immune system and the population of Mauchelle is slowly dying because of it.",
 																	"Can you help us?");
-		public static const READ_TIME_IN_SECONDS:int = 2;
+		public static const READ_TIME_IN_SECONDS:int = 10;
 		public static const SWIPE_MAP_TEXT:String = "Use your finger to move around the map";
 		public static const TAP_VILLAGE_TEXT:String = "Use your finger to tap a village";
 		public static const TAPPED_VILLAGE_SUCCESS_TEXT:Array = new Array(	"Good work! This is a village. There are some things you should know, to help me!",
