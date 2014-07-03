@@ -1,6 +1,8 @@
 package util 
 {
 	import flash.media.Sound;
+	import flash.media.Video;
+	import flash.utils.ByteArray;
 	import flash.utils.Dictionary;
 	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
@@ -11,11 +13,13 @@ package util
 	 */
 	public class AssetManager 
 	{
+		//Images
 		[Embed(source = "/assets/SaveTheVillageAssets.xml", mimeType = "application/octet-stream")]
 		private static const UIData:Class;
 		[Embed(source = "/assets/SaveTheVillageAssets.png")]
 		private static const UITexture:Class;
 		
+		//Sounds
 		[Embed(source = "../assets/sounds/BackwardsMenu.mp3")]
 		public static const MenuBackwardsSound:Class;
 		[Embed(source = "../assets/sounds/ClickSoundMap.mp3")]
@@ -27,8 +31,18 @@ package util
 		[Embed(source = "../assets/sounds/SaveTheIslandMenuTune.mp3")]
 		public static const MenuThemeSound:Class;
 		
+		//Videos
+		[Embed(source = "../assets/videos/Character.swf", mimeType = "application/octet-stream")]
+		public static const Character:Class;
+		[Embed(source = "../assets/videos/SwipeMap.swf", mimeType = "application/octet-stream")]
+		public static const SwipeMap:Class;
+		[Embed(source = "../assets/videos/TapGesture.swf", mimeType = "application/octet-stream")]
+		public static const TapGesture:Class;
+		
+		
 		private static var textures:Dictionary = new Dictionary();
 		private static var sounds:Dictionary = new Dictionary();
+		private static var videos:Dictionary = new Dictionary();
 		
 		public function AssetManager() 
 		{
@@ -64,6 +78,14 @@ package util
 				sounds[sound.toString()] = sound;
 			}
 			return sounds[sound.toString()];
+		}
+		
+		public static function getVideoAsset(name:Class):ByteArray {
+			var video:ByteArray = new name() as ByteArray;
+			if (videos[video.toString()] == null) {
+				videos[video.toString()] = video;
+			}
+			return videos[video.toString()];
 		}
 	}
 

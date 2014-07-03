@@ -217,6 +217,10 @@ package screens
 			return this.mapLogic;
 		}
 		
+		public function getSaveButton():Button {
+			return this.saveBtn;
+		}
+		
 		/**
 		 * Gets the day logic class
 		 * @return dayLogic
@@ -227,6 +231,14 @@ package screens
 		
 		public function getRandomEventLogic():RandomEventLogic {
 			return this.randomEventLogic;
+		}
+		
+		public function getEducationPointsText():TextField {
+			return this.educationPointsText;
+		}
+		
+		public function getDayCountText():TextField {
+			return this.dayCountText;
 		}
 		
 		/**

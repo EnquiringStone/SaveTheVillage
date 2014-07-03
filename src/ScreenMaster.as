@@ -4,7 +4,7 @@ package
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
 	import flash.media.SoundTransform;
-	import screens.GameOverScreen;
+	import screens.TutorialScreen;
 	import starling.core.Starling;
 	import screens.BaseScreen;
 	import screens.HighscoresScreen;
@@ -71,11 +71,9 @@ package
 			} else if (screenName == "score") {
 				currentScreen = new ScoreScreen(this, additionalInfo);
 			} else if (screenName == "tutorial") {
-				//tutorial screen
-			} else if (screenName == "game_over") {
-				currentScreen = new GameOverScreen(this);
+				currentScreen = new TutorialScreen(this);
 			}
-			loadMusic(screenName);
+			//loadMusic(screenName);
 			addChild(currentScreen);
 		}
 		
@@ -86,7 +84,7 @@ package
 		public function loadSavedGame(gameScreen:MainGameScreen):void {
 			disposeScreen();
 			currentScreen = gameScreen;
-			loadMusic("main_game");
+			//loadMusic("main_game");
 			addChild(currentScreen);
 		}
 		
@@ -126,7 +124,7 @@ package
 		
 		private function loadMusic(screen:String):void {
 			var prevSound:Sound = sound;
-			if (screen == "main_game") {
+			if (screen == "main_game" || screen == "tutorial") {
 				sound = AssetManager.getAudioAsset(AssetManager.MapThemeSound);
 			} else {
 				sound = AssetManager.getAudioAsset(AssetManager.MenuThemeSound);
@@ -140,10 +138,12 @@ package
 		}
 		
 		private function restartSound(event:flash.events.Event = null):void {
-			soundChannel = sound.play();
-			var transform:SoundTransform = soundChannel.soundTransform;
-			transform.volume = 0.6;
-			soundChannel.addEventListener(flash.events.Event.SOUND_COMPLETE, restartSound);
+			if (soundChannel != null && sound != null) {
+				soundChannel = sound.play();
+				var transform:SoundTransform = soundChannel.soundTransform;
+				transform.volume = 0.6;
+				soundChannel.addEventListener(flash.events.Event.SOUND_COMPLETE, restartSound);
+			}
 		}
 		
 	}

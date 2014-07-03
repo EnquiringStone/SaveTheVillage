@@ -172,9 +172,6 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>C:/Users/johan_000/Pictures/Game On/Junk/SettingsChoiceBtn.png</filename>
-            <filename>C:/Users/johan_000/Pictures/Game On/Junk/MenuBtn.png</filename>
-            <filename>C:/Users/johan_000/Pictures/Game On/Junk/StructureCityImage.png</filename>
             <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/DertuaImage.png</filename>
             <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/KoriruImage.png</filename>
             <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/KisusmeImage.png</filename>
@@ -183,9 +180,7 @@
             <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/SauuraImage.png</filename>
             <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/TiuyImage.png</filename>
             <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/MaingameBg.png</filename>
-            <filename>C:/Users/johan_000/Pictures/Game On/Junk/SettingsChoiceRedBtn.png</filename>
             <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/BarVertical.png</filename>
-            <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/BarHorizontal.png</filename>
             <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/Buttons/SmallSettingsBtn.png</filename>
             <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/Buttons/BackBtn.png</filename>
             <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/Buttons/EmptyBtn.png</filename>
@@ -217,6 +212,7 @@
             <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/HelpMessageScreen.png</filename>
             <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/Buttons/MainGameMenuBtn.png</filename>
             <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/ExtraGameBG.png</filename>
+            <filename>C:/Users/johan_000/Pictures/Game On/Save the Village/Tutorial/TextBaloon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

@@ -48,32 +48,55 @@ package screens
 			addSpecificDetails(values);
 		}
 		
+		public function disableListeners():void {
+			if (exitBtn != null) {
+				exitBtn.removeEventListener(Event.TRIGGERED, mainGame.removeAdditionalScreen);
+			} if (buyBtn != null) {
+				buyBtn.removeEventListener(Event.TRIGGERED, toHQ);
+			}
+		}
+		
+		public function enableListeners():void {
+			if (exitBtn != null) {
+				exitBtn.addEventListener(Event.TRIGGERED, mainGame.removeAdditionalScreen);
+			} if (buyBtn != null) {
+				buyBtn.addEventListener(Event.TRIGGERED, toHQ);
+			}
+		}
+		
 		public function getInfo():Object {
 			return this.info;
 		}
 		
-		protected function getMainGame():MainGameScreen {
+		public function getMainGame():MainGameScreen {
 			return this.mainGame;
 		}
 		
-		protected function getExitBtn():Button {
+		public function getExitBtn():Button {
 			return this.exitBtn;
 		}
 		
-		protected function getStructureBackground():Image {
+		public function getStructureBackground():Image {
 			return this.structureBackground;
 		}
 		
-		protected function getInfoField():Image {
+		public function getInfoField():Image {
 			return this.infoField;
 		}
 		
-		protected function getDataField():Image {
+		public function getDataField():Image {
 			return this.dataField;
 		}
 		
-		protected function getBuyButton():Button {
+		public function getBuyButton():Button {
 			return this.buyBtn;
+		}
+		
+		public function toHQ(event:Event):void {
+			var sound:Sound = AssetManager.getAudioAsset(AssetManager.MenuForwardSound);
+			sound.play();
+			this.getMainGame().removeAdditionalScreen(event);
+			this.getMainGame().addAdditionalScreen(this.getMainGame().getMapLogic().getStructure("Hospital"));
 		}
 		
 		protected function addSpecificDetails(values:Object = null):void {
@@ -192,13 +215,6 @@ package screens
 				addChild(textBackground);
 				addChild(deadText);
 			}
-		}
-		
-		private function toHQ(event:Event):void {
-			var sound:Sound = AssetManager.getAudioAsset(AssetManager.MenuForwardSound);
-			sound.play();
-			this.getMainGame().removeAdditionalScreen(event);
-			this.getMainGame().addAdditionalScreen(this.getMainGame().getMapLogic().getStructure("Hospital"));
 		}
 	}
 

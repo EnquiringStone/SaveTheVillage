@@ -130,6 +130,37 @@ package util
 		};
 		public static const STARTING_CHANGE:Number = 1.5;
 		public static const CHANGE_INCREASE:Number = 0.5;
+		
+		//Tutorial
+		public static const INTRODUCTION_TEXT:Array = new Array(	"Welcome to the island Mauchelle! It is an island in the Indian Ocean with two cities and five villages.", 
+																	"It used to be a peaceful, healthy island but now the HIV virus is spreading. HIV affects the immune system and the population of Mauchelle is slowly dying because of it.",
+																	"Can you help us?");
+		public static const READ_TIME_IN_SECONDS:int = 2;
+		public static const SWIPE_MAP_TEXT:String = "Use your finger to move around the map";
+		public static const TAP_VILLAGE_TEXT:String = "Use your finger to tap a village";
+		public static const TAPPED_VILLAGE_SUCCESS_TEXT:Array = new Array(	"Good work! This is a village. There are some things you should know, to help me!",
+																			"You can buy condoms, medicine, clean needles and knowledge when you touch the buy button",
+																			"Every city and village needs resources (condoms, medicine and clean needles) to help against the Infection spread",
+																			"You also need knowledge to make the resources help more!");
+		public static const TAP_VILLAGE_END_TEXT:String = "Use your finger to press the Buy button";
+		public static const HQ_INFO_TEXT:Array = new Array(	"This is the hospital. You can buy condoms, medicine, clean needles and knowledge here.",
+															"The resources and knowledge cost education points. To see how much education points you have, look at the top of the screen",
+															"Every 5 days, you will get more education points to spend. Remember that the yellow bar (right) has to be filled, while the bad red bar (left) should be empty");
+		public static const HQ_INFO_END_TEXT:String = "Buy a resource (condoms, medicine or clean needles) or some knowledge";
+		public static const BOUGHT_RESOURCE_TEXT:Array = new Array( "If you bought resources, you see that the yellow bar got more filled in. This is a good thing!",
+																	"If you bought knowledge, you can tap the village/city you send it too. You can see that the knowledge number got higher. Also a good thing!",
+																	"If you canceled the payment (You tapped the hospital), than you will see that the education points remain the same",
+																	"Remember that cities make knowledge! You can give that knowledge by tapping the city and press the transfer knowledge button. Go ahead and try!");
+		public static const CITY_TRANSFER_INFO_TEXT:String = "Use your finger to tap a city";
+		public static const NOT_A_CITY_TEXT:String = "Not a city!";
+		public static const CITY_TRANSFER_TEXT:Array = new Array( 	"Good work! This is the city screen. You can see that it is the same as the village screen. Except for one difference, the Transfer knowledge button",
+																	"The transfer knowledge button can be used to get knowledge from the city and \"Transfer\" it to another village or city!",
+																	"Each day the city will make more knowledge, you can \"Tranfer\" 1 whole knowledge at a time.");
+		public static const FINAL_LESSON_SPEECH:Array = new Array( 	"Great, keep up the good work! You now know how to play the game. A quick explanation, to make you remember the rules. Each day the yellow bar will go down while the red bar will go up!",
+																	"Your job is to keep the yellow bar high and the red bar low. Buy resources and knowledge at the hospital. Remember you can transfer knowledge from cities to villages!",
+																	"Make sure the infected people (The red bar) is as low as possible. Lose too many villages and cities and the game is over!",
+																	"If you play with a time limit (which you can set in the settings menu), the game will be over when the days reach the limit. Try to get the best score!",
+																	"Thank you for helping me! Have fun and i hope you will like this game!");
 	}
 
 }
