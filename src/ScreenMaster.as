@@ -138,12 +138,10 @@ package
 		}
 		
 		private function restartSound(event:flash.events.Event = null):void {
-			if (soundChannel != null && sound != null) {
-				soundChannel = sound.play();
-				var transform:SoundTransform = soundChannel.soundTransform;
-				transform.volume = 0.6;
-				soundChannel.addEventListener(flash.events.Event.SOUND_COMPLETE, restartSound);
-			}
+			soundChannel = sound.play();
+			var transform:SoundTransform = soundChannel.soundTransform;
+			transform.volume = 0.6;
+			soundChannel.addEventListener(flash.events.Event.SOUND_COMPLETE, restartSound);
 		}
 		
 	}

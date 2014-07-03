@@ -293,7 +293,7 @@ package screens
 			
 			imageBaloon = new Image(AssetManager.getSingleAsset("ui", "TextBaloon"));
 			imageBaloon.x = stage.stageWidth - imageBaloon.width - Config.SPACING_RIGHT_PX;
-			imageBaloon.y = video.y - imageBaloon.height - Config.SPACING_BENEATH_PX;
+			imageBaloon.y = video.y - 180 - Config.SPACING_BENEATH_PX;
 			
 			textBaloon = new TextField(175, 200, Config.INTRODUCTION_TEXT[index], Config.TEXT_FONT_TYPE, Config.TEXT_SIZE_GENERAL, Config.TEXT_COLOR_GENERAL);
 			textBaloon.hAlign = HAlign.LEFT;
