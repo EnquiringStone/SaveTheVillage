@@ -90,7 +90,7 @@ package util
 		public static const DEFAULT_LIMIT_KNOWLEDGE_CITY:int = 50;
 		//The number of resources that will be consumed (daily)
 		public static const DEFAULT_CONSUME_RESOURCES_VILLAGE:int = 20;
-		public static const DEFAULT_CONSUME_RESOURCES_CITY:int = 70;
+		public static const DEFAULT_CONSUME_RESOURCES_CITY:int = 50;
 		//Starting knowledge and education points
 		public static const DEFAULT_STARTING_KNOWLEDGE_CITY:int = 3;
 		public static const DEFAULT_STARTING_EDUCATION_POINTS:int = 450;
@@ -155,7 +155,7 @@ package util
 		public static const NOT_A_CITY_TEXT:String = "Not a city!";
 		public static const CITY_TRANSFER_TEXT:Array = new Array( 	"Good work! This is the city screen. You can see that it is the same as the village screen. Except for one difference, the Transfer knowledge button",
 																	"The transfer knowledge button can be used to get knowledge from the city and \"Transfer\" it to another village or city!",
-																	"Each day the city will make more knowledge, you can \"Tranfer\" 1 whole knowledge at a time.");
+																	"Each day the city will make more knowledge, you can \"Transfer\" 1 whole knowledge at a time.");
 		public static const FINAL_LESSON_SPEECH:Array = new Array( 	"Great, keep up the good work! You now know how to play the game. A quick explanation, to make you remember the rules. Each day the yellow bar will go down while the red bar will go up!",
 																	"Your job is to keep the yellow bar high and the red bar low. Buy resources and knowledge at the hospital. Remember you can transfer knowledge from cities to villages!",
 																	"Make sure the infected people (The red bar) is as low as possible. Lose too many villages and cities and the game is over!",
