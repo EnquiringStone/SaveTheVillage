@@ -221,6 +221,10 @@ package screens
 			return this.saveBtn;
 		}
 		
+		public function getQuad():Quad {
+			return this.quad;
+		}
+		
 		/**
 		 * Gets the day logic class
 		 * @return dayLogic

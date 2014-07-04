@@ -154,6 +154,7 @@ package screens
 				this.mainGame.getStructureScreen().disableListeners();
 			}
 			if (index == 1) {
+				this.mainGame.getQuad().visible = true;
 				this.mainGame.getEducationPointsText().visible = true;
 			} else if (index == 2) {
 				this.mainGame.getDayCountText().visible = true;
